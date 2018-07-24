@@ -1,156 +1,95 @@
 
 #pragma once
-#include <memory>
-#include <string>
-#include "ofxDynamixelConnection.h"
-
+#include "ofxDynamixelBaseServo.h"
 #include "ofParameter.h"
 
+
+//#define DECL_PARAM_RW_8(param) ofParameter<uint8_t> R_##param; ofParameter<uint8_t> W_##param; ofParameterGroup  G_##param;
+//#define DECL_PARAM_RW_16(param) ofParameter<uint16_t> R_##param; ofParameter<uint16_t> W_##param; ofParameterGroup  G_##param;
+
+
+//#define DECL_PARAM_RW_8(param) ofReadOnlyParameter<std::string, ServoGui> R_##param; ofParameter<uint8_t> W_##param; ofParameterGroup  G_##param;
+//#define DECL_PARAM_RW_16(param) ofReadOnlyParameter<std::string, ServoGui> R_##param; ofParameter<uint16_t> W_##param; ofParameterGroup  G_##param;
+#define DECL_PARAM_RW_8(param)  ofParameter<uint8_t> W_##param; ofParameterGroup  G_##param;
+#define DECL_PARAM_RW_16(param) ofParameter<uint16_t> W_##param; ofParameterGroup  G_##param;
+#define DECL_PARAM_RW_B(param)  ofParameter<bool> W_##param; ofParameterGroup  G_##param;
+ 
+
+
+#include "ofxGui.h"
+
 namespace ofxDynamixel {
-class Servo{
+	template<typename Model>
+	class ServoGui: public BaseServo<Model>{
 public:
-
-	
-	Servo(){}
-	
-	virtual ~Servo(){}
-	Servo(Servo&);
-	Servo& operator=(Servo&);
+		
+	virtual void setup(int id,  std::shared_ptr<Connection> connection) override;
 	
 	
-	
-	void setup(int id,  std::shared_ptr<Connection> connection);
-	int getID();
+		ofParameterGroup parameters;
+				
+		//epprom
+		ofReadOnlyParameter<std::string, ServoGui<Model>>  R_modelNumber;
+		ofReadOnlyParameter<std::string, ServoGui<Model>>  R_firmwareVersion;
+		
+		DECL_PARAM_RW_8 (id_param)       
+		DECL_PARAM_RW_8 (baudRate)          
+		DECL_PARAM_RW_8 (returnDelayTime)   
+		DECL_PARAM_RW_16(cwAngleLimit)      
+		DECL_PARAM_RW_16(ccwAngleLimit)     
+		DECL_PARAM_RW_8 (controlMode)       
+		DECL_PARAM_RW_8 (temperatureLimit)  
+		DECL_PARAM_RW_8 (minVoltageLimit)   
+		DECL_PARAM_RW_8 (maxVoltageLimit)   
+		DECL_PARAM_RW_16(maxTorque)         
+		DECL_PARAM_RW_8 (statusReturnLevel) 
+		DECL_PARAM_RW_8 (shutdown)      
+		//ram
+		DECL_PARAM_RW_B(torqueEnabled);
+		DECL_PARAM_RW_8(ledStatus);
+		DECL_PARAM_RW_8(dGain);
+		DECL_PARAM_RW_8(iGain);
+		DECL_PARAM_RW_8(pGain);
+		DECL_PARAM_RW_16(goalPosition);
+		DECL_PARAM_RW_16(goalSpeed);
+		DECL_PARAM_RW_16(torqueLimit);
+		DECL_PARAM_RW_16(punch);
 
+		
+//		ofParameter<uint16_t> R_presentPosition;
+//		ofParameter<uint16_t> R_presentSpeed;
+//		ofParameter<uint16_t> R_presentLoad;
+//		ofParameter<uint8_t>  R_presentVoltage;
+//		ofParameter<uint8_t>  R_presentTemperature;
+//		ofParameter<uint8_t>  R_registered;
+//		ofParameter<uint8_t>  R_moving;
+//		ofParameter<uint8_t>  R_hardwareErrorStatus;
 
-	int getPositionMinimum();
-
-
-	int getPositionMaximum();
-
-	int getTurnsCount();
-
-	
-	std::shared_ptr<Connection> getConnection();
-
-
-	void setID(int id);
-
-	void setPositionMinimum(int positionMin);
-
-
-	void setPositionMaximum(int positionMax);
-
-
-	void setTurnsCount(int turnsCount);
-
-
-	void setConnection(std::shared_ptr<Connection> connection);
-
-
-	bool ping();
-
-
-	bool reset(ResetOption option = RESET_ALL_BUT_ID_AND_BAUD);
-
-
-	bool initialize();
-
-
-
-	void stop();
-	bool reboot();
-	
-	bool move(int goalPosition, int movingSpeed = -1);
-	
-	void moveWithAcceleration(int goalPosition, int movingSpeed, int accelerationSpeed);
-	
-	
-	void readData(uint16_t address);
-	int writeData(int address, int dataChange);
-	int modelNumber();
-	int firmwareVersion();
-	int baudRate();
-	int returnDelay();
-	int CWAngleLimit();
-	int CCWAngleLimit();
-	int limitTemperature();
-	int lowestLimitVoltage();
-	int highestLimitVoltage();
-	int lowestByteOfMaxTorque();
-	int statusReturnLevel();
-	int getAlarmLed();
-	int getAlarmShutdown();
-	bool setId(uint8_t newId);
-	bool setReturnDelayTime(int delay);
-	bool setCWAngleLimit(int limit);
-	bool setCCWAngleLimit(int limit);
-	bool setLimitTemperature(unsigned char limitTemp);
-	bool setLowestLimitVoltage(int limitVoltage);
-	bool setHighestLimitVoltage(int limitVoltage);
-	bool setLowestByteOfMaxTorque(int maxTorque);
-	bool setStatusReturnLevel(int level);
-	bool setAlarmLed(bool led);
-	bool setAlarmShutdown(bool shutdonw);
-	
-	// RAM
-	bool torqueEnabled();
-	bool ledState();
-//	int	CWComplianceMargin();
-//	int	CCWComplianceMargin();
-//	int	CWComplianceSlope();
-//	int	CCWComplianceSlope();
-	int goalPosition();
-	int movingSpeed();
-	int torqueLimit();
-	int presentPosition();
-	int presentSpeed();
-	int presentLoad();
-	int	presentVoltage();
-	int	presentTemperature();
-	bool instructionRegistered();
-	bool moving();
-	bool EEPROMLocked();
-	int	punch();
-	bool enableTorque(bool torque);
-	bool setLed(int led);
-//	bool setCWComplianceMargin(int CWComplianceMargin);
-//	bool setCCWComplianceMargin(int CCWComplianceMargin);
-//	bool setCWComplianceSlope(int CWComplianceSlope);
-//	bool setCCWComplianceSlope(int CCWComplianceSlope);
-	bool setGoalPosition(int goalpostion);
-	bool setMovingSpeed(int movingSpeed);
-	bool setTorqueLimit(int torqueLimit);
-//	bool lockEEPROM();
-//	bool unlockEEPROM();
-	int	setPunch(int puch);
-	
-	ofParameterGroup parameters;
-	
-private:
-	
-	int comm_result = COMM_TX_FAIL;
-	uint8_t error;
-	
-	uint8_t data1Byte;
-	
-	uint16_t data2Byte;
-	
-	ofParameter<int> id, position, speed;
+		ofReadOnlyParameter<std::string, ServoGui<Model>> R_presentPosition;
+		ofReadOnlyParameter<std::string, ServoGui<Model>> R_presentSpeed;
+		ofReadOnlyParameter<std::string, ServoGui<Model>> R_presentLoad;
+		ofReadOnlyParameter<std::string, ServoGui<Model>>  R_presentVoltage;
+		ofReadOnlyParameter<std::string, ServoGui<Model>>  R_presentTemperature;
+		ofReadOnlyParameter<std::string, ServoGui<Model>>  R_registered;
+		ofReadOnlyParameter<std::string, ServoGui<Model>>  R_moving;
+		ofReadOnlyParameter<std::string, ServoGui<Model>>  R_hardwareErrorStatus;
+		
+		
+		ofParameterGroup grp_eepromParams, grp_ramParams, grp_readParams;
+		
+		ofxPanel panel;
+		
+		void update();
+		
+	private:
 	
 	ofEventListeners listeners;
 	
 	void setListeners();
 	
-	int positionMinimum;
-	int positionMaximum;
-	
-	int turnsCount;
-	
-	std::weak_ptr<Connection> connection;
-	
-	void printResultError(std::string succMsg = "");
-
+		
+//		void disableMouseInput(std::string groupName, std::string paramName);
 };
-
+	typedef ServoGui<XL320> ServoGuiXL320;
+	typedef ServoGui<AX12> ServoGuiAX12;
 }

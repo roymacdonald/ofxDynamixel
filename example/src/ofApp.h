@@ -4,6 +4,7 @@
 #include "ofxGui.h"
 
 #include "ofxDynamixel.h"
+#include "ofxDynamixelServo.h"
 
 class ofApp : public ofBaseApp {
 
@@ -28,8 +29,14 @@ public:
 	void exit();
 	
 	shared_ptr<ofxDynamixel::Connection> connection;
-	vector< shared_ptr<ofxDynamixel::Servo> > servos;
+	vector< shared_ptr<ofxDynamixel::ServoGuiXL320> > servos;
 
-	ofxPanel gui;
+	//ofxPanel gui;
+	
+	string fullReport;
+	
+	size_t index;
+		
+//	ofxDynamixel::ServoGuiXL320 params;
 
 };

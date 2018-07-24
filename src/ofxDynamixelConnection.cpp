@@ -110,5 +110,77 @@ bool Connection::closePort(){
 }
 
 
+std::shared_ptr<GroupBulkRead> Connection::getBulkReader(){
+	if(packetHandler){ 
+		if(portHandler && !groupBulkRead){
+			groupBulkRead = std::make_shared<GroupBulkRead>(portHandler.get(), packetHandler.get());
+		}
+	}
+	return groupBulkRead;
+}
+std::shared_ptr<GroupBulkWrite> Connection::getBulkWriter(){
+	if(!groupBulkWrite){
+		if(packetHandler && portHandler){
+			groupBulkWrite = std::make_shared<GroupBulkWrite>(portHandler.get(), packetHandler.get());
+		}
+	}
+	return groupBulkWrite;
+}
+
+
+///--------------------------------------------------------BULK READING
+void Connection::clearBulkRead(){
+	auto r = getBulkReader();
+	if(!r)return false;
+	r->clearParam();
+	bulkReadIDs.clear();
+}
+bool Connection::addBulkReadParam(uint8_t id, uint16_t address, uint16_t data_length){
+	auto r = getBulkReader();
+	if(!r)return false;
+	if (!r->addParam(id, address, data_length)){
+		fprintf(stderr, "[ID:%03d] grouBulkRead addparam failed", id);
+		return false;
+	}
+	bulkReadIDs.push_back(id);
+	return true;
+}
+bool Connection::isBulkReadAvailable(uint8_t id, uint16_t address, uint16_t data_length){
+	auto r = getBulkReader();
+	if(!r)return false;
+	if (!r->isAvailable(id, address, data_length)){
+		fprintf(stderr, "[ID:%03d] groupBulkRead getdata failed", id);
+		return false;
+	}
+	return false;
+}
+
+//template<typename T>
+bool Connection::getBulkReadData(uint8_t id, uint16_t address, uint16_t data_length, uint16_t& data){
+	if(isBulkReadAvailable(id, address, data_length)){
+		data = getBulkReader()->getData(id, address, data_length);
+		return true;
+	}
+	return false;
+}
+bool Connection::bulkReadRequest(){
+	auto r = getBulkReader();
+	if(!r)return false;
+	if (r->txRxPacket() == COMM_SUCCESS){
+		return true;
+	}else{
+		uint8_t dxl_error = 0;
+		for(auto& id: bulkReadIDs){
+			if (r->getError(id, &dxl_error)){
+				printf("[ID:%03d] %s\n", id, packetHandler->getRxPacketError(dxl_error));
+			}
+		}
+	}
+	return false;
+}
+
+
+
+
 
 

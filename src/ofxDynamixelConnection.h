@@ -125,6 +125,17 @@ public:
 	
 	bool closePort();
 	
+	std::shared_ptr<GroupBulkRead> getBulkReader();
+	std::shared_ptr<GroupBulkWrite> getBulkWriter();
+	
+	void clearBulkRead();
+	bool addBulkReadParam(uint8_t id, uint16_t address, uint16_t data_length);
+	bool isBulkReadAvailable(uint8_t id, uint16_t address, uint16_t data_length);
+//	template<typename T>
+	bool getBulkReadData(uint8_t id, uint16_t address, uint16_t data_length, uint16_t& data);
+	bool bulkReadRequest();
+	
+	
 private:
 	/*! \brief	The baudrate */
 	int baudrate;
@@ -133,6 +144,9 @@ private:
 	int currentProtocolVersion = - 1;
 	std::shared_ptr<PortHandler> portHandler = nullptr;
 	std::shared_ptr<PacketHandler> packetHandler = nullptr;
+	std::shared_ptr<GroupBulkRead> groupBulkRead = nullptr;//(portHandler, packetHandler);
+	std::shared_ptr<GroupBulkWrite> groupBulkWrite = nullptr;
+	std::vector<uint8_t> bulkReadIDs;
 };
 
 }
