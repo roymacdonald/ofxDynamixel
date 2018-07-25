@@ -12,14 +12,14 @@
 #include "ofxDynamixelRWParameter.h"
 
 template<class T>
-class ofxGuiRWSlider_ : public ofxGuiGroupMinimal {
+class ofxGuiRW_ : public ofxGuiGroupMinimal {
 public:
-	ofxGuiRWSlider_(){
+	ofxGuiRW_(){
 //		sliderChanging = false;
 	};
-	ofxGuiRWSlider_(ofxDynamixel::RWParameter<T> value, float width = defaultWidth, float height = defaultHeight);
+	ofxGuiRW_(ofxDynamixel::RWParameter<T> value, float width = defaultWidth, float height = defaultHeight);
 	
-	ofxGuiRWSlider_ * setup(ofxDynamixel::RWParameter<T> value, float width = defaultWidth, float height = defaultHeight);
+	ofxGuiRW_ * setup(ofxDynamixel::RWParameter<T> value, float width = defaultWidth, float height = defaultHeight);
 	
 //	void add(ofxDynamixel::RWParameter <uint8_t> & parameter);
 //	void add(ofxDynamixel::RWParameter <uint16_t> & parameter);
@@ -38,5 +38,6 @@ protected:
 //	bool sliderChanging;
 };
 
-typedef ofxGuiRWSlider_<uint8_t> ofxSliderRW_U8;
-typedef ofxGuiRWSlider_<uint16_t> ofxSliderRW_U16;
+typedef ofxGuiRW_<uint8_t> ofxSliderRW_U8;
+typedef ofxGuiRW_<uint16_t> ofxSliderRW_U16;
+typedef ofxGuiRW_<bool> ofxToggleRW;

@@ -19,7 +19,8 @@ namespace ofxDynamixel {
 	class BaseServo{
 	public:
 				
-		BaseServo(){}
+		BaseServo(){
+		}
 		
 		virtual ~BaseServo(){}
 		BaseServo(BaseServo&);

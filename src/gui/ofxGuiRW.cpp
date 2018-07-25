@@ -6,18 +6,18 @@
 //
 //
 
-#include "ofxGuiRWSlider.h"
+#include "ofxGuiRW.h"
 
 using namespace std;
 
 template<class T>
-ofxGuiRWSlider_<T>::ofxGuiRWSlider_(ofxDynamixel::RWParameter<T> value, float width, float height){
+ofxGuiRW_<T>::ofxGuiRW_(ofxDynamixel::RWParameter<T> value, float width, float height){
 //	sliderChanging = false;
 	setup(value, width, height);
 }
 
 template<class T>
-ofxGuiRWSlider_<T> * ofxGuiRWSlider_<T>::setup(ofxDynamixel::RWParameter<T> value, float width, float height){
+ofxGuiRW_<T> * ofxGuiRW_<T>::setup(ofxDynamixel::RWParameter<T> value, float width, float height){
 	ofxGuiGroup::setup(value.getName(), "", 0, 0);
 
 	parameters.clear();
@@ -30,20 +30,20 @@ ofxGuiRWSlider_<T> * ofxGuiRWSlider_<T>::setup(ofxDynamixel::RWParameter<T> valu
 	this->value.setName(value.getName());
 	this->value.dxl_command = value.dxl_command; 
 	
-//	value.readOnlyParam.addListener(this, & ofxGuiRWSlider_::changeSlider);
-//	value.writeParam.addListener(this, & ofxGuiRWSlider_::changeSlider);
+//	value.readOnlyParam.addListener(this, & ofxGuiRW_::changeSlider);
+//	value.writeParam.addListener(this, & ofxGuiRW_::changeSlider);
 	
 //	sliderChanging = false;
 	return this;
 	
 }
 template<class T>
-ofxDynamixel::RWParameter<T>& ofxGuiRWSlider_<T>::getRWParameter(){
+ofxDynamixel::RWParameter<T>& ofxGuiRW_<T>::getRWParameter(){
 	return value;
 }
 
 //template<class T>
-//void ofxGuiRWSlider_<T>::changeSlider(const void * parameter, float & _value){
+//void ofxGuiRW_<T>::changeSlider(const void * parameter, float & _value){
 //	sliderChanging = true;
 //	ofParameter<T> & param = *(ofParameter<T>*)parameter;
 ////	int i = parameters.getPosition(param.getName());
@@ -54,7 +54,7 @@ ofxDynamixel::RWParameter<T>& ofxGuiRWSlider_<T>::getRWParameter(){
 //}
 
 //template<class T>
-//void ofxGuiRWSlider_<T>::changeValue(T & value){
+//void ofxGuiRW_<T>::changeValue(T & value){
 //	if (sliderChanging){
 //		return;
 //	}
@@ -65,25 +65,26 @@ ofxDynamixel::RWParameter<T>& ofxGuiRWSlider_<T>::getRWParameter(){
 
 
 //template<class T>
-//ofAbstractParameter & ofxGuiRWSlider_<T>::getParameter(){
+//ofAbstractParameter & ofxGuiRW_<T>::getParameter(){
 //	return value;
 //}
 
 //template<class T>
-//T ofxGuiRWSlider_<T>::operator=(const T & v){
+//T ofxGuiRW_<T>::operator=(const T & v){
 //	value = v;
 //	return value;
 //}
 //
 //template<class T>
-//ofxGuiRWSlider_<T>::operator const T & (){
+//ofxGuiRW_<T>::operator const T & (){
 //	return value;
 //}
 //
 //template<class T>
-//const T * ofxGuiRWSlider_<T>::operator->(){
+//const T * ofxGuiRW_<T>::operator->(){
 //	return &value;
 //}
 
-template class ofxGuiRWSlider_<uint8_t>;
-template class ofxGuiRWSlider_<uint16_t>;
+template class ofxGuiRW_<uint8_t>;
+template class ofxGuiRW_<uint16_t>;
+template class ofxGuiRW_<bool>;

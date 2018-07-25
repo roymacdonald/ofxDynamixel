@@ -134,60 +134,60 @@ namespace ofxDynamixel {
          return -1;
     }
     
-    template<typename Model> uint16_t BaseServo<Model>::getModelNumber(){         this->readData2B(Model::MODEL_NUMBER());          return data2Byte; }
-    template<typename Model> uint8_t  BaseServo<Model>::getFirmwareVersion(){     this->readData1B(Model::FIRMWARE_VERSION());      return data1Byte; }
-    template<typename Model> uint8_t  BaseServo<Model>::getIdFromServo(){         this->readData1B(Model::ID());                    return data1Byte; }
-    template<typename Model> uint8_t  BaseServo<Model>::getBaudRate(){            this->readData1B(Model::BAUD_RATE());             return data1Byte; }
-    template<typename Model> uint8_t  BaseServo<Model>::getReturnDelayTime(){     this->readData1B(Model::RETURN_DELAY_TIME());     return data1Byte; }
-    template<typename Model> uint16_t BaseServo<Model>::getCwAngleLimit(){        this->readData2B(Model::CW_ANGLE_LIMIT());        return data2Byte; }
-    template<typename Model> uint16_t BaseServo<Model>::getCcwAngleLimit(){       this->readData2B(Model::CCW_ANGLE_LIMIT());       return data2Byte; }
-    template<typename Model> uint8_t  BaseServo<Model>::getControlMode(){         this->readData1B(Model::CONTROL_MODE());          return data1Byte; }
-    template<typename Model> uint8_t  BaseServo<Model>::getTemperatureLimit(){    this->readData1B(Model::TEMPERATURE_LIMIT());     return data1Byte; }
-    template<typename Model> uint8_t  BaseServo<Model>::getMinVoltageLimit(){     this->readData1B(Model::MIN_VOLTAGE_LIMIT());     return data1Byte; }
-    template<typename Model> uint8_t  BaseServo<Model>::getMaxVoltageLimit(){     this->readData1B(Model::MAX_VOLTAGE_LIMIT());     return data1Byte; }
-    template<typename Model> uint16_t BaseServo<Model>::getMaxTorque(){           this->readData2B(Model::MAX_TORQUE());            return data2Byte; }
-    template<typename Model> uint8_t  BaseServo<Model>::getStatusReturnLevel(){   this->readData1B(Model::STATUS_RETURN_LEVEL());   return data1Byte; }
-    template<typename Model> uint8_t  BaseServo<Model>::getShutdown(){            this->readData1B(Model::SHUTDOWN());              return data1Byte; }
-    template<typename Model> bool     BaseServo<Model>::getTorqueEnabled(){       this->readData1B(Model::TORQUE_ENABLE());         return data1Byte; }
-    template<typename Model> uint8_t  BaseServo<Model>::getLedStatus(){           this->readData1B(Model::LED());                   return data1Byte; }
-    template<typename Model> uint8_t  BaseServo<Model>::getDGain(){               this->readData1B(Model::D_GAIN());                return data1Byte; }
-    template<typename Model> uint8_t  BaseServo<Model>::getIGain(){               this->readData1B(Model::I_GAIN());                return data1Byte; }
-    template<typename Model> uint8_t  BaseServo<Model>::getPGain(){               this->readData1B(Model::P_GAIN());                return data1Byte; }
-    template<typename Model> uint16_t BaseServo<Model>::getGoalPosition(){        this->readData2B(Model::GOAL_POSITION());         return data2Byte; }
-    template<typename Model> uint16_t BaseServo<Model>::getGoalSpeed(){           this->readData2B(Model::MOVING_SPEED());          return data2Byte; }
-    template<typename Model> uint16_t BaseServo<Model>::getTorqueLimit(){         this->readData2B(Model::TORQUE_LIMIT());          return data2Byte; }
-    template<typename Model> uint16_t BaseServo<Model>::getPunch(){               this->readData2B(Model::PUNCH());                 return data2Byte; }
-    template<typename Model> uint16_t BaseServo<Model>::getPresentPosition(){     this->readData2B(Model::PRESENT_POSITION());      return data2Byte; }
-    template<typename Model> uint16_t BaseServo<Model>::getPresentSpeed(){        this->readData2B(Model::PRESENT_SPEED());         return data2Byte; }
-    template<typename Model> uint16_t BaseServo<Model>::getPresentLoad(){         this->readData2B(Model::PRESENT_LOAD());          return data2Byte; }
-    template<typename Model> uint8_t  BaseServo<Model>::getPresentVoltage(){      this->readData1B(Model::PRESENT_VOLTAGE());       return data1Byte; }
-    template<typename Model> uint8_t  BaseServo<Model>::getPresentTemperature(){  this->readData1B(Model::PRESENT_TEMPERATURE());   return data1Byte; }
-    template<typename Model> uint8_t  BaseServo<Model>::getRegistered(){          this->readData1B(Model::REGISTERED());            return data1Byte; }
-    template<typename Model> uint8_t  BaseServo<Model>::getMoving(){              this->readData1B(Model::MOVING());                return data1Byte; }
-    template<typename Model> uint8_t  BaseServo<Model>::getHardwareErrorStatus(){ this->readData1B(Model::HARDWARE_ERROR_STATUS()); return data1Byte; }
+    template<typename Model> uint16_t BaseServo<Model>::getModelNumber(){         this->readData2B(Model::modelNumber().address);          return data2Byte; }
+    template<typename Model> uint8_t  BaseServo<Model>::getFirmwareVersion(){     this->readData1B(Model::firmwareVersion().address);      return data1Byte; }
+    template<typename Model> uint8_t  BaseServo<Model>::getIdFromServo(){         this->readData1B(Model::id().address);                    return data1Byte; }
+    template<typename Model> uint8_t  BaseServo<Model>::getBaudRate(){            this->readData1B(Model::baudRate().address);             return data1Byte; }
+    template<typename Model> uint8_t  BaseServo<Model>::getReturnDelayTime(){     this->readData1B(Model::returnDelayTime().address);     return data1Byte; }
+    template<typename Model> uint16_t BaseServo<Model>::getCwAngleLimit(){        this->readData2B(Model::cwAngleLimit().address);        return data2Byte; }
+    template<typename Model> uint16_t BaseServo<Model>::getCcwAngleLimit(){       this->readData2B(Model::ccwAngleLimit().address);       return data2Byte; }
+    template<typename Model> uint8_t  BaseServo<Model>::getControlMode(){         this->readData1B(Model::controlMode().address);          return data1Byte; }
+    template<typename Model> uint8_t  BaseServo<Model>::getTemperatureLimit(){    this->readData1B(Model::temperatureLimit().address);     return data1Byte; }
+    template<typename Model> uint8_t  BaseServo<Model>::getMinVoltageLimit(){     this->readData1B(Model::minVoltageLimit().address);     return data1Byte; }
+    template<typename Model> uint8_t  BaseServo<Model>::getMaxVoltageLimit(){     this->readData1B(Model::maxVoltageLimit().address);     return data1Byte; }
+    template<typename Model> uint16_t BaseServo<Model>::getMaxTorque(){           this->readData2B(Model::maxTorque().address);            return data2Byte; }
+    template<typename Model> uint8_t  BaseServo<Model>::getStatusReturnLevel(){   this->readData1B(Model::statusReturnLevel().address);   return data1Byte; }
+    template<typename Model> uint8_t  BaseServo<Model>::getShutdown(){            this->readData1B(Model::shutdown().address);              return data1Byte; }
+    template<typename Model> bool     BaseServo<Model>::getTorqueEnabled(){       this->readData1B(Model::torqueEnabled().address);         return data1Byte; }
+    template<typename Model> uint8_t  BaseServo<Model>::getLedStatus(){           this->readData1B(Model::led().address);                   return data1Byte; }
+    template<typename Model> uint8_t  BaseServo<Model>::getDGain(){               this->readData1B(Model::dGain().address);                return data1Byte; }
+    template<typename Model> uint8_t  BaseServo<Model>::getIGain(){               this->readData1B(Model::iGain().address);                return data1Byte; }
+    template<typename Model> uint8_t  BaseServo<Model>::getPGain(){               this->readData1B(Model::pGain().address);                return data1Byte; }
+    template<typename Model> uint16_t BaseServo<Model>::getGoalPosition(){        this->readData2B(Model::goalPosition().address);         return data2Byte; }
+    template<typename Model> uint16_t BaseServo<Model>::getGoalSpeed(){           this->readData2B(Model::goalSpeed().address);          return data2Byte; }
+    template<typename Model> uint16_t BaseServo<Model>::getTorqueLimit(){         this->readData2B(Model::torqueLimit().address);          return data2Byte; }
+    template<typename Model> uint16_t BaseServo<Model>::getPunch(){               this->readData2B(Model::punch().address);                 return data2Byte; }
+    template<typename Model> uint16_t BaseServo<Model>::getPresentPosition(){     this->readData2B(Model::presentPosition().address);      return data2Byte; }
+    template<typename Model> uint16_t BaseServo<Model>::getPresentSpeed(){        this->readData2B(Model::presentSpeed().address);         return data2Byte; }
+    template<typename Model> uint16_t BaseServo<Model>::getPresentLoad(){         this->readData2B(Model::presentLoad().address);          return data2Byte; }
+    template<typename Model> uint8_t  BaseServo<Model>::getPresentVoltage(){      this->readData1B(Model::presentVoltage().address);       return data1Byte; }
+    template<typename Model> uint8_t  BaseServo<Model>::getPresentTemperature(){  this->readData1B(Model::presentTemperature().address);   return data1Byte; }
+    template<typename Model> uint8_t  BaseServo<Model>::getRegistered(){          this->readData1B(Model::registered().address);            return data1Byte; }
+    template<typename Model> uint8_t  BaseServo<Model>::getMoving(){              this->readData1B(Model::moving().address);                return data1Byte; }
+    template<typename Model> uint8_t  BaseServo<Model>::getHardwareErrorStatus(){ this->readData1B(Model::hardwareErrorStatus().address); return data1Byte; }
 
 
-    template<typename Model> bool BaseServo<Model>::setId(              uint8_t  value){ return this->writeData1B(Model::ID(),                  value);}
-    template<typename Model> bool BaseServo<Model>::setBaudRate(const          uint8_t&  value){ return this->writeData1B(Model::BAUD_RATE(),           value);}
-    template<typename Model> bool BaseServo<Model>::setReturnDelayTime(const   uint8_t&  value){ return this->writeData1B(Model::RETURN_DELAY_TIME(),   value);}
-    template<typename Model> bool BaseServo<Model>::setCwAngleLimit(const      uint16_t& value){ return this->writeData2B(Model::CW_ANGLE_LIMIT(),      value);}
-    template<typename Model> bool BaseServo<Model>::setCcwAngleLimit(const     uint16_t& value){ return this->writeData2B(Model::CCW_ANGLE_LIMIT(),     value);}
-    template<typename Model> bool BaseServo<Model>::setControlMode(const       uint8_t&  value){ return this->writeData1B(Model::CONTROL_MODE(),        value);}
-    template<typename Model> bool BaseServo<Model>::setTemperatureLimit(const  uint8_t&  value){ return this->writeData1B(Model::TEMPERATURE_LIMIT(),   value);}
-    template<typename Model> bool BaseServo<Model>::setMinVoltageLimit(const   uint8_t&  value){ return this->writeData1B(Model::MIN_VOLTAGE_LIMIT(),   value);}
-    template<typename Model> bool BaseServo<Model>::setMaxVoltageLimit(const   uint8_t&  value){ return this->writeData1B(Model::MAX_VOLTAGE_LIMIT(),   value);}
-    template<typename Model> bool BaseServo<Model>::setMaxTorque(const         uint16_t& value){ return this->writeData2B(Model::MAX_TORQUE(),          value);}
-    template<typename Model> bool BaseServo<Model>::setStatusReturnLevel(const uint8_t&  value){ return this->writeData1B(Model::STATUS_RETURN_LEVEL(), value);}
-    template<typename Model> bool BaseServo<Model>::setShutdown(const          uint8_t&  value){ return this->writeData1B(Model::SHUTDOWN(),            value);}
-    template<typename Model> bool BaseServo<Model>::setTorqueEnabled(          bool      value){ return this->writeData1B(Model::TORQUE_ENABLE(),       value);}
-    template<typename Model> bool BaseServo<Model>::setLedStatus(const         uint8_t&  value){ return this->writeData1B(Model::LED(),                 value);}
-    template<typename Model> bool BaseServo<Model>::setDGain(const             uint8_t&  value){ return this->writeData1B(Model::D_GAIN(),              value);}
-    template<typename Model> bool BaseServo<Model>::setIGain(const             uint8_t&  value){ return this->writeData1B(Model::I_GAIN(),              value);}
-    template<typename Model> bool BaseServo<Model>::setPGain(const             uint8_t&  value){ return this->writeData1B(Model::P_GAIN(),              value);}
-    template<typename Model> bool BaseServo<Model>::setGoalPosition(const      uint16_t& value){ return this->writeData2B(Model::GOAL_POSITION(),       value);}
-    template<typename Model> bool BaseServo<Model>::setGoalSpeed(const         uint16_t& value){ return this->writeData2B(Model::MOVING_SPEED(),        value);}
-    template<typename Model> bool BaseServo<Model>::setTorqueLimit(const       uint16_t& value){ return this->writeData2B(Model::TORQUE_LIMIT(),        value);}
-    template<typename Model> bool BaseServo<Model>::setPunch(const             uint16_t& value){ return this->writeData2B(Model::PUNCH(),               value);}
+    template<typename Model> bool BaseServo<Model>::setId(                     uint8_t  value){ return this->writeData1B(Model::id().address,                  value);}
+    template<typename Model> bool BaseServo<Model>::setBaudRate(const          uint8_t&  value){ return this->writeData1B(Model::baudRate().address,           value);}
+    template<typename Model> bool BaseServo<Model>::setReturnDelayTime(const   uint8_t&  value){ return this->writeData1B(Model::returnDelayTime().address,   value);}
+    template<typename Model> bool BaseServo<Model>::setCwAngleLimit(const      uint16_t& value){ return this->writeData2B(Model::cwAngleLimit().address,      value);}
+    template<typename Model> bool BaseServo<Model>::setCcwAngleLimit(const     uint16_t& value){ return this->writeData2B(Model::ccwAngleLimit().address,     value);}
+    template<typename Model> bool BaseServo<Model>::setControlMode(const       uint8_t&  value){ return this->writeData1B(Model::controlMode().address,        value);}
+    template<typename Model> bool BaseServo<Model>::setTemperatureLimit(const  uint8_t&  value){ return this->writeData1B(Model::temperatureLimit().address,   value);}
+    template<typename Model> bool BaseServo<Model>::setMinVoltageLimit(const   uint8_t&  value){ return this->writeData1B(Model::minVoltageLimit().address,   value);}
+    template<typename Model> bool BaseServo<Model>::setMaxVoltageLimit(const   uint8_t&  value){ return this->writeData1B(Model::maxVoltageLimit().address,   value);}
+    template<typename Model> bool BaseServo<Model>::setMaxTorque(const         uint16_t& value){ return this->writeData2B(Model::maxTorque().address,          value);}
+    template<typename Model> bool BaseServo<Model>::setStatusReturnLevel(const uint8_t&  value){ return this->writeData1B(Model::statusReturnLevel().address, value);}
+    template<typename Model> bool BaseServo<Model>::setShutdown(const          uint8_t&  value){ return this->writeData1B(Model::shutdown().address,            value);}
+    template<typename Model> bool BaseServo<Model>::setTorqueEnabled(          bool      value){ return this->writeData1B(Model::torqueEnabled().address,       value);}
+    template<typename Model> bool BaseServo<Model>::setLedStatus(const         uint8_t&  value){ return this->writeData1B(Model::led().address,                 value);}
+    template<typename Model> bool BaseServo<Model>::setDGain(const             uint8_t&  value){ return this->writeData1B(Model::dGain().address,              value);}
+    template<typename Model> bool BaseServo<Model>::setIGain(const             uint8_t&  value){ return this->writeData1B(Model::iGain().address,              value);}
+    template<typename Model> bool BaseServo<Model>::setPGain(const             uint8_t&  value){ return this->writeData1B(Model::pGain().address,              value);}
+    template<typename Model> bool BaseServo<Model>::setGoalPosition(const      uint16_t& value){ return this->writeData2B(Model::goalPosition().address,       value);}
+    template<typename Model> bool BaseServo<Model>::setGoalSpeed(const         uint16_t& value){ return this->writeData2B(Model::goalSpeed().address,        value);}
+    template<typename Model> bool BaseServo<Model>::setTorqueLimit(const       uint16_t& value){ return this->writeData2B(Model::torqueLimit().address,        value);}
+    template<typename Model> bool BaseServo<Model>::setPunch(const             uint16_t& value){ return this->writeData2B(Model::punch().address,               value);}
 	
 	
 	template class BaseServo<AX12>;

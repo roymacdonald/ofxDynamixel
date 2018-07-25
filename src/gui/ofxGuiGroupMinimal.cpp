@@ -15,7 +15,12 @@ ofxGuiGroupMinimal::ofxGuiGroupMinimal(){
 	header = 0;
 	bGuiActive = false;
 }
-
+ofxGuiGroup * ofxGuiGroupMinimal::setup(const ofParameterGroup & _parameters, const std::string& _filename, float x, float y){
+	ofxGuiGroup::setup(_parameters, _filename, x, y);
+	header = 0;
+	setNeedsRedraw();
+	return this;
+}
 void ofxGuiGroupMinimal::generateDraw(){
 	border.clear();
 	border.setFillColor(ofColor(thisBorderColor, 180));

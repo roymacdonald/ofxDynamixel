@@ -2,6 +2,9 @@
 #pragma once
 #include "ofxDynamixelBaseServo.h"
 #include "ofParameter.h"
+#include "ofxGui.h"
+#include "ofxDynamixelRWParameter.h"
+#include "ofxGuiRW.h"
 
 
 //#define DECL_PARAM_RW_8(param) ofParameter<uint8_t> R_##param; ofParameter<uint8_t> W_##param; ofParameterGroup  G_##param;
@@ -10,15 +13,17 @@
 
 //#define DECL_PARAM_RW_8(param) ofReadOnlyParameter<std::string, ServoGui> R_##param; ofParameter<uint8_t> W_##param; ofParameterGroup  G_##param;
 //#define DECL_PARAM_RW_16(param) ofReadOnlyParameter<std::string, ServoGui> R_##param; ofParameter<uint16_t> W_##param; ofParameterGroup  G_##param;
-#define DECL_PARAM_RW_8(param)  ofParameter<uint8_t> W_##param; ofParameterGroup  G_##param;
-#define DECL_PARAM_RW_16(param) ofParameter<uint16_t> W_##param; ofParameterGroup  G_##param;
-#define DECL_PARAM_RW_B(param)  ofParameter<bool> W_##param; ofParameterGroup  G_##param;
  
+//#define DECL_PARAM_RW_8(param)  ofParameter<uint8_t> W_##param; ofParameterGroup  G_##param;
+//#define DECL_PARAM_RW_16(param) ofParameter<uint16_t> W_##param; ofParameterGroup  G_##param;
+//#define DECL_PARAM_RW_B(param)  ofParameter<bool> W_##param; ofParameterGroup  G_##param;
 
-
-#include "ofxGui.h"
 
 namespace ofxDynamixel {
+#define DECL_PARAM_RW_8(param)  RWParameter<uint8_t> P_##param;// ofParameterGroup  G_##param;
+#define DECL_PARAM_RW_16(param) RWParameter<uint16_t> P_##param;// ofParameterGroup  G_##param;
+#define DECL_PARAM_RW_B(param)  RWParameter<bool> P_##param; //ofParameterGroup  G_##param;
+
 	template<typename Model>
 	class ServoGui: public BaseServo<Model>{
 public:
@@ -26,13 +31,13 @@ public:
 	virtual void setup(int id,  std::shared_ptr<Connection> connection) override;
 	
 	
-		ofParameterGroup parameters;
+//		ofParameterGroup parameters;
 				
 		//epprom
 		ofReadOnlyParameter<std::string, ServoGui<Model>>  R_modelNumber;
 		ofReadOnlyParameter<std::string, ServoGui<Model>>  R_firmwareVersion;
 		
-		DECL_PARAM_RW_8 (id_param)       
+		DECL_PARAM_RW_8 (id_param)
 		DECL_PARAM_RW_8 (baudRate)          
 		DECL_PARAM_RW_8 (returnDelayTime)   
 		DECL_PARAM_RW_16(cwAngleLimit)      
@@ -45,7 +50,7 @@ public:
 		DECL_PARAM_RW_8 (statusReturnLevel) 
 		DECL_PARAM_RW_8 (shutdown)      
 		//ram
-		DECL_PARAM_RW_B(torqueEnabled);
+		DECL_PARAM_RW_8(torqueEnabled);
 		DECL_PARAM_RW_8(ledStatus);
 		DECL_PARAM_RW_8(dGain);
 		DECL_PARAM_RW_8(iGain);
@@ -75,14 +80,24 @@ public:
 		ofReadOnlyParameter<std::string, ServoGui<Model>>  R_hardwareErrorStatus;
 		
 		
-		ofParameterGroup grp_eepromParams, grp_ramParams, grp_readParams;
+		ofxGuiGroup eepromParams, ramParams, readParams;
 		
 		ofxPanel panel;
 		
 		void update();
 		
 	private:
-	
+		template<typename T>
+		void setParamRW(RWParameter<T>& param, const regStruct<T>& ref, ofxGuiGroup& group){	
+		//		param.setName(#param);\
+		//		G_##param.add(W_##param.set("W", C, M, X ));
+		//		param.setup(
+			param.set(ref);
+			group.add(new ofxGuiRW_<T>(param));
+		}
+
+		
+		
 	ofEventListeners listeners;
 	
 	void setListeners();
