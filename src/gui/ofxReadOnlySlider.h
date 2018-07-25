@@ -30,8 +30,11 @@ public:
 	virtual bool mouseDragged(ofMouseEventArgs & args){return false;}
 	virtual bool mouseReleased(ofMouseEventArgs & args){return false;}
 	virtual bool mouseScrolled(ofMouseEventArgs & args){return false;}
-	
+	void showName();
+	void hideName();
+	bool isShowingName(){return bShowName;}
 protected:
+	bool bShowName = false;
 	virtual void generateText();
 	
 };

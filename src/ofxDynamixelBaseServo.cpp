@@ -24,7 +24,8 @@ namespace ofxDynamixel {
     
     template<typename Model>
     void BaseServo<Model>::setup(int id, std::shared_ptr<Connection> connection){
-        setConnection(connection);
+		this->id = id;
+		setConnection(connection);
     }
     
     template<typename Model>

@@ -22,7 +22,7 @@ void ofApp::setup() {
 	}
 	
 	
-	servos.resize(4);
+	servos.resize(1);
 	for(int i =0 ; i < servos.size(); i++){
 		servos[i] = make_shared<ofxDynamixel::ServoGuiXL320>(); 
 		servos[i]->setup(i+1, connection);
@@ -33,15 +33,19 @@ void ofApp::setup() {
 		auto s = servos[i -1]->panel.getShape();
 		servos[i]->panel.setPosition( s.getMaxX() + 10, s.y);
 	}
+	for(auto& s: servos){
+		s->updateEeprom();
+	}
 //	params.setup();
 //	gui.add(params.parameters);
 }
 
 //--------------------------------------------------------------
 void ofApp::update() {
+	
 	for(auto& s: servos){
-//		s->updateCurrentSpeed();
-//		s->updateCurrentPosition();
+////		s->updateCurrentSpeed();
+////		s->updateCurrentPosition();
 		s->update();
 	}			
 }
@@ -79,9 +83,9 @@ void ofApp::exit(){
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key) {
 	if(key == OF_KEY_LEFT){
-//		servos[index]->position--;
+		servos[0]->P_goalPosition.writeParam--;
 	}else if(key == OF_KEY_RIGHT){
-//		servos[index]->position++;
+		servos[0]->P_goalPosition.writeParam++;
 	}else if(key == OF_KEY_UP){
 		(++index)%= servos.size();
 	}else if(key == OF_KEY_DOWN){
@@ -90,13 +94,28 @@ void ofApp::keyPressed(int key) {
 		int r = (int)ofRandom(1024);
 		servos[key - '1']->setGoalPosition(r);
 		cout << r <<endl;
-	}else if(key == ' '){
-		
-		fullReport = "";
-		for(auto&s: servos){
-//			fullReport += s->getFullReportString();
-			fullReport += "----------------------------\n";
+	}else if(key == 'm'){
+		for(auto& s: servos){
+			cout << "Servo  " << s->getId() << " model: " << s->getModelNumber() << endl;
 		}
+	}else if(key == 'p'){
+		for(auto& s: servos){
+			if(!s->ping()){
+				cout << "ping failed " << s->getId() << endl;
+			}
+		}
+	}else if(key == ' '){
+		for(auto& s: servos){
+			//		s->updateCurrentSpeed();
+			//		s->updateCurrentPosition();
+			s->setGoalPosition((uint16_t)floor(ofRandom(0, 1023)));
+//			s->update();
+		}
+//		fullReport = "";
+//		for(auto&s: servos){
+////			fullReport += s->getFullReportString();
+//			fullReport += "----------------------------\n";
+//		}
 	}
 }
 

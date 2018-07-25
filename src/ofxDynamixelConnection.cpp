@@ -139,7 +139,7 @@ bool Connection::addBulkReadParam(uint8_t id, uint16_t address, uint16_t data_le
 	auto r = getBulkReader();
 	if(!r)return false;
 	if (!r->addParam(id, address, data_length)){
-		fprintf(stderr, "[ID:%03d] grouBulkRead addparam failed", id);
+		fprintf(stderr, "[ID:%03d] grouBulkRead addparam failed\n", id);
 		return false;
 	}
 	bulkReadIDs.push_back(id);
@@ -149,7 +149,7 @@ bool Connection::isBulkReadAvailable(uint8_t id, uint16_t address, uint16_t data
 	auto r = getBulkReader();
 	if(!r)return false;
 	if (!r->isAvailable(id, address, data_length)){
-		fprintf(stderr, "[ID:%03d] groupBulkRead getdata failed", id);
+		fprintf(stderr, "[ID:%03d] groupBulkRead getdata failed\n", id);
 		return false;
 	}
 	return false;

@@ -24,7 +24,9 @@ namespace ofxDynamixel {
 		}			
 		
 		RWParameter<ParameterType>& set(const regStruct<ParameterType>& reg){
+			//this->reg = reg;
 			set(reg.name, reg.initValue, reg.address, reg.minValue, reg.maxValue );
+			return *this;
 		}
 		RWParameter<ParameterType>& set(const std::string& name, const ParameterType & v, const uint16_t & command ){
 			this->name = name;
@@ -51,6 +53,8 @@ namespace ofxDynamixel {
 		uint16_t dxl_command;
 		const std::string& getName(){return name;}
 		void setName(const std::string& n ){name = n;}
+		//regStruct<ParameterType>& reg;
+		
 	protected:
 		std::string name;
 	};	

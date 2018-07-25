@@ -35,6 +35,9 @@ ofxReadOnlySlider<Type>* ofxReadOnlySlider<Type>::setup(const std::string& slide
 
 template<typename Type>
 void ofxReadOnlySlider<Type>::generateText(){
+	if(bShowName){
+		ofxSlider<Type>::generateText();	
+	}else{
 	std::string valStr = ofToString((int)this->value.get());
 	auto inputWidth = this->getTextBoundingBox(valStr,0,0).width;
 //	auto label = getTextBoundingBox(getName(), b.x + textPadding, b.y + b.height / 2 + 4);
@@ -43,10 +46,20 @@ void ofxReadOnlySlider<Type>::generateText(){
 	
 	this->textMesh.clear();
 	this->textMesh.append(this->getTextMesh(valStr, this->b.x + this->b.width - this->textPadding - this->getTextBoundingBox(valStr,0,0).width, this->b.y + this->b.height / 2 + 4));
-	
+	}
 }
 
-
+template<typename Type>
+void ofxReadOnlySlider<Type>::showName(){
+	bShowName = true;
+	this->setNeedsRedraw();
+	
+}
+template<typename Type>
+void ofxReadOnlySlider<Type>::hideName(){
+	bShowName = false;
+	this->setNeedsRedraw();
+}
 
 template class ofxReadOnlySlider<int8_t>;
 template class ofxReadOnlySlider<uint8_t>;
