@@ -16,10 +16,10 @@
 
 meta:
 	ADDON_NAME = ofxDynamixel
-	ADDON_DESCRIPTION = OpenFrameworks addon for controlling and interacting Dynamixel Robotis Actuator from Robotis.
-	ADDON_AUTHOR = @ghiouar
-	ADDON_TAGS = "addon" "Dynamixel" "Robotis Actuator"
-	ADDON_URL = https://github.com/ghiouar/OfxDynamixel
+	ADDON_DESCRIPTION = openFrameworks addon for controlling Robotis Dynamixel servos using their DynamixelSDK.
+	ADDON_AUTHOR = @roymacdonald
+	ADDON_TAGS = "ofxaddon" "Dynamixel" "DynamixelSDK" "servo" "Robotis"
+	ADDON_URL = https://github.com/roymacdonald/ofxDynamixel
 
 common:
 	# dependencies with other addons, a list of them separated by spaces 
@@ -29,8 +29,7 @@ common:
 	# include search paths, this will be usually parsed from the file system
 	# but if the addon or addon libraries need special search paths they can be
 	# specified here separated by spaces or one per line using +=
-	# ADDON_INCLUDES = libs/DynamixelSDK/include/%
-
+	# ADDON_INCLUDES =
 	
 	# any special flag that should be passed to the compiler when using this
 	# addon
@@ -51,8 +50,7 @@ common:
 	# in the src folders in libs and the root of the addon. if your addon needs
 	# to include files in different places or a different set of files per platform
 	# they can be specified here
-	#ADDON_SOURCES = libs/DynamixelSDK/src/
-	#ADDON_LIBS 		= /libs/DynamixelSDK/lib/x64/dxl_x64_cpp.lib;
+	# ADDON_SOURCES =
 	
 	# some addons need resources to be copied to the bin/data folder of the project
 	# specify here any files that need to be copied, you can use wildcards like * and ?
@@ -60,8 +58,21 @@ common:
 	
 	# when parsing the file system looking for libraries exclude this for all or
 	# a specific platform
-	# ADDON_LIBS_EXCLUDE = libs/DynamixelSDK/lib/dxl_x64_cpp.lib
-	# ADDON_LIBS_EXCLUDE += libs/DynamixelSDK/lib/dxl_x86_cpp.lib
-
-
-
+	# ADDON_LIBS_EXCLUDE =
+	
+linux64:
+	# binary libraries, these will be usually parsed from the file system but some 
+	# libraries need to passed to the linker in a specific order/
+	# 
+	# For example in the ofxOpenCV addon we do something like this:
+	#
+	# ADDON_LIBS =
+	# ADDON_LIBS += libs/opencv/lib/linuxarmv6l/libopencv_legacy.a
+	# ADDON_LIBS += libs/opencv/lib/linuxarmv6l/libopencv_calib3d.a
+	# ...
+linux:
+win_cb:
+linuxarmv6l:
+linuxarmv7l:
+android/armeabi:	
+android/armeabi-v7a:	
