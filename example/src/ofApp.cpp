@@ -1,5 +1,5 @@
 #include "ofApp.h"
-
+#include "ofxGui.h"
 
 using namespace ofxDynamixel;
 //--------------------------------------------------------------
@@ -7,6 +7,11 @@ void ofApp::setup() {
 
 	ofSetLogLevel(OF_LOG_VERBOSE);
 	
+	
+	
+//	ofTrueTypeFontSettings fontSettings("uni 05_53", 5);
+	
+//	ofxGuiSetFont(fontSettings); 
 	//gui.setup();
 	
 	connection = make_shared<Connection>("/dev/tty.usbmodem1421", 2, 57600);

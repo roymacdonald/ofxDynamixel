@@ -64,6 +64,7 @@
 		9C3C88078AAE29F745463AA1 /* encode_parallel.cc in Sources */ = {isa = PBXBuildFile; fileRef = 65DC6B9109EFA2E2C8C4BCA8 /* encode_parallel.cc */; };
 		B0A050AA2107A6D800329C50 /* ofxGuiRW.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0A050A82107A6D800329C50 /* ofxGuiRW.cpp */; };
 		B0A050AD2107AA5F00329C50 /* ofxGuiGroupMinimal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0A050AB2107AA5F00329C50 /* ofxGuiGroupMinimal.cpp */; };
+		B0A050B32108803000329C50 /* ofxReadOnlySlider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0A050B12108803000329C50 /* ofxReadOnlySlider.cpp */; };
 		B0D6F62C210638D9000A6F8E /* ofxDynamixelBaseServo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0D6F62A210638D9000A6F8E /* ofxDynamixelBaseServo.cpp */; };
 		B1BF03D79762719793CC9F1A /* SLIPEncoding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1616DA13ECD5FC9DB4D5714 /* SLIPEncoding.cpp */; };
 		B266578FC55D23BFEBC042E7 /* ofxGuiGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ECF8674C7975F1063C5E30CA /* ofxGuiGroup.cpp */; };
@@ -339,6 +340,8 @@
 		B0A050AB2107AA5F00329C50 /* ofxGuiGroupMinimal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxGuiGroupMinimal.cpp; path = ../src/gui/ofxGuiGroupMinimal.cpp; sourceTree = "<group>"; };
 		B0A050AC2107AA5F00329C50 /* ofxGuiGroupMinimal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxGuiGroupMinimal.h; path = ../src/gui/ofxGuiGroupMinimal.h; sourceTree = "<group>"; };
 		B0A050AF2107ADF200329C50 /* ofxDynamixelRWParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxDynamixelRWParameter.h; path = ../src/ofxDynamixelRWParameter.h; sourceTree = "<group>"; };
+		B0A050B12108803000329C50 /* ofxReadOnlySlider.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxReadOnlySlider.cpp; path = ../src/gui/ofxReadOnlySlider.cpp; sourceTree = "<group>"; };
+		B0A050B22108803000329C50 /* ofxReadOnlySlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxReadOnlySlider.h; path = ../src/gui/ofxReadOnlySlider.h; sourceTree = "<group>"; };
 		B0D6F62A210638D9000A6F8E /* ofxDynamixelBaseServo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxDynamixelBaseServo.cpp; path = ../src/ofxDynamixelBaseServo.cpp; sourceTree = "<group>"; };
 		B0D6F62B210638D9000A6F8E /* ofxDynamixelBaseServo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxDynamixelBaseServo.h; path = ../src/ofxDynamixelBaseServo.h; sourceTree = "<group>"; };
 		B1CC96657896D2F948104F3D /* seed.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = seed.h; path = ../../../addons/ofxPoco/libs/openssl/include/openssl/seed.h; sourceTree = SOURCE_ROOT; };
@@ -1031,6 +1034,19 @@
 			name = ofx;
 			sourceTree = "<group>";
 		};
+		B0A050B42108803C00329C50 /* GUI */ = {
+			isa = PBXGroup;
+			children = (
+				B0A050A82107A6D800329C50 /* ofxGuiRW.cpp */,
+				B0A050A92107A6D800329C50 /* ofxGuiRW.h */,
+				B0A050AB2107AA5F00329C50 /* ofxGuiGroupMinimal.cpp */,
+				B0A050AC2107AA5F00329C50 /* ofxGuiGroupMinimal.h */,
+				B0A050B12108803000329C50 /* ofxReadOnlySlider.cpp */,
+				B0A050B22108803000329C50 /* ofxReadOnlySlider.h */,
+			);
+			name = GUI;
+			sourceTree = "<group>";
+		};
 		B2C98B62869583DB9FE30DA7 /* openssl */ = {
 			isa = PBXGroup;
 			children = (
@@ -1088,10 +1104,7 @@
 				B0D6F62A210638D9000A6F8E /* ofxDynamixelBaseServo.cpp */,
 				B0D6F62B210638D9000A6F8E /* ofxDynamixelBaseServo.h */,
 				B0A050A621069DCA00329C50 /* ofxDynamixelControlTables.h */,
-				B0A050A82107A6D800329C50 /* ofxGuiRW.cpp */,
-				B0A050A92107A6D800329C50 /* ofxGuiRW.h */,
-				B0A050AB2107AA5F00329C50 /* ofxGuiGroupMinimal.cpp */,
-				B0A050AC2107AA5F00329C50 /* ofxGuiGroupMinimal.h */,
+				B0A050B42108803C00329C50 /* GUI */,
 				B0A050AF2107ADF200329C50 /* ofxDynamixelRWParameter.h */,
 			);
 			name = src;
@@ -1400,6 +1413,7 @@
 				D81A435CE7FDF51B41956210 /* snappy-sinksource.cc in Sources */,
 				1298066D39CE7EC3DA60256A /* snappy-stubs-internal.cc in Sources */,
 				868BEDC19B53FD512D7E3100 /* snappy.cc in Sources */,
+				B0A050B32108803000329C50 /* ofxReadOnlySlider.cpp in Sources */,
 				1C36947250DCB09A8A375C0C /* ofxXmlPoco.cpp in Sources */,
 				199E20C3CE29DBDA5F9DA16C /* BufferedSerialDevice.cpp in Sources */,
 				E47400D4565245776213FFD6 /* SerialDevice.cpp in Sources */,

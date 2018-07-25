@@ -2,7 +2,7 @@
 
 #include <inttypes.h>
 
-//#define ENABLE_GUI_UPDATE
+#define ENABLE_GUI_UPDATE
 
 
 namespace ofxDynamixel {

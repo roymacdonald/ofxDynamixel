@@ -7,6 +7,7 @@
 //
 
 #include "ofxGuiRW.h"
+#include "ofxReadOnlySlider.h"
 
 using namespace std;
 
@@ -18,12 +19,16 @@ ofxGuiRW_<T>::ofxGuiRW_(ofxDynamixel::RWParameter<T> value, float width, float h
 
 template<class T>
 ofxGuiRW_<T> * ofxGuiRW_<T>::setup(ofxDynamixel::RWParameter<T> value, float width, float height){
-	ofxGuiGroup::setup(value.getName(), "", 0, 0);
+	ofxGuiGroupMinimal::setup(value.getName(), "", 0, 0);
 
 	parameters.clear();
 	
-	ofxGuiGroup::add(value.readOnlyParam);
-	ofxGuiGroup::add(value.writeParam);
+	ofxGuiGroupMinimal::add(value.writeParam);
+	if(std::is_arithmetic<T>::value){
+		ofxGuiGroupMinimal::add(new ofxReadOnlySlider<T>(value.readOnlyParam));
+	}else{
+	
+	}
 	
 	this->value.readOnlyParam.makeReferenceTo(value.readOnlyParam);
 	this->value.writeParam.makeReferenceTo(value.writeParam);

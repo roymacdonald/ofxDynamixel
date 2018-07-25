@@ -113,38 +113,37 @@ void ServoGui<Model>::setup(int id,  std::shared_ptr<Connection> connection){
 		auto c = this->getConnection();
 		if(c){
 			c->clearBulkRead();
-			c->addBulkReadParam(this->id , Model::MODEL_NUMBER()          , 2);
-			c->addBulkReadParam(this->id , Model::FIRMWARE_VERSION()      , 1);
-			c->addBulkReadParam(this->id , Model::ID()                    , 1);
-			c->addBulkReadParam(this->id , Model::BAUD_RATE()             , 1);
-			c->addBulkReadParam(this->id , Model::RETURN_DELAY_TIME()     , 1);
-			c->addBulkReadParam(this->id , Model::CW_ANGLE_LIMIT()        , 2);
-			c->addBulkReadParam(this->id , Model::CCW_ANGLE_LIMIT()       , 2);
-			
-			c->addBulkReadParam(this->id, Model::CONTROL_MODE(), 1);
-			c->addBulkReadParam(this->id, Model::TEMPERATURE_LIMIT(), 1);
-			c->addBulkReadParam(this->id, Model::MIN_VOLTAGE_LIMIT(), 1);
-			c->addBulkReadParam(this->id, Model::MAX_VOLTAGE_LIMIT(), 1);
-			c->addBulkReadParam(this->id, Model::MAX_TORQUE(), 2);
-			c->addBulkReadParam(this->id, Model::STATUS_RETURN_LEVEL(), 1);
-			c->addBulkReadParam(this->id, Model::SHUTDOWN(), 1);
-			c->addBulkReadParam(this->id, Model::TORQUE_ENABLE(), 1);
-			c->addBulkReadParam(this->id, Model::LED(), 1);
-			c->addBulkReadParam(this->id, Model::D_GAIN(), 1);
-			c->addBulkReadParam(this->id, Model::I_GAIN(), 1);
-			c->addBulkReadParam(this->id, Model::P_GAIN(), 1);
-			c->addBulkReadParam(this->id, Model::GOAL_POSITION(), 2);
-			c->addBulkReadParam(this->id, Model::MOVING_SPEED(), 2);
-			c->addBulkReadParam(this->id, Model::TORQUE_LIMIT(), 2);
-			c->addBulkReadParam(this->id, Model::PUNCH(), 2);
-			c->addBulkReadParam(this->id, Model::PRESENT_POSITION(), 2);
-			c->addBulkReadParam(this->id, Model::PRESENT_SPEED(), 2);
-			c->addBulkReadParam(this->id, Model::PRESENT_LOAD(), 2);
-			c->addBulkReadParam(this->id, Model::PRESENT_VOLTAGE(), 1);
-			c->addBulkReadParam(this->id, Model::PRESENT_TEMPERATURE(), 1);
-			c->addBulkReadParam(this->id, Model::REGISTERED(), 1);
-			c->addBulkReadParam(this->id, Model::MOVING(), 1);
-			c->addBulkReadParam(this->id, Model::HARDWARE_ERROR_STATUS(), 1);
+			c->addBulkReadParam(this->id , Model::modelNumber().address         , 2);
+			c->addBulkReadParam(this->id , Model::firmwareVersion().address     , 1);
+			c->addBulkReadParam(this->id , Model::id().address                  , 1);
+			c->addBulkReadParam(this->id , Model::baudRate().address            , 1);
+			c->addBulkReadParam(this->id , Model::returnDelayTime().address     , 1);
+			c->addBulkReadParam(this->id , Model::cwAngleLimit().address        , 2);
+			c->addBulkReadParam(this->id , Model::ccwAngleLimit().address       , 2);
+			c->addBulkReadParam(this->id , Model::controlMode().address         , 1);
+			c->addBulkReadParam(this->id , Model::temperatureLimit().address    , 1);
+			c->addBulkReadParam(this->id , Model::minVoltageLimit().address     , 1);
+			c->addBulkReadParam(this->id , Model::maxVoltageLimit().address     , 1);
+			c->addBulkReadParam(this->id , Model::maxTorque().address           , 2);
+			c->addBulkReadParam(this->id , Model::statusReturnLevel().address   , 1);
+			c->addBulkReadParam(this->id , Model::shutdown().address            , 1);
+			c->addBulkReadParam(this->id , Model::torqueEnabled().address        , 1);
+			c->addBulkReadParam(this->id , Model::led().address                 , 1);
+			c->addBulkReadParam(this->id , Model::dGain().address               , 1);
+			c->addBulkReadParam(this->id , Model::iGain().address               , 1);
+			c->addBulkReadParam(this->id , Model::pGain().address               , 1);
+			c->addBulkReadParam(this->id , Model::goalPosition().address        , 2);
+			c->addBulkReadParam(this->id , Model::goalSpeed().address         , 2);
+			c->addBulkReadParam(this->id , Model::torqueLimit().address         , 2);
+			c->addBulkReadParam(this->id , Model::punch().address               , 2);
+			c->addBulkReadParam(this->id , Model::presentPosition().address     , 2);
+			c->addBulkReadParam(this->id , Model::presentSpeed().address        , 2);
+			c->addBulkReadParam(this->id , Model::presentLoad().address         , 2);
+			c->addBulkReadParam(this->id , Model::presentVoltage().address      , 1);
+			c->addBulkReadParam(this->id , Model::presentTemperature().address  , 1);
+			c->addBulkReadParam(this->id , Model::registered().address          , 1);
+			c->addBulkReadParam(this->id , Model::moving().address              , 1);
+			c->addBulkReadParam(this->id , Model::hardwareErrorStatus().address , 1);
 
 			c->bulkReadRequest();// esto debiera estar en otro thread!
 			
@@ -152,38 +151,39 @@ void ServoGui<Model>::setup(int id,  std::shared_ptr<Connection> connection){
 			uint16_t data;
 			
 			
-			if(c->getBulkReadData(this->id , Model::MODEL_NUMBER()          , 2 , data)){  R_modelNumber = ofToString(data);}
-			if(c->getBulkReadData(this->id , Model::FIRMWARE_VERSION()      , 1 , data)){  R_firmwareVersion = ofToString(data);}
-			if(c->getBulkReadData(this->id , Model::BAUD_RATE()             , 1 , data)){  G_baudRate.setName("baudRate: "+  ofToString(data));}
-			if(c->getBulkReadData(this->id , Model::RETURN_DELAY_TIME()     , 1 , data)){  G_returnDelayTime.setName("returnDelayTime: "+  ofToString(data));}
-			if(c->getBulkReadData(this->id , Model::CW_ANGLE_LIMIT()        , 2 , data)){  G_cwAngleLimit.setName("cwAngleLimit: "+  ofToString(data));}
-			if(c->getBulkReadData(this->id , Model::CCW_ANGLE_LIMIT()       , 2 , data)){  G_ccwAngleLimit.setName("ccwAngleLimit: "+  ofToString(data));}
-			if(c->getBulkReadData(this->id , Model::CONTROL_MODE()          , 1 , data)){  G_controlMode.setName("controlMode: "+  ofToString(data));}
-			if(c->getBulkReadData(this->id , Model::TEMPERATURE_LIMIT()     , 1 , data)){  G_temperatureLimit.setName("temperatureLimit: "+  ofToString(data));}
-			if(c->getBulkReadData(this->id , Model::MIN_VOLTAGE_LIMIT()     , 1 , data)){  G_minVoltageLimit.setName("minVoltageLimit: "+  ofToString(data));}
-			if(c->getBulkReadData(this->id , Model::MAX_VOLTAGE_LIMIT()     , 1 , data)){  G_maxVoltageLimit.setName("maxVoltageLimit: "+  ofToString(data));}
-			if(c->getBulkReadData(this->id , Model::MAX_TORQUE()            , 2 , data)){  G_maxTorque.setName("maxTorque: "+  ofToString(data));}
-			if(c->getBulkReadData(this->id , Model::STATUS_RETURN_LEVEL()   , 1 , data)){  G_statusReturnLevel.setName("statusReturnLevel: "+  ofToString(data));}
-			if(c->getBulkReadData(this->id , Model::SHUTDOWN()              , 1 , data)){  G_shutdown.setName("shutdown: "+  ofToString(data));}
-			if(c->getBulkReadData(this->id , Model::TORQUE_ENABLE()         , 1 , data)){  G_torqueEnabled.setName("torqueEnabled: "+  ofToString(data));}
-			if(c->getBulkReadData(this->id , Model::LED()                   , 1 , data)){  G_ledStatus.setName("ledStatus: "+  ofToString(data));}
-			if(c->getBulkReadData(this->id , Model::D_GAIN()                , 1 , data)){  G_dGain.setName("dGain: "+  ofToString(data));}
-			if(c->getBulkReadData(this->id , Model::I_GAIN()                , 1 , data)){  G_iGain.setName("iGain: "+  ofToString(data));}
-			if(c->getBulkReadData(this->id , Model::P_GAIN()                , 1 , data)){  G_pGain.setName("pGain: "+  ofToString(data));}
-			if(c->getBulkReadData(this->id , Model::GOAL_POSITION()         , 2 , data)){  G_goalPosition.setName("goalPosition: "+  ofToString(data));}
-			if(c->getBulkReadData(this->id , Model::MOVING_SPEED()          , 2 , data)){  G_goalSpeed.setName("goalSpeed: "+  ofToString(data));}
-			if(c->getBulkReadData(this->id , Model::TORQUE_LIMIT()          , 2 , data)){  G_torqueLimit.setName("torqueLimit: "+  ofToString(data));}
-			if(c->getBulkReadData(this->id , Model::PUNCH()                 , 2 , data)){  G_punch.setName("punch: "+  ofToString(data));}		
-			if(c->getBulkReadData(this->id , Model::PRESENT_POSITION()      , 2 , data)){  R_presentPosition = ofToString(data);}
-			if(c->getBulkReadData(this->id , Model::PRESENT_SPEED()         , 2 , data)){  R_presentSpeed = ofToString(data);}
-			if(c->getBulkReadData(this->id , Model::PRESENT_LOAD()          , 2 , data)){  R_presentLoad = ofToString(data);}
-			if(c->getBulkReadData(this->id , Model::PRESENT_VOLTAGE()       , 1 , data)){  R_presentVoltage = ofToString(data);}
-			if(c->getBulkReadData(this->id , Model::PRESENT_TEMPERATURE()   , 1 , data)){  R_presentTemperature = ofToString(data);}
-			if(c->getBulkReadData(this->id , Model::REGISTERED()            , 1 , data)){  R_registered = ofToString(data);}
-			if(c->getBulkReadData(this->id , Model::MOVING()                , 1 , data)){  R_moving = ofToString(data);}
-			if(c->getBulkReadData(this->id , Model::HARDWARE_ERROR_STATUS() , 1 , data)){  R_hardwareErrorStatus = ofToString(data);}
-#endif
+			if(c->getBulkReadData(this->id , Model::modelNumber().address         , 2 , data)){  R_modelNumber = ofToString(data);}
+			if(c->getBulkReadData(this->id , Model::firmwareVersion().address     , 1 , data)){  R_firmwareVersion = ofToString(data);}
+			if(c->getBulkReadData(this->id , Model::baudRate().address            , 1 , data)){  P_baudRate.readOnlyParam = data;}
+			if(c->getBulkReadData(this->id , Model::returnDelayTime().address     , 1 , data)){  P_returnDelayTime.readOnlyParam = data;}
+			if(c->getBulkReadData(this->id , Model::cwAngleLimit().address        , 2 , data)){  P_cwAngleLimit.readOnlyParam = data;}
+			if(c->getBulkReadData(this->id , Model::ccwAngleLimit().address       , 2 , data)){  P_ccwAngleLimit.readOnlyParam = data;}
+			if(c->getBulkReadData(this->id , Model::controlMode().address         , 1 , data)){  P_controlMode.readOnlyParam = data;}
+			if(c->getBulkReadData(this->id , Model::temperatureLimit().address    , 1 , data)){  P_temperatureLimit.readOnlyParam = data;}
+			if(c->getBulkReadData(this->id , Model::minVoltageLimit().address     , 1 , data)){  P_minVoltageLimit.readOnlyParam = data;}
+			if(c->getBulkReadData(this->id , Model::maxVoltageLimit().address     , 1 , data)){  P_maxVoltageLimit.readOnlyParam = data;}
+			if(c->getBulkReadData(this->id , Model::maxTorque().address           , 2 , data)){  P_maxTorque.readOnlyParam = data;}
+			if(c->getBulkReadData(this->id , Model::statusReturnLevel().address   , 1 , data)){  P_statusReturnLevel.readOnlyParam = data;}
+			if(c->getBulkReadData(this->id , Model::shutdown().address            , 1 , data)){  P_shutdown.readOnlyParam = data;}
+			if(c->getBulkReadData(this->id , Model::torqueEnabled().address        , 1 , data)){  P_torqueEnabled.readOnlyParam = data;}
+			if(c->getBulkReadData(this->id , Model::led().address                 , 1 , data)){  P_ledStatus.readOnlyParam = data;}
+			if(c->getBulkReadData(this->id , Model::dGain().address               , 1 , data)){  P_dGain.readOnlyParam = data;}
+			if(c->getBulkReadData(this->id , Model::iGain().address               , 1 , data)){  P_iGain.readOnlyParam = data;}
+			if(c->getBulkReadData(this->id , Model::pGain().address               , 1 , data)){  P_pGain.readOnlyParam = data;}
+			if(c->getBulkReadData(this->id , Model::goalPosition().address        , 2 , data)){  P_goalPosition.readOnlyParam = data;}
+			if(c->getBulkReadData(this->id , Model::goalSpeed().address         , 2 , data)){  P_goalSpeed.readOnlyParam = data;}
+			if(c->getBulkReadData(this->id , Model::torqueLimit().address         , 2 , data)){  P_torqueLimit.readOnlyParam = data;}
+			if(c->getBulkReadData(this->id , Model::punch().address               , 2 , data)){  P_punch.readOnlyParam = data;}		
+			if(c->getBulkReadData(this->id , Model::presentPosition().address     , 2 , data)){  R_presentPosition = ofToString(data);}
+			if(c->getBulkReadData(this->id , Model::presentSpeed().address        , 2 , data)){  R_presentSpeed = ofToString(data);}
+			if(c->getBulkReadData(this->id , Model::presentLoad().address         , 2 , data)){  R_presentLoad = ofToString(data);}
+			if(c->getBulkReadData(this->id , Model::presentVoltage().address      , 1 , data)){  R_presentVoltage = ofToString(data);}
+			if(c->getBulkReadData(this->id , Model::presentTemperature().address  , 1 , data)){  R_presentTemperature = ofToString(data);}
+			if(c->getBulkReadData(this->id , Model::registered().address          , 1 , data)){  R_registered = ofToString(data);}
+			if(c->getBulkReadData(this->id , Model::moving().address              , 1 , data)){  R_moving = ofToString(data);}
+			if(c->getBulkReadData(this->id , Model::hardwareErrorStatus().address , 1 , data)){  R_hardwareErrorStatus = ofToString(data);}
 		}
+#endif
+	}
 //-------------------------------------------------------------------------------------------------------------------		
 	
 	template class ServoGui<AX12>;
