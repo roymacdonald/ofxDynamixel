@@ -42,10 +42,10 @@ ofxGuiRW_<T> * ofxGuiRW_<T>::setup(ofxDynamixel::RWParameter<T> value, float wid
 	return this;
 	
 }
-template<class T>
-ofxDynamixel::RWParameter<T>& ofxGuiRW_<T>::getRWParameter(){
-	return value;
-}
+//template<class T>
+//ofxDynamixel::RWParameter<T>& ofxGuiRW_<T>::getRWParameter(){
+//	return value;
+//}
 
 //template<class T>
 //void ofxGuiRW_<T>::changeSlider(const void * parameter, float & _value){

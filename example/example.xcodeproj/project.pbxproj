@@ -40,7 +40,7 @@
 		5B0B37678CB86DF7936E36E6 /* dictionary.c in Sources */ = {isa = PBXBuildFile; fileRef = 784C0DB32ADDBDBF29DB5910 /* dictionary.c */; };
 		5BB82711925A3764235C2CEB /* FileExtensionFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6BD291FB03292C6D352C26FE /* FileExtensionFilter.cpp */; };
 		5CBB2AB3A60F65431D7B555D /* ofxButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C88333E71C9457E441C33474 /* ofxButton.cpp */; };
-		60558834603E821DB7958501 /* ofxDynamixelServo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E1009D6F6C49055D66CCCC8 /* ofxDynamixelServo.cpp */; };
+		60558834603E821DB7958501 /* ofxDynamixelServoGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E1009D6F6C49055D66CCCC8 /* ofxDynamixelServoGui.cpp */; };
 		62509F39EA6197BEA0194276 /* ByteBufferReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 021CAF811F031FFBDFB18797 /* ByteBufferReader.cpp */; };
 		66A80FD312926DEB8C9FE7F6 /* ByteBufferUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE5B3B19544657B6F9CCCA03 /* ByteBufferUtils.cpp */; };
 		72BCC46DF35982704F1906BD /* brotli_bit_stream.c in Sources */ = {isa = PBXBuildFile; fileRef = 863E9634DCC98853BF984072 /* brotli_bit_stream.c */; };
@@ -62,10 +62,10 @@
 		9B0C4048D6313FF975C15606 /* decode.c in Sources */ = {isa = PBXBuildFile; fileRef = 7DBD4311D51383233476A246 /* decode.c */; };
 		9C1D533ACA24526D098B688F /* compressor.cc in Sources */ = {isa = PBXBuildFile; fileRef = AF2EFC111D54B546BA67C5F8 /* compressor.cc */; };
 		9C3C88078AAE29F745463AA1 /* encode_parallel.cc in Sources */ = {isa = PBXBuildFile; fileRef = 65DC6B9109EFA2E2C8C4BCA8 /* encode_parallel.cc */; };
-		B0A050AA2107A6D800329C50 /* ofxGuiRW.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0A050A82107A6D800329C50 /* ofxGuiRW.cpp */; };
 		B0A050AD2107AA5F00329C50 /* ofxGuiGroupMinimal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0A050AB2107AA5F00329C50 /* ofxGuiGroupMinimal.cpp */; };
 		B0A050B32108803000329C50 /* ofxReadOnlySlider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0A050B12108803000329C50 /* ofxReadOnlySlider.cpp */; };
-		B0D6F62C210638D9000A6F8E /* ofxDynamixelBaseServo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0D6F62A210638D9000A6F8E /* ofxDynamixelBaseServo.cpp */; };
+		B0AF4AD421096CD5003FB510 /* ofxDynamixelControlTables.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0AF4AD321096CD5003FB510 /* ofxDynamixelControlTables.cpp */; };
+		B0D6F62C210638D9000A6F8E /* ofxDynamixelServo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0D6F62A210638D9000A6F8E /* ofxDynamixelServo.cpp */; };
 		B1BF03D79762719793CC9F1A /* SLIPEncoding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1616DA13ECD5FC9DB4D5714 /* SLIPEncoding.cpp */; };
 		B266578FC55D23BFEBC042E7 /* ofxGuiGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ECF8674C7975F1063C5E30CA /* ofxGuiGroup.cpp */; };
 		B2B79FD5952A5CE3D5637BE3 /* ofxDynamixelConnection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 59F6798988BEC4F17170AD78 /* ofxDynamixelConnection.cpp */; };
@@ -143,7 +143,7 @@
 		0B4469F9BB9FC42CC5B721A5 /* huffman.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 4; name = huffman.c; path = ../../../addons/ofxIO/libs/brotli/src/dec/huffman.c; sourceTree = SOURCE_ROOT; };
 		0B6179498D0110BD2E161373 /* DirectoryWatcherManager.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = DirectoryWatcherManager.cpp; path = ../../../addons/ofxIO/libs/ofxIO/src/DirectoryWatcherManager.cpp; sourceTree = SOURCE_ROOT; };
 		0C04DBADC786680C5A1DC457 /* BackoffStrategy.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = BackoffStrategy.cpp; path = ../../../addons/ofxIO/libs/ofxIO/src/BackoffStrategy.cpp; sourceTree = SOURCE_ROOT; };
-		0E1009D6F6C49055D66CCCC8 /* ofxDynamixelServo.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ofxDynamixelServo.cpp; path = ../../../addons/ofxDynamixel/src/ofxDynamixelServo.cpp; sourceTree = SOURCE_ROOT; };
+		0E1009D6F6C49055D66CCCC8 /* ofxDynamixelServoGui.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ofxDynamixelServoGui.cpp; path = ../src/ofxDynamixelServoGui.cpp; sourceTree = SOURCE_ROOT; };
 		0ED9E7E17E11365C9F07BC90 /* symhacks.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = symhacks.h; path = ../../../addons/ofxPoco/libs/openssl/include/openssl/symhacks.h; sourceTree = SOURCE_ROOT; };
 		0F8127F302C54B5E807A4DEB /* huffman.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = huffman.h; path = ../../../addons/ofxIO/libs/brotli/src/dec/huffman.h; sourceTree = SOURCE_ROOT; };
 		0FC82546C315D104CC8178D7 /* PathFilterCollection.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = PathFilterCollection.h; path = ../../../addons/ofxIO/libs/ofxIO/include/ofx/IO/PathFilterCollection.h; sourceTree = SOURCE_ROOT; };
@@ -335,15 +335,13 @@
 		AF2EFC111D54B546BA67C5F8 /* compressor.cc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = compressor.cc; path = ../../../addons/ofxIO/libs/brotli/src/enc/compressor.cc; sourceTree = SOURCE_ROOT; };
 		AF53C1FCB4DC2DA249C71CE4 /* asn1t.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = asn1t.h; path = ../../../addons/ofxPoco/libs/openssl/include/openssl/asn1t.h; sourceTree = SOURCE_ROOT; };
 		B0A050A621069DCA00329C50 /* ofxDynamixelControlTables.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxDynamixelControlTables.h; path = ../src/ofxDynamixelControlTables.h; sourceTree = "<group>"; };
-		B0A050A82107A6D800329C50 /* ofxGuiRW.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxGuiRW.cpp; path = ../src/gui/ofxGuiRW.cpp; sourceTree = "<group>"; };
-		B0A050A92107A6D800329C50 /* ofxGuiRW.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxGuiRW.h; path = ../src/gui/ofxGuiRW.h; sourceTree = "<group>"; };
 		B0A050AB2107AA5F00329C50 /* ofxGuiGroupMinimal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxGuiGroupMinimal.cpp; path = ../src/gui/ofxGuiGroupMinimal.cpp; sourceTree = "<group>"; };
 		B0A050AC2107AA5F00329C50 /* ofxGuiGroupMinimal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxGuiGroupMinimal.h; path = ../src/gui/ofxGuiGroupMinimal.h; sourceTree = "<group>"; };
-		B0A050AF2107ADF200329C50 /* ofxDynamixelRWParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxDynamixelRWParameter.h; path = ../src/ofxDynamixelRWParameter.h; sourceTree = "<group>"; };
 		B0A050B12108803000329C50 /* ofxReadOnlySlider.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxReadOnlySlider.cpp; path = ../src/gui/ofxReadOnlySlider.cpp; sourceTree = "<group>"; };
 		B0A050B22108803000329C50 /* ofxReadOnlySlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxReadOnlySlider.h; path = ../src/gui/ofxReadOnlySlider.h; sourceTree = "<group>"; };
-		B0D6F62A210638D9000A6F8E /* ofxDynamixelBaseServo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxDynamixelBaseServo.cpp; path = ../src/ofxDynamixelBaseServo.cpp; sourceTree = "<group>"; };
-		B0D6F62B210638D9000A6F8E /* ofxDynamixelBaseServo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxDynamixelBaseServo.h; path = ../src/ofxDynamixelBaseServo.h; sourceTree = "<group>"; };
+		B0AF4AD321096CD5003FB510 /* ofxDynamixelControlTables.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxDynamixelControlTables.cpp; path = ../src/gui/ofxDynamixelControlTables.cpp; sourceTree = "<group>"; };
+		B0D6F62A210638D9000A6F8E /* ofxDynamixelServo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxDynamixelServo.cpp; path = ../src/ofxDynamixelServo.cpp; sourceTree = "<group>"; };
+		B0D6F62B210638D9000A6F8E /* ofxDynamixelServo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxDynamixelServo.h; path = ../src/ofxDynamixelServo.h; sourceTree = "<group>"; };
 		B1CC96657896D2F948104F3D /* seed.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = seed.h; path = ../../../addons/ofxPoco/libs/openssl/include/openssl/seed.h; sourceTree = SOURCE_ROOT; };
 		B2D9BED8F594CFBBD0821E7E /* mdc2.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = mdc2.h; path = ../../../addons/ofxPoco/libs/openssl/include/openssl/mdc2.h; sourceTree = SOURCE_ROOT; };
 		B3F27E813E1250126AA46F39 /* stack.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = stack.h; path = ../../../addons/ofxPoco/libs/openssl/include/openssl/stack.h; sourceTree = SOURCE_ROOT; };
@@ -358,7 +356,7 @@
 		B87C60311EC1FE841C1ECD89 /* ofxLabel.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxLabel.h; path = ../../../addons/ofxGui/src/ofxLabel.h; sourceTree = SOURCE_ROOT; };
 		B915DF2E03885E5462A1D867 /* brotli_bit_stream.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = brotli_bit_stream.h; path = ../../../addons/ofxIO/libs/brotli/src/enc/brotli_bit_stream.h; sourceTree = SOURCE_ROOT; };
 		B958A9EA0CCC23B12812A232 /* PollingThread.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = PollingThread.cpp; path = ../../../addons/ofxIO/libs/ofxIO/src/PollingThread.cpp; sourceTree = SOURCE_ROOT; };
-		BC893260BD70A32382226AE1 /* ofxDynamixelServo.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxDynamixelServo.h; path = ../../../addons/ofxDynamixel/src/ofxDynamixelServo.h; sourceTree = SOURCE_ROOT; };
+		BC893260BD70A32382226AE1 /* ofxDynamixelServoGui.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxDynamixelServoGui.h; path = ../src/ofxDynamixelServoGui.h; sourceTree = SOURCE_ROOT; };
 		BE10E456A9066BE3516AD23E /* encode.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 4; name = encode.c; path = ../../../addons/ofxIO/libs/brotli/src/enc/encode.c; sourceTree = SOURCE_ROOT; };
 		BEFFAA5B8275E0AE066FC2E3 /* DirectoryWatcherManager.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = DirectoryWatcherManager.h; path = ../../../addons/ofxIO/libs/ofxIO/include/ofx/IO/DirectoryWatcherManager.h; sourceTree = SOURCE_ROOT; };
 		BF0BB2F28A4522316B1563A5 /* COBSEncoding.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = COBSEncoding.h; path = ../../../addons/ofxIO/libs/ofxIO/include/ofx/IO/COBSEncoding.h; sourceTree = SOURCE_ROOT; };
@@ -1037,8 +1035,6 @@
 		B0A050B42108803C00329C50 /* GUI */ = {
 			isa = PBXGroup;
 			children = (
-				B0A050A82107A6D800329C50 /* ofxGuiRW.cpp */,
-				B0A050A92107A6D800329C50 /* ofxGuiRW.h */,
 				B0A050AB2107AA5F00329C50 /* ofxGuiGroupMinimal.cpp */,
 				B0A050AC2107AA5F00329C50 /* ofxGuiGroupMinimal.h */,
 				B0A050B12108803000329C50 /* ofxReadOnlySlider.cpp */,
@@ -1099,13 +1095,13 @@
 				59F6798988BEC4F17170AD78 /* ofxDynamixelConnection.cpp */,
 				487C22269436AF34BB26F330 /* ofxDynamixelConnection.h */,
 				4B0BA4189B34D8267A4DBCDC /* ofxDynamixelConstants.h */,
-				0E1009D6F6C49055D66CCCC8 /* ofxDynamixelServo.cpp */,
-				BC893260BD70A32382226AE1 /* ofxDynamixelServo.h */,
-				B0D6F62A210638D9000A6F8E /* ofxDynamixelBaseServo.cpp */,
-				B0D6F62B210638D9000A6F8E /* ofxDynamixelBaseServo.h */,
+				0E1009D6F6C49055D66CCCC8 /* ofxDynamixelServoGui.cpp */,
+				BC893260BD70A32382226AE1 /* ofxDynamixelServoGui.h */,
+				B0D6F62A210638D9000A6F8E /* ofxDynamixelServo.cpp */,
+				B0D6F62B210638D9000A6F8E /* ofxDynamixelServo.h */,
 				B0A050A621069DCA00329C50 /* ofxDynamixelControlTables.h */,
+				B0AF4AD321096CD5003FB510 /* ofxDynamixelControlTables.cpp */,
 				B0A050B42108803C00329C50 /* GUI */,
-				B0A050AF2107ADF200329C50 /* ofxDynamixelRWParameter.h */,
 			);
 			name = src;
 			sourceTree = "<group>";
@@ -1338,7 +1334,7 @@
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,
 				B2B79FD5952A5CE3D5637BE3 /* ofxDynamixelConnection.cpp in Sources */,
-				60558834603E821DB7958501 /* ofxDynamixelServo.cpp in Sources */,
+				60558834603E821DB7958501 /* ofxDynamixelServoGui.cpp in Sources */,
 				856AA354D08AB4B323081444 /* ofxBaseGui.cpp in Sources */,
 				5CBB2AB3A60F65431D7B555D /* ofxButton.cpp in Sources */,
 				853E0BA2F448076739446874 /* ofxColorPicker.cpp in Sources */,
@@ -1363,6 +1359,7 @@
 				C9B84C2206A19C8EF7FF2FC2 /* compress_fragment.c in Sources */,
 				3942018D51482A1D54EC1669 /* compress_fragment_two_pass.c in Sources */,
 				9C1D533ACA24526D098B688F /* compressor.cc in Sources */,
+				B0AF4AD421096CD5003FB510 /* ofxDynamixelControlTables.cpp in Sources */,
 				B895E317977FEBE5F79F8B94 /* encode.c in Sources */,
 				9C3C88078AAE29F745463AA1 /* encode_parallel.cc in Sources */,
 				52E0D9D8CC9D0F3AB04182F5 /* entropy_encode.c in Sources */,
@@ -1403,13 +1400,12 @@
 				3C9A355A55D68A8E882FEF85 /* RegexPathFilter.cpp in Sources */,
 				1CC07C1A616F29EB8EEC3D21 /* SearchPath.cpp in Sources */,
 				B1BF03D79762719793CC9F1A /* SLIPEncoding.cpp in Sources */,
-				B0D6F62C210638D9000A6F8E /* ofxDynamixelBaseServo.cpp in Sources */,
+				B0D6F62C210638D9000A6F8E /* ofxDynamixelServo.cpp in Sources */,
 				E4029ECB5B38A0B16AA4C898 /* StreamFilters.cpp in Sources */,
 				BFE92C3743ECA623B4D2F6A6 /* Thread.cpp in Sources */,
 				EA3F090FF2D25D87AF29F830 /* ThreadsafeLoggerChannel.cpp in Sources */,
 				790CD6606BE3D38A9AD52AF1 /* URIEncoding.cpp in Sources */,
 				3051FC0E8EA430C2E693DEBB /* snappy-c.cc in Sources */,
-				B0A050AA2107A6D800329C50 /* ofxGuiRW.cpp in Sources */,
 				D81A435CE7FDF51B41956210 /* snappy-sinksource.cc in Sources */,
 				1298066D39CE7EC3DA60256A /* snappy-stubs-internal.cc in Sources */,
 				868BEDC19B53FD512D7E3100 /* snappy.cc in Sources */,

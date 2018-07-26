@@ -24,17 +24,19 @@ void ofApp::setup() {
 	
 	servos.resize(1);
 	for(int i =0 ; i < servos.size(); i++){
-		servos[i] = make_shared<ofxDynamixel::ServoGuiXL320>(); 
-		servos[i]->setup(i+1, connection);
+		servos[i] = make_shared<Servo<XL320>>(i+1, connection); 
+//		servos[i]->setup(i+1, connection);
+		servos[i]->createGui();
 		servos[i]->setTorqueEnabled(true);
 		//gui.add(servos[i]->parameters);
 	}
+	
 	for(int i =1 ; i < servos.size(); i++){
-		auto s = servos[i -1]->panel.getShape();
-		servos[i]->panel.setPosition( s.getMaxX() + 10, s.y);
+		auto s = servos[i -1]->gui->panel.getShape();
+		servos[i]->gui->panel.setPosition( s.getMaxX() + 10, s.y);
 	}
 	for(auto& s: servos){
-		s->updateEeprom();
+		s->gui->updateEeprom();
 	}
 //	params.setup();
 //	gui.add(params.parameters);
@@ -46,7 +48,7 @@ void ofApp::update() {
 	for(auto& s: servos){
 ////		s->updateCurrentSpeed();
 ////		s->updateCurrentPosition();
-		s->update();
+		s->gui->update();
 	}			
 }
 
@@ -55,7 +57,7 @@ void ofApp::draw() {
 
 	
 	for(auto& s: servos){
-		s->panel.draw();
+		s->gui->panel.draw();
 	}	
 	
 //	gui.draw();
@@ -83,9 +85,9 @@ void ofApp::exit(){
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key) {
 	if(key == OF_KEY_LEFT){
-		servos[0]->P_goalPosition.writeParam--;
+//		servos[0]->P_goalPosition.writeParam--;
 	}else if(key == OF_KEY_RIGHT){
-		servos[0]->P_goalPosition.writeParam++;
+//		servos[0]->P_goalPosition.writeParam++;
 	}else if(key == OF_KEY_UP){
 		(++index)%= servos.size();
 	}else if(key == OF_KEY_DOWN){
