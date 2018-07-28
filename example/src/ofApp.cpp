@@ -19,22 +19,25 @@ void ofApp::setup() {
 		cout << "connection opened!" << endl;
 	}else{
 		cout << "connection failed to opened!" << endl;
+		ofExit();
 	}
 	
 	
 	servos.resize(1);
 	for(int i =0 ; i < servos.size(); i++){
-		servos[i] = make_shared<Servo<XL320>>(i+1, connection); 
+		servos[i] = make_shared<Servo<XL430>>(i+1, connection); 
 //		servos[i]->setup(i+1, connection);
 		servos[i]->createGui();
-		servos[i]->setTorqueEnabled(true);
+		servos[i]->setTorqueEnabled(false);
 		//gui.add(servos[i]->parameters);
 	}
 	
-	for(int i =1 ; i < servos.size(); i++){
-		auto s = servos[i -1]->gui->panel.getShape();
-		servos[i]->gui->panel.setPosition( s.getMaxX() + 10, s.y);
-	}
+	
+	
+//	for(int i =1 ; i < servos.size(); i++){
+//		auto s = servos[i -1]->gui->panel.getShape();
+//		servos[i]->gui->panel.setPosition( s.getMaxX() + 10, s.y);
+//	}
 	for(auto& s: servos){
 		s->gui->updateEeprom();
 	}
@@ -48,7 +51,7 @@ void ofApp::update() {
 	for(auto& s: servos){
 ////		s->updateCurrentSpeed();
 ////		s->updateCurrentPosition();
-		s->gui->update();
+//		s->gui->update();
 	}			
 }
 
@@ -66,18 +69,12 @@ void ofApp::draw() {
 //	for(int i =0 ; i < servos.size(); i++){
 //		ss << servos[i]->presentPosition() << endl; 
 //	}
-	ss << "INDEX: " << index << endl;	
-	ofDrawBitmapString(ss.str(), 20, ofGetHeight() - 100);
-	if(!fullReport.empty()){
-		ofDrawBitmapStringHighlight(fullReport, 300, 30);
-	
-	}
 }
 //--------------------------------------------------------------
 void ofApp::exit(){
-	cout << __PRETTY_FUNCTION__ << endl;
+//	cout << __PRETTY_FUNCTION__ << endl;
 	for(int i =0 ; i < servos.size(); i++){
-		servos[i]->setTorqueEnabled(false);
+//		servos[i]->setTorqueEnabled(false);
 	}
 	connection->closePort();
 	
@@ -107,17 +104,16 @@ void ofApp::keyPressed(int key) {
 			}
 		}
 	}else if(key == ' '){
-		for(auto& s: servos){
-			//		s->updateCurrentSpeed();
-			//		s->updateCurrentPosition();
-			s->setGoalPosition((uint16_t)floor(ofRandom(0, 1023)));
-//			s->update();
-		}
-//		fullReport = "";
-//		for(auto&s: servos){
-////			fullReport += s->getFullReportString();
-//			fullReport += "----------------------------\n";
+//		for(auto& s: servos){
+//			s->setGoalPosition((uint16_t)floor(ofRandom(0, 1023)));
 //		}
+		
+		servos[0]->setId(3);
+		
+	}else if(key == 'u'){
+		for(auto& s: servos){
+			s->gui->updateEeprom();
+		}
 	}
 }
 

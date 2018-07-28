@@ -9,3 +9,8 @@
 #pragma once
 #include "ofxDynamixelConnection.h"
 #include "ofxDynamixelServo.h"
+#include "ofxDynamixelServoGui.h"
+
+
+#include "ofxDynamixelAX12+.h"
+#include "ofxDynamixelXL320.h"

@@ -3,7 +3,7 @@
 #include "ofxDynamixelControlTables.h"
 #include "ofxDynamixelConstants.h"
 #include "ofxDynamixelServo.h"
-
+#include "ofxDynamixelServosModels.h"
 
 namespace ofxDynamixel{
 	
@@ -17,28 +17,22 @@ namespace ofxDynamixel{
 		readParams.setup("Read Params");
 		
 		panel.setup(servo->model.getModelName()+"_"+ofToString((int)servo->getId()), "settings.xml");
-		
-		
+		panel.setSize(350, 200);
+		panel.setWidthElements(350);
+		panel.setDefaultWidth(350);
 		// agregar parametros desde servo->model;
 		//*
 		
 		
 		for(auto s: servo->model.table){
 //			auto p8 =  dynamic_cast<Reg8*>(s.second);
-			auto p8 =  dynamic_cast<Reg8*>(s);
-			if(p8){
-				addParam(p8);
-//				panel.add(p8->value);
-//				std::cout << p8->value.getName() << std::endl;
-			}
-			else{
-//				auto p16 = dynamic_cast<Reg16*>(s.second);
-				auto p16 = dynamic_cast<Reg16*>(s);
-				if(p16){
-					addParam(p16);
-//					panel.add(p16->value);
-//					std::cout << p16->value.getName() << std::endl;
-				}
+		
+			if(s->length == 1){
+				addParam(dynamic_cast<Reg8* >(s));
+			}else if(s->length == 2){
+				addParam(dynamic_cast<Reg16* >(s));
+			}else if(s->length == 4){
+				addParam(dynamic_cast<Reg32*>(s));
 			}
 		}
 //*/		
@@ -46,7 +40,8 @@ namespace ofxDynamixel{
 		panel.add(&ramParams);
 		panel.add(&readParams);
 		
-		
+//		panel.setSize(350, 200);
+		panel.setWidthElements(350);
 		eepromParams.minimize();
 		//	printGuiGroup(&panel);
 		panel.loadFromFile("settings.xml");
@@ -73,6 +68,7 @@ namespace ofxDynamixel{
 		//		listeners.push(P_dGain.writeParam.newListener([this](uint8_t&){this->updatePID();}));
 		//		listeners.push(P_iGain.writeParam.newListener([this](uint8_t&){this->updatePID();}));
 		//		listeners.push(P_pGain.writeParam.newListener([this](uint8_t&){this->updatePID();}));
+				
 	}
 	
 	template<typename Model>
@@ -89,54 +85,34 @@ namespace ofxDynamixel{
 		//	P_pGain.readOnlyParam = 	this->getPGain();
 	}
 	template<typename Model>
-	void ServoGui<Model>::updateEeprom(){
-		//		R_modelNumber = this->getModelNumber();		
-		//		R_firmwareVersion = this->getFirmwareVersion(); //uint8_t    
-		//		P_baudRate.readOnlyParam = 	this->getBaudRate(); //uint8_t    
-		//		P_returnDelayTime.readOnlyParam = 	this->getReturnDelayTime(); //uint8_t    
-		//		P_cwAngleLimit.readOnlyParam = 	this->getCwAngleLimit(); //uint16_t   
-		//		P_ccwAngleLimit.readOnlyParam = 	this->getCcwAngleLimit(); //uint16_t   
-		//		P_controlMode.readOnlyParam = 	this->getControlMode(); //uint8_t    
-		//		P_temperatureLimit.readOnlyParam = 	this->getTemperatureLimit(); //uint8_t    
-		//		P_minVoltageLimit.readOnlyParam = 	this->getMinVoltageLimit(); //uint8_t    
-		//		P_maxVoltageLimit.readOnlyParam = 	this->getMaxVoltageLimit(); //uint8_t    
-		//		P_maxTorque.readOnlyParam = 	this->getMaxTorque(); //uint16_t   
-		//		P_statusReturnLevel.readOnlyParam = 	this->getStatusReturnLevel(); //uint8_t    
-		//		P_shutdown.readOnlyParam = 	this->getShutdown(); //uint8_t    
+	void ServoGui<Model>::updateEeprom(){		
+		auto s = getServo();
+		if(s){
+			for( auto param: s->model.table){
+				if(param->bEeprom){
+					s->readDataTo(param);
+				}
+			}
+		}
 	}
 	template<typename Model>
 	void ServoGui<Model>::updateRAM(){
 		
-		//P_torqueEnabled.readOnlyParam = 	this->getTorqueEnabled();
-		//P_ledStatus.readOnlyParam = 	this->getLedStatus();
-		
-		//P_goalPosition.readOnlyParam = 	this->getGoalPosition();
-		//P_goalSpeed.readOnlyParam = 	this->getGoalSpeed();
-		//P_torqueLimit.readOnlyParam = 	this->getTorqueLimit();
-		//P_punch.readOnlyParam = 	this->getPunch();
-		
-		
-		//		R_presentPosition = this->getPresentPosition();
-		//		R_presentSpeed = this->getPresentSpeed();
-		//		R_presentLoad = this->getPresentLoad();
-		//		P_goalPosition.readOnlyParam = 	R_presentPosition.get();
-		//		P_goalSpeed.readOnlyParam = 	R_presentSpeed.get();
-		
-		
-		//R_presentVoltage = this->getPresentVoltage();
-		//R_presentTemperature = this->getPresentTemperature();
-		//R_registered = this->getRegistered();
-		//		R_moving = this->getMoving();
-		//		R_hardwareErrorStatus = this->getHardwareErrorStatus();
-		
-		
+		auto s = getServo();
+		if(s){
+			for( auto param: s->model.table){
+				if(!param->bEeprom){
+					s->readDataTo(param);
+				}
+			}
+		}
 	}
 	//-------------------------------------------------------------------------------------------------------------------		
 	
 	
 	//	template class ServoGui<AX12>;
 	template class ServoGui<XL320>;
-	
+	template class ServoGui<XL430>;
 	
 	
 

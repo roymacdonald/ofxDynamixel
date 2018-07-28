@@ -42,10 +42,10 @@ public:
 	
 protected:
 	template<typename T>
-	void addParam(regStruct<T>* r){
+	void addParam(dxlParameter<T>* r){
 		if(r){
 			if(r->bReadOnly){
-				auto s = new ofxReadOnlySlider<T>(r->R_value, 200, 16);
+				auto s = new ofxReadOnlySlider<T>(r->R_value, 350, 16);
 				s->showName();
 				readParams.add(s);
 			}else{
@@ -54,12 +54,14 @@ protected:
 				
 				if(std::is_arithmetic<T>::value){
 					g->add(r->W_value);
-					g->add(new ofxReadOnlySlider<T>(r->R_value));
+					g->add(new ofxReadOnlySlider<T>(r->R_value, 350));
 					if(r->bEeprom){
 						eepromParams.add(g);
 					}else{
 						ramParams.add(g);
 					}
+				}else{
+					std::cout << "cant add non arithmetic param" << std::endl; 
 				}
 			}
 		}
