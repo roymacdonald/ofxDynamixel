@@ -40,6 +40,18 @@ namespace ofxDynamixel {
 
 		}
 
+		
+		void addBool(dxlParameter<bool>& s, uint16_t a, std::string n, bool iVal, bool readOnly, bool eeprom){
+			s.set(a, n, iVal, readOnly, eeprom);
+			listeners.push(s.changeEvent.newListener([&](dxlEventType& e){
+				ofNotifyEvent(paramChangeEvent, e, this);
+			}));
+			
+			table.push_back(&s);
+			std::cout << "added bool to table" << std::endl;
+		}
+		
+		
 		template<typename ValType>
 		void add(dxlParameter<ValType>& s, uint16_t a, std::string n, ValType iVal, ValType mn, ValType mx, bool readOnly, bool eeprom){
 			s.set(a, n, iVal, mn, mx, readOnly, eeprom);

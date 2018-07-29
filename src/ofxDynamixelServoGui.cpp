@@ -27,7 +27,10 @@ namespace ofxDynamixel{
 		for(auto s: servo->model.table){
 //			auto p8 =  dynamic_cast<Reg8*>(s.second);
 		
-			if(s->length == 1){
+			if(s->getType() == typeid(bool).name()){
+//				std::cout << "add boolean" << std::endl;
+				addParam(dynamic_cast<RegBool* >(s));			
+			}else if(s->length == 1){
 				addParam(dynamic_cast<Reg8* >(s));
 			}else if(s->length == 2){
 				addParam(dynamic_cast<Reg16* >(s));

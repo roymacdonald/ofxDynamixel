@@ -49,17 +49,14 @@ void ofxReadOnlySlider<Type>::generateText(){
 	}
 }
 
+
 template<typename Type>
-void ofxReadOnlySlider<Type>::showName(){
-	bShowName = true;
-	this->setNeedsRedraw();
-	
-}
-template<typename Type>
-void ofxReadOnlySlider<Type>::hideName(){
-	bShowName = false;
+void ofxReadOnlySlider<Type>::setShowName(bool showName){
+	bShowName = showName;
 	this->setNeedsRedraw();
 }
+
+
 
 template class ofxReadOnlySlider<int8_t>;
 template class ofxReadOnlySlider<uint8_t>;

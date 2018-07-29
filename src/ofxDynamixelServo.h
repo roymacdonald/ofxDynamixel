@@ -93,7 +93,7 @@ class ServoGui;
 		
 		
 		template<typename ValType>
-		int readDataTo(dxlParameter<ValType>* param){
+		int readDataTo(dxlParameter<ValType>* param, bool bUpdateWriteParam = false){
 			if(!param){
 				std::cout << "readDataTo(dxlParameter<ValType>* param)   nullptr param! " << std::endl;
 				return;
@@ -116,6 +116,12 @@ class ServoGui;
 					}else if(param->length == 4){
 						param->R_value = DXL_MAKEDWORD(DXL_MAKEWORD(data_read[0], data_read[1]), DXL_MAKEWORD(data_read[2], data_read[3]));
 					}
+					if(!param->bReadOnly && bUpdateWriteParam){
+						param->W_value.setWithoutEventNotifications(param->R_value.get());
+					
+					}
+					
+					
 				}
 				//return comm_result;
 
@@ -126,17 +132,17 @@ class ServoGui;
 			return comm_result;
 		}
 		template<typename ValType>
-		int readDataTo(dxlParameter<ValType>& param){
-			return readDataTo(&param);
+		int readDataTo(dxlParameter<ValType>& param, bool bUpdateWriteParam = false){
+			return readDataTo(&param, bUpdateWriteParam);
 		}
 		
-		int readDataTo(baseDxlParameter* param){
+		int readDataTo(baseDxlParameter* param,  bool bUpdateWriteParam = false){
 			if(param->length == 1){
-				readDataTo(dynamic_cast<dxlParameter<uint8_t>* >(param));
+				readDataTo(dynamic_cast<dxlParameter<uint8_t>* >(param), bUpdateWriteParam);
 			}else if(param->length == 2){
-				readDataTo(dynamic_cast<dxlParameter<uint16_t>* >(param));
+				readDataTo(dynamic_cast<dxlParameter<uint16_t>* >(param), bUpdateWriteParam);
 			}else if(param->length == 4){
-				readDataTo(dynamic_cast<dxlParameter<uint32_t>* >(param));
+				readDataTo(dynamic_cast<dxlParameter<uint32_t>* >(param), bUpdateWriteParam);
 			}
 		}
 		
@@ -148,6 +154,8 @@ class ServoGui;
 		int writeData2B(int address, uint16_t dataChange);
 		int writeData4B(int address, uint32_t dataChange);
 		
+		
+		void updateAllParamsFromServo();
 		
 		uint16_t   getModelNumber();         // Model Number                        R
 		uint8_t    getFirmwareVersion();     // Firmware Version                    R

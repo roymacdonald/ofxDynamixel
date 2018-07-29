@@ -44,10 +44,10 @@ Reg32 velocityLimit;     // 44, "Maximum Velocity Limit"                    | RW
 Reg32 maxPositionLimit;  // 48, "Maximum Position Limit"                    | RW | 4,095 |
 Reg32 minPositionLimit;  // 52, "Minimum Position Limit"                    | RW | 0     |
 Reg8 shutdown;          // 63, "Shutdown Error Information"                | RW | 52    |
-Reg8  torqueEnabled;          // 64,  "Motor Torque On/Off                              | RW  | 0    |// ## controlTableOfRamArea
-Reg8  led;                   // 65,  "Status LED On/Off                                | RW  | 0    |
+RegBool  torqueEnabled;          // 64,  "Motor Torque On/Off                              | RW  | 0    |// ## controlTableOfRamArea
+RegBool  led;                   // 65,  "Status LED On/Off                                | RW  | 0    |
 Reg8  statusReturnLevel;     // 68,  "Select Types of Status Return                    | RW  | 2    |
-Reg8  registeredInstruction; // 69,  "Check Reception of Instruction                   | R   | 0    |
+RegBool  registeredInstruction; // 69,  "Check Reception of Instruction                   | R   | 0    |
 Reg8  hardwareErrorStatus;   // 70,  "Hardware Error Status                            | R   | 0    |
 Reg16  velocityIGain;         // 76,  "I Gain of Velocity                               | RW  | 1000 |
 Reg16  velocityPGain;         // 78,  "P Gain of Velocity                               | RW  | 100  |
@@ -63,7 +63,7 @@ Reg32  profileAcceleration;   // 108,  "Acceleration Value of Profile           
 Reg32  profileVelocity;       // 112,  "Velocity Value of Profile                        | RW  | 0    |
 Reg32  goalPosition;          // 116,  "Desired Position Value                           | RW  |      |
 Reg16  realtimeTick;          // 120,  "Count Time in millisecond                        | R   |      |
-Reg8  moving;                // 122,  "Movement Status                                  | R   | 0    |
+RegBool  moving;                // 122,  "Movement Status                                  | R   | 0    |
 Reg8  movingStatus;          // 123,  "Detailed Information of Movement Status          | R   | 0    |
 Reg16  presentPwm;            // 124,  "Present PWM Value                                | R   |      |
 Reg16  presentLoad;           // 126,  "Present Load Value                               | R   |      |

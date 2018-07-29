@@ -35,10 +35,11 @@ namespace ofxDynamixel {
 		bool bEeprom = false;
 		uint8_t length = 0;
 		
+		const std::string& getType(){
+			return type;
+		}
 	protected:
-		
-		
-		
+		std::string type;
 	};
 	
 	struct dxlEventType{
@@ -56,51 +57,72 @@ namespace ofxDynamixel {
 		ofParameter<ValType> R_value;
 		dxlParameter<ValType>(){
 			length = sizeof(ValType);
+			type = typeid(ValType).name();
 		}
-		
-		void set(uint16_t a, std::string n, ValType iVal, ValType mn, ValType mx, bool readOnly, bool eeprom){
+		void set(uint16_t a, std::string n, ValType iVal, bool readOnly, bool eeprom){
 			baseDxlParameter::set(a, n, readOnly, eeprom);
 			length = sizeof(ValType);
-			R_value.set(n + "_R", iVal, mn, mx);
+			R_value.set(n + "_R", iVal);
+		
+//			std::cout << n << "   type: " << type << std::endl; 
 			if(!bReadOnly){
-				W_value.set(n+ "_W", iVal, mn, mx);
-				listener = W_value.newListener([&](ValType& v){
-					dxlEventType e;
-					e.data = v;
-					e.address = address;
-					e.length = length;
-					ofNotifyEvent(changeEvent, e, this);
-				});
+				W_value.set(n+ "_W", iVal);
+				listener = W_value.newListener(this, &dxlParameter::valChanged);
 			}
-			type = typeid(*this).name();
-			
 		}
+		 
+		void set(uint16_t a, std::string n, ValType iVal, ValType mn, ValType mx, bool readOnly, bool eeprom){
+			set(a, n, iVal, readOnly, eeprom);
+			R_value.setMin( mn);
+			R_value.setMax( mx);
+			if(!bReadOnly){
+				W_value.setMin( mn);
+				W_value.setMax( mx);
+			}
+			
+			//			baseDxlParameter::set(a, n, readOnly, eeprom);
+//			length = sizeof(ValType);
+//			R_value.set(n + "_R", iVal, mn, mx);
+//			if(!bReadOnly){
+//				W_value.set(n+ "_W", iVal);
+//				listener = W_value.newListener(this, &dxlParameter::valChanged);
+//			}
+//			type = typeid(*this).name();
+		}
+		void valChanged(ValType& v){
+			dxlEventType e;
+			e.data = v;
+			e.address = address;
+			e.length = length;
+			ofNotifyEvent(changeEvent, e, this);
+		}
+		
+		
 		virtual void set(uint16_t a, std::string n, bool readOnly, bool eeprom){
 			set(a, n, 0, 0, std::numeric_limits<ValType>::max(), readOnly, eeprom);
 		}
-		dxlParameter<ValType>(uint16_t a, std::string n, ValType iVal, ValType mn, ValType mx, bool readOnly, bool eeprom){
+		
+		dxlParameter<ValType>(uint16_t a, std::string n, ValType iVal, ValType mn, ValType mx, bool readOnly, bool eeprom):dxlParameter<ValType>(){
 			set(a, n, iVal, mn, mx, readOnly, eeprom);
 			//			std::cout << __PRETTY_FUNCTION__ << "  " << n << " , " << iVal << " , " << mn << " , " << mx << std::endl;
 		}
-		dxlParameter<ValType>(uint16_t a, std::string n, bool readOnly, bool eeprom){
+		dxlParameter<ValType>(uint16_t a, std::string n, bool readOnly, bool eeprom):dxlParameter<ValType>(){
 			set(a,n,readOnly, eeprom);
 		}
 		
-		const std::string& getType(){
-			return type;
-		}
+		
 		
 		ofEvent<dxlEventType> changeEvent;
 		
 	protected:
 		ofEventListener listener;
 	private:
-		std::string type;
+		
 		
 	};
 	
 	
-	
+	typedef dxlParameter<bool> RegBool;
 	typedef dxlParameter<uint8_t> Reg8;
 	typedef dxlParameter<uint16_t> Reg16;
 	typedef dxlParameter<uint32_t> Reg32;

@@ -45,7 +45,7 @@ namespace ofxDynamixel {
     
 	template<typename Model>
 	void Servo<Model>::onParamChange(dxlEventType& e){
-		std::cout << __PRETTY_FUNCTION__ << std::endl;
+//		std::cout << __PRETTY_FUNCTION__ << std::endl;
 		if(e.length == 1){
 			writeData1B(e.address, e.data);
 		}else if(e.length == 2){
@@ -203,7 +203,12 @@ namespace ofxDynamixel {
 	}
 
 	
-	
+	template<typename Model>
+	void Servo<Model>::updateAllParamsFromServo(){
+		for(auto t: model.table){
+			readDataTo(t, true);
+		}
+	}
 	
     template<typename Model> uint16_t Servo<Model>::getModelNumber(){         this->readDataTo(model.modelNumber);          return model.modelNumber.R_value; }
     template<typename Model> uint8_t  Servo<Model>::getFirmwareVersion(){     this->readDataTo(model.firmwareVersion);      return model.firmwareVersion.R_value; }
