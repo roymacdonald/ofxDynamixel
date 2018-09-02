@@ -69,6 +69,7 @@
 		B0AF4ADC210A54A1003FB510 /* ofxDynamixelAX12+.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0AF4ADA210A54A1003FB510 /* ofxDynamixelAX12+.cpp */; };
 		B0AF4ADE210A567B003FB510 /* ofxDynamixel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0AF4ADD210A567B003FB510 /* ofxDynamixel.cpp */; };
 		B0AF4AE2210A8B13003FB510 /* ofxDynamixelXL430.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0AF4AE0210A8B13003FB510 /* ofxDynamixelXL430.cpp */; };
+		B0AF4AE5210CE0CF003FB510 /* ofxGuiDXLToggle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0AF4AE3210CE0CF003FB510 /* ofxGuiDXLToggle.cpp */; };
 		B0D6F62C210638D9000A6F8E /* ofxDynamixelServo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0D6F62A210638D9000A6F8E /* ofxDynamixelServo.cpp */; };
 		B1BF03D79762719793CC9F1A /* SLIPEncoding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1616DA13ECD5FC9DB4D5714 /* SLIPEncoding.cpp */; };
 		B266578FC55D23BFEBC042E7 /* ofxGuiGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ECF8674C7975F1063C5E30CA /* ofxGuiGroup.cpp */; };
@@ -353,6 +354,8 @@
 		B0AF4ADF210A5876003FB510 /* ofxDynamixelServosModels.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxDynamixelServosModels.h; path = ../src/ofxDynamixelServosModels.h; sourceTree = "<group>"; };
 		B0AF4AE0210A8B13003FB510 /* ofxDynamixelXL430.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxDynamixelXL430.cpp; path = ../src/Servos/ofxDynamixelXL430.cpp; sourceTree = "<group>"; };
 		B0AF4AE1210A8B13003FB510 /* ofxDynamixelXL430.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxDynamixelXL430.h; path = ../src/Servos/ofxDynamixelXL430.h; sourceTree = "<group>"; };
+		B0AF4AE3210CE0CF003FB510 /* ofxGuiDXLToggle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxGuiDXLToggle.cpp; path = ../src/gui/ofxGuiDXLToggle.cpp; sourceTree = "<group>"; };
+		B0AF4AE4210CE0CF003FB510 /* ofxGuiDXLToggle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxGuiDXLToggle.h; path = ../src/gui/ofxGuiDXLToggle.h; sourceTree = "<group>"; };
 		B0D6F62A210638D9000A6F8E /* ofxDynamixelServo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxDynamixelServo.cpp; path = ../src/ofxDynamixelServo.cpp; sourceTree = "<group>"; };
 		B0D6F62B210638D9000A6F8E /* ofxDynamixelServo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxDynamixelServo.h; path = ../src/ofxDynamixelServo.h; sourceTree = "<group>"; };
 		B1CC96657896D2F948104F3D /* seed.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = seed.h; path = ../../../addons/ofxPoco/libs/openssl/include/openssl/seed.h; sourceTree = SOURCE_ROOT; };
@@ -1052,6 +1055,8 @@
 				B0A050AC2107AA5F00329C50 /* ofxGuiGroupMinimal.h */,
 				B0A050B12108803000329C50 /* ofxReadOnlySlider.cpp */,
 				B0A050B22108803000329C50 /* ofxReadOnlySlider.h */,
+				B0AF4AE3210CE0CF003FB510 /* ofxGuiDXLToggle.cpp */,
+				B0AF4AE4210CE0CF003FB510 /* ofxGuiDXLToggle.h */,
 			);
 			name = GUI;
 			sourceTree = "<group>";
@@ -1432,6 +1437,7 @@
 				899BAF53175868463FE1B029 /* RecursiveDirectoryIteratorStategies.cpp in Sources */,
 				3C9A355A55D68A8E882FEF85 /* RegexPathFilter.cpp in Sources */,
 				1CC07C1A616F29EB8EEC3D21 /* SearchPath.cpp in Sources */,
+				B0AF4AE5210CE0CF003FB510 /* ofxGuiDXLToggle.cpp in Sources */,
 				B1BF03D79762719793CC9F1A /* SLIPEncoding.cpp in Sources */,
 				B0D6F62C210638D9000A6F8E /* ofxDynamixelServo.cpp in Sources */,
 				E4029ECB5B38A0B16AA4C898 /* StreamFilters.cpp in Sources */,
