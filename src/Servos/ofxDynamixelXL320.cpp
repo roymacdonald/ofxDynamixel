@@ -9,7 +9,7 @@
 #include "ofxDynamixelXL320.h"
 
 ofxDynamixel::XL320::XL320(){
-	//	std::cout << __PRETTY_FUNCTION__ << std::endl;
+//		std::cout << __PRETTY_FUNCTION__ << std::endl;
 	add<uint8_t >(firmwareVersion     ,  2 , "firmwareVersion"                        , true  , true);
 	add<uint8_t >(id                  ,  3 , "id"                  , 1    , 0 , 252   , false , true);
 	add<uint8_t >(baudRate            ,  4 , "baudRate"            , 3    , 0 ,    3  , false , true);

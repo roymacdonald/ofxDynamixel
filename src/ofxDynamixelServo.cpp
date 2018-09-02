@@ -58,6 +58,10 @@ namespace ofxDynamixel {
 	}
 	
 	
+	template<typename Model>
+	void Servo<Model>::updatePresentPosition(){
+		readDataTo(model.presentPosition);
+	}
     template<typename Model>
     uint8_t Servo<Model>::getId(){
         return this->id;

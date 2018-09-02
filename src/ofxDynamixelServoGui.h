@@ -54,10 +54,21 @@ protected:
 		group->add(s);
 		
 	}
+	template<typename T>
+	typename std::enable_if<std::is_arithmetic<T>::value, void >::type 
+	addOfParam(ofParameter<T>& param, ofxGuiGroupMinimal* group, bool showName){
+		auto s = new ofxReadOnlySlider<T>(param, DXL_GUI_WIDTH, 16);
+		s->setShowName(showName);
+		group->add(s);
+		
+	}
 	void addOfParam(ofParameter<bool>& param, ofxGuiGroup* group, bool showName){
-		group.add(new ofxGuiDXLToggle(param, DXL_GUI_WIDTH));
+		group->add(new ofxGuiDXLToggle(param, DXL_GUI_WIDTH));
 	}
 	
+	void addOfParam(ofParameter<bool>& param, ofxGuiGroupMinimal* group, bool showName){
+		group->add(new ofxGuiDXLToggle(param, DXL_GUI_WIDTH));
+	}
 	
 	template<typename T>
 	void addParam(dxlParameter<T>* r){
@@ -70,7 +81,7 @@ protected:
 			if(r->bReadOnly){
 				
 //				auto b = dynamic_cast<ofParameter<bool>* >(&r->R_value);
-				addOfParam(r->R_value, readParams,true);
+				addOfParam(r->R_value, &readParams,true);
 //				if(r->getType() == "b"){
 ////					std::cout << "bool R" << std::endl;
 //					auto R = dynamic_cast<ofParameter<bool>*>(&r->R_value);
@@ -103,9 +114,9 @@ protected:
 //						addOfParam(r->R_value, *g, false);
 //						g->add(new ofxReadOnlySlider<T>(r->R_value, DXL_GUI_WIDTH));
 					}else{
-						addOfParam(r->W_value, *g, true);
+						addOfParam(r->W_value, g, true);
 					}
-					addOfParam(r->R_value, *g, false);
+					addOfParam(r->R_value, g, false);
 					
 					if(r->bEeprom){
 						eepromParams.add(g);

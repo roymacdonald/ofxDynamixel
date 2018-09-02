@@ -48,7 +48,7 @@ namespace ofxDynamixel {
 			}));
 			
 			table.push_back(&s);
-			std::cout << "added bool to table" << std::endl;
+//			std::cout << "added bool to table" << std::endl;
 		}
 		
 		

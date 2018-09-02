@@ -95,7 +95,7 @@ class ServoGui;
 		template<typename ValType>
 		int readDataTo(dxlParameter<ValType>* param, bool bUpdateWriteParam = false){
 			if(!param){
-				std::cout << "readDataTo(dxlParameter<ValType>* param)   nullptr param! " << std::endl;
+				std::cout << typeid(model).name() <<  " readDataTo(dxlParameter<"<< typeid(ValType).name() << ">* param)   nullptr param! " << std::endl;
 				return;
 			}
 			if(param->length != 1 && param->length != 2 && param->length != 4){
@@ -154,7 +154,7 @@ class ServoGui;
 		int writeData2B(int address, uint16_t dataChange);
 		int writeData4B(int address, uint32_t dataChange);
 		
-		
+		void updatePresentPosition();
 		void updateAllParamsFromServo();
 		
 		uint16_t   getModelNumber();         // Model Number                        R
