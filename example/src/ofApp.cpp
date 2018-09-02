@@ -14,21 +14,24 @@ void ofApp::setup() {
 //	ofxGuiSetFont(fontSettings); 
 	//gui.setup();
 	
-	connection = make_shared<Connection>("/dev/tty.usbmodem1421", 2, 57600);
+	connection = make_shared<Connection>("/dev/tty.usbmodem1421", 2, 1000000);// 57600);
 	if(connection->open()){
 		cout << "connection opened!" << endl;
 	}else{
 		cout << "connection failed to opened!" << endl;
-		ofExit();
+//		ofExit();
 	}
 	
-	
+//	cout << typeid(dxlParameter<bool>).name() << endl;
+//	cout << typeid(dxlParameter<bool>*).name() << endl;
+//	cout << typeid(dxlParameter<bool>&).name() << endl;
 	servos.resize(1);
 	for(int i =0 ; i < servos.size(); i++){
-		servos[i] = make_shared<Servo<XL430>>(i+1, connection); 
+		servos[i] = make_shared<Servo<XL430>>(4, connection); 
 //		servos[i]->setup(i+1, connection);
 		servos[i]->createGui();
-		servos[i]->setTorqueEnabled(false);
+		servos[i]->setTorqueEnabled(true);
+		servos[i]->updateAllParamsFromServo();
 		//gui.add(servos[i]->parameters);
 	}
 	
@@ -52,6 +55,7 @@ void ofApp::update() {
 ////		s->updateCurrentSpeed();
 ////		s->updateCurrentPosition();
 //		s->gui->update();
+		s->readDataTo(s->model.presentPosition);
 	}			
 }
 
@@ -74,7 +78,7 @@ void ofApp::draw() {
 void ofApp::exit(){
 //	cout << __PRETTY_FUNCTION__ << endl;
 	for(int i =0 ; i < servos.size(); i++){
-//		servos[i]->setTorqueEnabled(false);
+		servos[i]->setTorqueEnabled(false);
 	}
 	connection->closePort();
 	
@@ -82,9 +86,9 @@ void ofApp::exit(){
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key) {
 	if(key == OF_KEY_LEFT){
-//		servos[0]->P_goalPosition.writeParam--;
+		servos[0]->model.goalPosition.W_value --;// P_goalPosition.writeParam--;
 	}else if(key == OF_KEY_RIGHT){
-//		servos[0]->P_goalPosition.writeParam++;
+		servos[0]->model.goalPosition.W_value ++;//->P_goalPosition.writeParam++;
 	}else if(key == OF_KEY_UP){
 		(++index)%= servos.size();
 	}else if(key == OF_KEY_DOWN){
@@ -104,11 +108,11 @@ void ofApp::keyPressed(int key) {
 			}
 		}
 	}else if(key == ' '){
-//		for(auto& s: servos){
-//			s->setGoalPosition((uint16_t)floor(ofRandom(0, 1023)));
-//		}
+		for(auto& s: servos){
+			s->setGoalPosition((uint16_t)floor(ofRandom(0, 1023)));
+		}
 		
-		servos[0]->setId(3);
+//		servos[0]->setId(3);
 		
 	}else if(key == 'u'){
 		for(auto& s: servos){
