@@ -21,16 +21,18 @@ namespace ofxDynamixel {
 	public:
 		baseDxlParameter(){}
 		virtual ~baseDxlParameter(){}
-		baseDxlParameter(uint16_t a, std::string n, bool readOnly, bool eeprom): address(a), name(n),bReadOnly(readOnly), bEeprom(eeprom){}
-		virtual void set(uint16_t a, std::string n, bool readOnly, bool eeprom){
+		baseDxlParameter(uint16_t a, std::string n, bool readOnly, bool eeprom, std::string g): address(a), name(n),bReadOnly(readOnly), bEeprom(eeprom),groupHierarchy(g){}
+		virtual void set(uint16_t a, std::string n, bool readOnly, bool eeprom, std::string groupHierarchy){
 			address = a;
 			name = n;
 			bReadOnly = readOnly;
 			bEeprom = eeprom;
+			this->groupHierarchy = groupHierarchy;
 		}
 		
 		uint16_t address;
 		std::string name;
+		std::string groupHierarchy;
 		bool bReadOnly = false;
 		bool bEeprom = false;
 		uint8_t length = 0;
@@ -59,8 +61,8 @@ namespace ofxDynamixel {
 			length = sizeof(ValType);
 			type = typeid(ValType).name();
 		}
-		void set(uint16_t a, std::string n, ValType iVal, bool readOnly, bool eeprom){
-			baseDxlParameter::set(a, n, readOnly, eeprom);
+		void set(uint16_t a, std::string n, ValType iVal, bool readOnly, bool eeprom, std::string groupHierachy){
+			baseDxlParameter::set(a, n, readOnly, eeprom,groupHierachy);
 			length = sizeof(ValType);
 			R_value.set(n + "_R", iVal);
 		
@@ -71,8 +73,8 @@ namespace ofxDynamixel {
 			}
 		}
 		 
-		void set(uint16_t a, std::string n, ValType iVal, ValType mn, ValType mx, bool readOnly, bool eeprom){
-			set(a, n, iVal, readOnly, eeprom);
+		void set(uint16_t a, std::string n, ValType iVal, ValType mn, ValType mx, bool readOnly, bool eeprom, std::string groupHierachy){
+			set(a, n, iVal, readOnly, eeprom,groupHierachy);
 			R_value.setMin( mn);
 			R_value.setMax( mx);
 			if(!bReadOnly){
@@ -98,16 +100,16 @@ namespace ofxDynamixel {
 		}
 		
 		
-		virtual void set(uint16_t a, std::string n, bool readOnly, bool eeprom){
-			set(a, n, 0, 0, std::numeric_limits<ValType>::max(), readOnly, eeprom);
+		virtual void set(uint16_t a, std::string n, bool readOnly, bool eeprom, std::string groupHierachy){
+			set(a, n, 0, 0, std::numeric_limits<ValType>::max(), readOnly, eeprom, groupHierachy);
 		}
 		
-		dxlParameter<ValType>(uint16_t a, std::string n, ValType iVal, ValType mn, ValType mx, bool readOnly, bool eeprom):dxlParameter<ValType>(){
-			set(a, n, iVal, mn, mx, readOnly, eeprom);
+		dxlParameter<ValType>(uint16_t a, std::string n, ValType iVal, ValType mn, ValType mx, bool readOnly, bool eeprom, std::string groupHierachy):dxlParameter<ValType>(){
+			set(a, n, iVal, mn, mx, readOnly, eeprom, groupHierachy);
 			//			std::cout << __PRETTY_FUNCTION__ << "  " << n << " , " << iVal << " , " << mn << " , " << mx << std::endl;
 		}
-		dxlParameter<ValType>(uint16_t a, std::string n, bool readOnly, bool eeprom):dxlParameter<ValType>(){
-			set(a,n,readOnly, eeprom);
+		dxlParameter<ValType>(uint16_t a, std::string n, bool readOnly, bool eeprom, std::string groupHierachy):dxlParameter<ValType>(){
+			set(a,n,readOnly, eeprom, groupHierachy);
 		}
 		
 		

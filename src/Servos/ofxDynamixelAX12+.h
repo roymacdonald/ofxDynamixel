@@ -10,7 +10,7 @@
 #include "ofxDynamixelControlTables.h"
 
 namespace ofxDynamixel {
-
+/*
 	class AX12: public DXLBaseControlTable {
 	public:
 		AX12();
@@ -51,5 +51,5 @@ namespace ofxDynamixel {
 		
 		
 	};
-
+//*/
 }

@@ -18,7 +18,7 @@ public:
 	XL320();		
 	
 	
-	virtual std::string getModelName(){ return  "XL320";}
+	virtual std::string getModelName() override{ return  "XL320";}
 	
 //	Reg16 modelNumber;          // 0 , "modelNumber"                           , true
 	Reg8  firmwareVersion;      // 2 , "firmwareVersion"                       , true 
@@ -36,7 +36,7 @@ public:
 	Reg16 maxTorque;            //   15 , "maxTorque"         , 1023 , 0  , 1023 , false,  2 bytes,  Maximun Torque
 	Reg8 statusReturnLevel;     //   17 , "statusReturnLevel" , 2    , 0  , 2    , false,  1 bytes,  Select Types of Status Return
 	Reg8 shutdown;              //   18 , "shutdown"          , 3    , 0  , 7    , false,  1 bytes,  Shutdown Error Information
-	Reg8 torqueEnabled;         //   24 , "torqueEnable"      , 0    , 0  , 1    , false,  1 bytes,  Motor Torque On/Off
+	RegBool torqueEnabled;         //   24 , "torqueEnable"      , 0    , 0  , 1    , false,  1 bytes,  Motor Torque On/Off
 	Reg8 led;                   //   25 , "led"               , 0    , 0  , 7    , false,  1 bytes,  Status LED On/Off
 	Reg8 dGain;                 //   27 , "dGain"             , 0    , 0  , 254  , false,  1 bytes,  Derivative Gain
 	Reg8 iGain;                 //   28 , "iGain"             , 0    , 0  , 254  , false,  1 bytes,  Integral Gain

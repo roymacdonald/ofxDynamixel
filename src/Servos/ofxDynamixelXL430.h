@@ -19,7 +19,7 @@ namespace ofxDynamixel {
 		
 
 		
-		virtual std::string getModelName(){ return  "XL430";}
+		virtual std::string getModelName() override{ return  "XL430";}
 
 //| Address | Size<br>(Byte) | Data Name                  | Description                                      | Access | Initial<br />Value |
 		

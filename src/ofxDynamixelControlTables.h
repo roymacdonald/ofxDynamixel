@@ -32,17 +32,17 @@ namespace ofxDynamixel {
 		
 	protected:
 		template<typename ValType>
-		void add(dxlParameter<ValType>& s, uint16_t a, std::string n, bool readOnly, bool eeprom){
+		void add(dxlParameter<ValType>& s, uint16_t a, std::string n, bool readOnly, bool eeprom, std::string groupHierarchy){
 
-			s.set(a,n, readOnly, eeprom);
+			s.set(a,n, readOnly, eeprom, groupHierarchy);
 			
 			table.push_back(&s);
 
 		}
 
 		
-		void addBool(dxlParameter<bool>& s, uint16_t a, std::string n, bool iVal, bool readOnly, bool eeprom){
-			s.set(a, n, iVal, readOnly, eeprom);
+		void addBool(dxlParameter<bool>& s, uint16_t a, std::string n, bool iVal, bool readOnly, bool eeprom, std::string groupHierarchy){
+			s.set(a, n, iVal, readOnly, eeprom,groupHierarchy);
 			listeners.push(s.changeEvent.newListener([&](dxlEventType& e){
 				ofNotifyEvent(paramChangeEvent, e, this);
 			}));
@@ -53,8 +53,8 @@ namespace ofxDynamixel {
 		
 		
 		template<typename ValType>
-		void add(dxlParameter<ValType>& s, uint16_t a, std::string n, ValType iVal, ValType mn, ValType mx, bool readOnly, bool eeprom){
-			s.set(a, n, iVal, mn, mx, readOnly, eeprom);
+		void add(dxlParameter<ValType>& s, uint16_t a, std::string n, ValType iVal, ValType mn, ValType mx, bool readOnly, bool eeprom, std::string groupHierarchy){
+			s.set(a, n, iVal, mn, mx, readOnly, eeprom,groupHierarchy);
 			listeners.push(s.changeEvent.newListener([&](dxlEventType& e){
 				ofNotifyEvent(paramChangeEvent, e, this);
 			}));

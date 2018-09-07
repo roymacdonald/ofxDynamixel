@@ -11,27 +11,31 @@
 #include "ofGraphics.h"
 using namespace std;
 
-ofxGuiDXLToggle::ofxGuiDXLToggle(ofParameter<bool> _bVal, float width, float height){
-	setup(_bVal,width,height);
+ofxGuiDXLToggle::ofxGuiDXLToggle(ofParameter<bool> _bVal, bool bShowName, bool bIsReadOnly, float width, float height){
+	setup(_bVal,bShowName, bIsReadOnly, width,height);
 }
 
 //ofxGuiDXLToggle::~ofxGuiDXLToggle(){
 ////	value.removeListener(this,&ofxGuiDXLToggle::valueChanged);
 //}
 
-ofxGuiDXLToggle * ofxGuiDXLToggle::setup(ofParameter<bool> _bVal, float width, float height){
+ofxGuiDXLToggle * ofxGuiDXLToggle::setup(ofParameter<bool> _bVal, bool bShowName, bool bIsReadOnly, float width, float height){
 	ofxToggle::setup(_bVal, width, height);
 	checkboxRect.set(1, 1, b.height - 2, b.height - 2);
-	
+	this->bShowName = bShowName;
+	this->bIsReadOnly = bIsReadOnly;
+	if(bIsReadOnly){
+		unregisterMouseEvents();
+	}
 	setNeedsRedraw();
 	
 	return this;
 	
 }
 
-ofxGuiDXLToggle * ofxGuiDXLToggle::setup(const std::string& toggleName, bool _bVal, float width, float height){
+ofxGuiDXLToggle * ofxGuiDXLToggle::setup(const std::string& toggleName, bool _bVal, bool bShowName, bool bIsReadOnly, float width, float height){
 	value.set(toggleName,_bVal);
-	return setup(value,width,height);
+	return setup(value,bShowName, bIsReadOnly, width,height);
 }
 
 void ofxGuiDXLToggle::generateDraw(){
@@ -78,6 +82,7 @@ void ofxGuiDXLToggle::render(){
 ////		cross.draw();
 //	}
 	
+	if(bShowName ){
 	ofColor c = ofGetStyle().color;
 	ofBlendMode blendMode = ofGetStyle().blendingMode;
 	if(blendMode!=OF_BLENDMODE_ALPHA){
@@ -88,10 +93,10 @@ void ofxGuiDXLToggle::render(){
 	bindFontTexture();
 	textMesh.draw();
 	unbindFontTexture();
-	
 	ofSetColor(c);
 	if(blendMode!=OF_BLENDMODE_ALPHA){
 		ofEnableBlendMode(blendMode);
+	}
 	}
 }
 

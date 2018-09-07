@@ -9,14 +9,20 @@ namespace ofxDynamixel{
 	
 	template<typename Model>
 	void ServoGui<Model>::setup(std::shared_ptr<Servo<Model>> servo, std::shared_ptr<Connection> connection){
-		//std::cout << __PRETTY_FUNCTION__ << std::endl;
+//		std::cout << __PRETTY_FUNCTION__ << std::endl;
 		this->servo = servo;
 		//	parameters.setName("ServoGuiParams");
-		eepromParams.setup("EEPROM Params");
-		ramParams.setup("RAM Params");
-		readParams.setup("Read Params");
+//		eepromParams.setup("EEPROM Params");
+//		ramParams.setup("RAM Params");
+//		readParams.setup("Read Params");
 		
 		panel.setup(servo->model.getModelName()+"_"+ofToString((int)servo->getId()), "settings.xml");
+		panel.add(reboot.set("reboot"));
+		
+		listeners.push(reboot.newListener([&](){
+			servo->reboot();
+		}));
+		
 		panel.setSize(350, 200);
 		panel.setWidthElements(350);
 		panel.setDefaultWidth(350);
@@ -39,13 +45,14 @@ namespace ofxDynamixel{
 			}
 		}
 //*/		
-		panel.add(&eepromParams);
-		panel.add(&ramParams);
-		panel.add(&readParams);
+//		panel.add(&eepromParams);
+//		panel.add(&ramParams);
+//		panel.add(&readParams);
 		
 //		panel.setSize(350, 200);
+		
 		panel.setWidthElements(350);
-		eepromParams.minimize();
+//		eepromParams.minimize();
 		//	printGuiGroup(&panel);
 		panel.loadFromFile("settings.xml");
 		
@@ -88,7 +95,8 @@ namespace ofxDynamixel{
 		//	P_pGain.readOnlyParam = 	this->getPGain();
 	}
 	template<typename Model>
-	void ServoGui<Model>::updateEeprom(){		
+	void ServoGui<Model>::updateEeprom(){
+//		std::cout << __PRETTY_FUNCTION__ << std::endl; 
 		auto s = getServo();
 		if(s){
 			for( auto param: s->model.table){
@@ -100,7 +108,7 @@ namespace ofxDynamixel{
 	}
 	template<typename Model>
 	void ServoGui<Model>::updateRAM(){
-		
+//		std::cout << __PRETTY_FUNCTION__ << std::endl;
 		auto s = getServo();
 		if(s){
 			for( auto param: s->model.table){

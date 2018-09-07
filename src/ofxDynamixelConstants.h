@@ -4,6 +4,8 @@
 
 #define ENABLE_GUI_UPDATE
 
+#define PRETTYPRINT std::cout << __PRETTY_FUNCTION__ << std::endl;
+
 
 namespace ofxDynamixel {
 	

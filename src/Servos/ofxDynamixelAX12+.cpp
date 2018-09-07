@@ -8,7 +8,7 @@
 
 #include "ofxDynamixelAX12+.h"
 
-
+/*
 ofxDynamixel::AX12::AX12(){
 	
 	add<uint8_t >(firmwareVersion     ,  2 , "firmwareVersion"                        , true  , true);
@@ -47,3 +47,4 @@ ofxDynamixel::AX12::AX12(){
 	add<uint16_t> (punch              , 48 , "punch"               , false, false); // 2 bytes.  Minimum Current Threshold          | RW | 32
 	
 }
+//*/

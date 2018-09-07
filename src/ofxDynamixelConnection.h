@@ -135,6 +135,8 @@ public:
 	bool getBulkReadData(uint8_t id, uint16_t address, uint16_t data_length, uint16_t& data);
 	bool bulkReadRequest();
 	
+	bool reboot(int id);
+	
 	
 private:
 	/*! \brief	The baudrate */

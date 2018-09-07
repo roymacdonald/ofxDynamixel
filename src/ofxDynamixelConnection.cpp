@@ -83,6 +83,17 @@ bool Connection::ping(int id){
 	}
 	return false;
 }
+bool Connection::reboot(int id){
+	if(packetHandler && portHandler){
+		uint8_t error = 0;
+		error = packetHandler->reboot(portHandler.get(), id, &error);
+		if (error != 0) {
+			return false;
+		}
+		return true;
+	}
+	return false;
+}
 bool Connection::reset(int id, ResetOption option){	
 	if(packetHandler && portHandler){
 		uint8_t error = 0;

@@ -24,9 +24,11 @@ class ServoGui;
 	public:
 		
 		Model model;
-		
+		uint32_t tempPos;
 		
 		Servo(){
+			uniqueID = makeUniqueID();
+			std::cout << "Servo(): " << (int)uniqueID << "  " << model.getModelName() <<"\n";
 		}
 		Servo(int id, std::shared_ptr<Connection> connection);
 		
@@ -39,6 +41,8 @@ class ServoGui;
 		std::shared_ptr<Connection> getConnection();
 		void setConnection(std::shared_ptr<Connection> connection);
 		
+		
+		void stepBy(int numSteps, unsigned short pGain);
 		
 		bool ping();		
 		bool reset(ResetOption option = RESET_ALL_BUT_ID_AND_BAUD);
@@ -54,7 +58,7 @@ class ServoGui;
 		template<typename ValType>
 		int writeDataFrom(dxlParameter<ValType>* param){
 			if(!param){
-				std::cout << "writeDataFrom(dxlParameter<ValType>* param)   nullptr param! " << std::endl;
+//				std::cout << "writeDataFrom(dxlParameter<ValType>* param)   nullptr param! " << std::endl;
 				return -1;
 			}
 			if(param->length != 1 && param->length != 2 && param->length != 4){
@@ -95,12 +99,12 @@ class ServoGui;
 		template<typename ValType>
 		int readDataTo(dxlParameter<ValType>* param, bool bUpdateWriteParam = false){
 			if(!param){
-				std::cout << typeid(model).name() <<  " readDataTo(dxlParameter<"<< typeid(ValType).name() << ">* param)   nullptr param! " << std::endl;
-				return;
+				std::cout << typeid(model).name() <<  " readDataTo(dxlParameter<"<< typeid(ValType).name() << ">* param)   nullptr param!   bUpdateWriteParam: " << (std::string)(bUpdateWriteParam?"TRUE":"FALSE") << std::endl;
+				return-1;
 			}
 			if(param->length != 1 && param->length != 2 && param->length != 4){
 				std::cout << "readDataTo(dxlParameter<ValType>* param)   invalid param length " << (int) param->length << std::endl;
-				return;
+				return -1;
 			}
 			auto c = getConnection();
 			if(c){
@@ -157,6 +161,7 @@ class ServoGui;
 		void updatePresentPosition();
 		void updateAllParamsFromServo();
 		
+		static size_t makeUniqueID();
 		uint16_t   getModelNumber();         // Model Number                        R
 		uint8_t    getFirmwareVersion();     // Firmware Version                    R
 		uint8_t    getId();					 // returns the locally stored id
@@ -222,8 +227,11 @@ class ServoGui;
 		
 
 	protected:
-		
+		size_t uniqueID;
+		void onPosChange(dxlEventType& e);
 		ofEventListener listener;
+		
+		ofEventListener posChangeListener;
 		
 		void onParamChange(dxlEventType& e);
 		
@@ -238,7 +246,8 @@ class ServoGui;
 		std::weak_ptr<Connection> connection;
 		
 		void printResultError(std::string succMsg = "");
-		
+	private:
+		bool bPresentPositionNeedUpdate = false;
 	};
 	
 
