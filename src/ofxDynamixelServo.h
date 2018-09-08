@@ -28,7 +28,7 @@ class ServoGui;
 		
 		Servo(){
 			uniqueID = makeUniqueID();
-			std::cout << "Servo(): " << (int)uniqueID << "  " << model.getModelName() <<"\n";
+//			std::cout << "Servo(): " << (int)uniqueID << "  " << model.getModelName() <<"\n";
 		}
 		Servo(int id, std::shared_ptr<Connection> connection);
 		
@@ -50,7 +50,9 @@ class ServoGui;
 		void stop();
 		bool reboot();
 		
-		void moveWithAcceleration(int goalPosition, int movingSpeed, int accelerationSpeed);
+		//void moveWithAcceleration(int goalPosition, int movingSpeed, int accelerationSpeed);
+		
+		ofEvent<void> movementEndEvent; 
 		
 		
 		
@@ -58,7 +60,7 @@ class ServoGui;
 		template<typename ValType>
 		int writeDataFrom(dxlParameter<ValType>* param){
 			if(!param){
-//				std::cout << "writeDataFrom(dxlParameter<ValType>* param)   nullptr param! " << std::endl;
+				std::cout << "writeDataFrom(dxlParameter<ValType>* param)   nullptr param! " << std::endl;
 				return -1;
 			}
 			if(param->length != 1 && param->length != 2 && param->length != 4){
@@ -99,7 +101,7 @@ class ServoGui;
 		template<typename ValType>
 		int readDataTo(dxlParameter<ValType>* param, bool bUpdateWriteParam = false){
 			if(!param){
-				std::cout << typeid(model).name() <<  " readDataTo(dxlParameter<"<< typeid(ValType).name() << ">* param)   nullptr param!   bUpdateWriteParam: " << (std::string)(bUpdateWriteParam?"TRUE":"FALSE") << std::endl;
+				std::cout << typeid(model).name() << "  " << typeid(ValType).name() <<  " readDataTo(dxlParameter<"<< typeid(ValType).name() << ">* param)   nullptr param!   bUpdateWriteParam: " << (std::string)(bUpdateWriteParam?"TRUE":"FALSE") ;//<< std::endl;
 				return-1;
 			}
 			if(param->length != 1 && param->length != 2 && param->length != 4){
@@ -141,13 +143,21 @@ class ServoGui;
 		}
 		
 		int readDataTo(baseDxlParameter* param,  bool bUpdateWriteParam = false){
-			if(param->length == 1){
-				readDataTo(dynamic_cast<dxlParameter<uint8_t>* >(param), bUpdateWriteParam);
-			}else if(param->length == 2){
-				readDataTo(dynamic_cast<dxlParameter<uint16_t>* >(param), bUpdateWriteParam);
-			}else if(param->length == 4){
-				readDataTo(dynamic_cast<dxlParameter<uint32_t>* >(param), bUpdateWriteParam);
+			int ret = -1;
+			if(param->getType() == "h"){
+				ret = readDataTo(dynamic_cast<dxlParameter<uint8_t>* >(param), bUpdateWriteParam);
+//				if(ret == -1){
+//					std::cout << param->name << "\n";
+//				}
+			}else if(param->getType() == "b"){
+				ret = readDataTo(dynamic_cast<dxlParameter<bool>* >(param), bUpdateWriteParam);
+			}else if(param->getType() == "t"){
+				ret = readDataTo(dynamic_cast<dxlParameter<uint16_t>* >(param), bUpdateWriteParam);
+			}else if(param->getType() == "j"){
+				ret = readDataTo(dynamic_cast<dxlParameter<uint32_t>* >(param), bUpdateWriteParam);
 			}
+			
+			return ret;
 		}
 		
 		

@@ -14,8 +14,8 @@ ofxDynamixel::XL430::XL430(){
 	//
 	add<uint32_t>( modelInformation      , 2,  "modelInformation"                                ,   true, true,"info/" );  // "Model Information"                               | R  |       |
 	add<uint8_t>( firmwareVersion        , 6,  "firmwareVersion"                                 ,   true, true,"info/" );  // "Firmware Version"                                | R  |       |
-	add<uint8_t>( id                     , 7   , "id"                    , 1     , 0     , 252   , false , true,"settings/comm/" );  // "DYNAMIXEL ID"                                    | RW | 1     |
-	add<uint8_t>( baudRate               , 8   , "baudRate"              , 1     , 0     , 7     , false , true,"settings/comm/" );  // "Communication Speed"                             | RW | 1     |
+	add<uint8_t>( id                     , 7   , "id"                    , 1     , 0     , 252   , true , true,"settings/comm/" );  // "DYNAMIXEL ID"                                    | RW | 1     |
+	add<uint8_t>( baudRate               , 8   , "baudRate"              , 1     , 0     , 7     , true , true,"settings/comm/" );  // "Communication Speed"                             | RW | 1     |
 	add<uint8_t>( returnDelayTime        , 9   , "returnDelayTime"       , 250   , 0     , 254   , false , true,"settings/comm/" );  // "Response Delay Time"                             | RW | 250   |
 	add<uint8_t>( driveMode              , 10  , "driveMode"             , 0     , 0     ,      1, false , true,"settings/mode/" );  // "Default Rotation Direction"                      | RW | 0     |
 	add<uint8_t>( operatingMode          , 11  , "operatingMode"         , 3     , 0     ,   16  , false , true,"settings/mode/" );  // "Operating Mode"                                  | RW | 3     |//list

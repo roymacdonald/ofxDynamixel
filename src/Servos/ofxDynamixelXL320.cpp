@@ -11,8 +11,8 @@
 ofxDynamixel::XL320::XL320(){
 //		std::cout << __PRETTY_FUNCTION__ << std::endl;
 	// add<uint8_t >(firmwareVersion     ,  2 , "firmwareVersion"                        , true  , true, "info/" );
-	add<uint8_t >(id                  ,  3 , "id"                  , 1    , 0 , 252   , false , true, "settings/comm/" );
-	add<uint8_t >(baudRate            ,  4 , "baudRate"            , 3    , 0 ,    3  , false , true, "settings/comm/" );
+	add<uint8_t >(id                  ,  3 , "id"                  , 1    , 0 , 252   , true , true, "settings/comm/" );//this is writable in but it is safer to keep read only here
+	add<uint8_t >(baudRate            ,  4 , "baudRate"            , 3    , 0 ,    3  , true , true, "settings/comm/" );
 	add<uint8_t >(returnDelayTime     ,  5 , "returnDelayTime"     , 250  , 0 , 254   , false , true, "settings/comm/" );
 	add<uint16_t>(cwAngleLimit        ,  6 , "cwAngleLimit"        , 0    , 0 , 1023  , false , true, "settings/limits/" );
 	add<uint16_t>(ccwAngleLimit       ,  8 , "ccwAngleLimit"       , 1023 , 0 , 1023  , false , true, "settings/limits/" );

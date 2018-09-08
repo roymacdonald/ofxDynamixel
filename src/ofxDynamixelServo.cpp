@@ -47,7 +47,7 @@ namespace ofxDynamixel {
 	template<typename Model>
 	void Servo<Model>::onPosChange(dxlEventType& e){
 		model.goalPosition.R_value  = model.goalPosition.W_value.get();
-		std::cout  << this << "  id: " << (int)this->id << " model.goalPosition W: " << model.goalPosition.W_value.get() << "  R: " << model.goalPosition.R_value.get() << "  " <<  &model.goalPosition.W_value <<"\n";
+//		std::cout  << this << "  id: " << (int)this->id << " model.goalPosition W: " << model.goalPosition.W_value.get() << "  R: " << model.goalPosition.R_value.get() << "  " <<  &model.goalPosition.W_value <<"\n";
 		bPresentPositionNeedUpdate = true;
 	}
 	template<typename Model>
@@ -111,6 +111,10 @@ namespace ofxDynamixel {
 			readDataTo(model.presentPosition);
 			readDataTo(model.moving);
 			bPresentPositionNeedUpdate = model.moving.R_value;
+			if(!bPresentPositionNeedUpdate){
+				
+				ofNotifyEvent(movementEndEvent, this);
+			}
 		}
 	}
     template<typename Model>
