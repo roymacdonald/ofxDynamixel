@@ -6,6 +6,7 @@
 
 #define PRETTYPRINT std::cout << __PRETTY_FUNCTION__ << std::endl;
 
+//#define DA_OFFLINE_TESTING
 
 namespace ofxDynamixel {
 	

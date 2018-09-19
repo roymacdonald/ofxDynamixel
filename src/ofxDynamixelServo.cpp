@@ -47,8 +47,14 @@ namespace ofxDynamixel {
 	template<typename Model>
 	void Servo<Model>::onPosChange(dxlEventType& e){
 		model.goalPosition.R_value  = model.goalPosition.W_value.get();
-//		std::cout  << this << "  id: " << (int)this->id << " model.goalPosition W: " << model.goalPosition.W_value.get() << "  R: " << model.goalPosition.R_value.get() << "  " <<  &model.goalPosition.W_value <<"\n";
+		std::cout  << this << "  id: " << (int)this->id << " model.goalPosition W: " << model.goalPosition.W_value.get() << "  R: " << model.goalPosition.R_value.get() << "  " <<  &model.goalPosition.W_value <<"\n";
+#ifdef DA_OFFLINE_TESTING
+		model.presentPosition.R_value = model.goalPosition.R_value.get();
+		model.moving.R_value = false; 
+		ofNotifyEvent(movementEndEvent, this);
+#else
 		bPresentPositionNeedUpdate = true;
+#endif
 	}
 	template<typename Model>
 	void Servo<Model>::onParamChange(dxlEventType& e){
@@ -73,49 +79,72 @@ namespace ofxDynamixel {
 	
 	template<>
 	void Servo<XL430>::stepBy(int numSteps, unsigned short pGain){
-		unsigned short tempPGain;
-		bool bHasPGain = false;
+		
+//		bool bHasPGain = false;
+		if(!bUsingTempPGain){
 		if(this->readDataTo(model.positionPGain) == 0){
-			tempPGain = model.positionPGain.R_value.get();
+			prevPGain = model.positionPGain.R_value.get();
 			model.positionPGain.W_value = pGain;
-			bHasPGain = true;
+			bUsingTempPGain = true;
 		}else{
+			bUsingTempPGain = false;			
 			ofLogWarning("void Servo<XL430>::stepBy(int numSteps)", "Couldnt read P gain from servo");
 		}
+	}
 		model.goalPosition.W_value += numSteps;
-		if(bHasPGain){
-			model.positionPGain.W_value = tempPGain;
-		}
+//		if(bHasPGain){
+//			model.positionPGain.W_value = tempPGain;
+//		}
 	}
 	template<>
 	void Servo<XL320>::stepBy(int numSteps, unsigned short pGain){
-		unsigned short tempPGain;
-		bool bHasPGain = false;
+//		unsigned short tempPGain;
+//		bool bHasPGain = false;
+		if(!bUsingTempPGain){
 		if(this->readDataTo(model.pGain) == 0){
-			tempPGain = model.pGain.R_value.get();
+			prevPGain = model.pGain.R_value.get();
 			model.pGain.W_value = pGain;
-			bHasPGain = true;
+			bUsingTempPGain = true;
 		}else{
+			bUsingTempPGain = false;
 			ofLogWarning("void Servo<XL320>::stepBy(int numSteps)", "Couldnt read P gain from servo");
 		}
+		}
 		model.goalPosition.W_value += numSteps;
-		if(bHasPGain){
-			model.pGain.W_value = tempPGain;
+//		if(bHasPGain){
+//			model.pGain.W_value = tempPGain;
+//		}
+	}
+	template<>
+	void Servo<XL430>::restorePreviousPGain(){
+		if(bUsingTempPGain){
+			bUsingTempPGain = false;
+			model.positionPGain.W_value = prevPGain;
+		}
+	}	
+	
+	
+	template<>
+	void Servo<XL320>::restorePreviousPGain(){
+		if(bUsingTempPGain){
+			bUsingTempPGain = false;
+			model.pGain.W_value = prevPGain;
 		}
 	}
 	
-	
 	template<typename Model>
 	void Servo<Model>::updatePresentPosition(){
+#ifndef DA_OFFLINE_TESTING
 		if(bPresentPositionNeedUpdate){
 			readDataTo(model.presentPosition);
 			readDataTo(model.moving);
 			bPresentPositionNeedUpdate = model.moving.R_value;
 			if(!bPresentPositionNeedUpdate){
-				
+				restorePreviousPGain();
 				ofNotifyEvent(movementEndEvent, this);
 			}
 		}
+#endif
 	}
     template<typename Model>
     uint8_t Servo<Model>::getId(){
@@ -272,8 +301,16 @@ namespace ofxDynamixel {
 	
 	template<typename Model>
 	void Servo<Model>::updateAllParamsFromServo(){
+		bool bTorqueWasEnabled = true;
+		if(!getTorqueEnabled()){
+			setTorqueEnabled(true);
+			bTorqueWasEnabled = false;
+		}
 		for(auto t: model.table){
 			readDataTo(t, true);
+		}
+		if(!bTorqueWasEnabled){
+			setTorqueEnabled(false);
 		}
 	}
 	
@@ -309,7 +346,18 @@ namespace ofxDynamixel {
 //    template<typename Model> uint8_t  Servo<Model>::getRegistered(){          this->readDataTo(model.registered);            return model.registered.R_values; }
     template<typename Model> uint8_t  Servo<Model>::getHardwareErrorStatus(){ this->readDataTo(model.hardwareErrorStatus); return model.hardwareErrorStatus.R_value; }
 
-
+	template<> 
+	void Servo<XL430>::setPID(const uint16_t& p, const uint16_t&  i, const uint16_t& d){
+		model.positionPGain.W_value = p;
+		model.positionIGain.W_value = i;
+		model.positionDGain.W_value = d;
+	}
+	template<> 
+	void Servo<XL320>::setPID(const uint16_t& p, const uint16_t&  i, const uint16_t& d){
+		model.pGain .W_value = p;
+		model.iGain.W_value = i;
+		model.dGain.W_value = d;
+	}
     template<typename Model> void Servo<Model>::setId(                     uint8_t   value){ model.id.W_value = value;}
     template<typename Model> void Servo<Model>::setBaudRate(const          uint8_t&  value){ model.baudRate.W_value = value;}
     template<typename Model> void Servo<Model>::setReturnDelayTime(const   uint8_t&  value){ model.returnDelayTime.W_value = value;}

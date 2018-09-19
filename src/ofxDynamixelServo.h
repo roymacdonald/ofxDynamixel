@@ -43,6 +43,7 @@ class ServoGui;
 		
 		
 		void stepBy(int numSteps, unsigned short pGain);
+		void restorePreviousPGain();
 		
 		bool ping();		
 		bool reset(ResetOption option = RESET_ALL_BUT_ID_AND_BAUD);
@@ -218,6 +219,7 @@ class ServoGui;
 		void setMaxVoltageLimit(const uint8_t& );	// range 50 - 250  
 		// void setMaxTorque(const uint16_t& );		// range 0 - 1023 
 		void setStatusReturnLevel(const uint8_t& );	// range 0 -    2   
+		void setPID(const uint16_t& p, const uint16_t&  i, const uint16_t& d);
 		void setShutdown(const uint8_t& );			// range 0 -    7   
 		void setTorqueEnabled(bool );		// range 0 -    1  
 		void setLedStatus(const uint8_t& );			// range 0 -    7  
@@ -252,6 +254,9 @@ class ServoGui;
 		uint16_t data2Byte;
 		uint32_t data4Byte;
 		uint8_t id;
+		
+		bool bUsingTempPGain = false;
+		unsigned short prevPGain;
 				
 		std::weak_ptr<Connection> connection;
 		
