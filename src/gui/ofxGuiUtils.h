@@ -9,10 +9,9 @@
 #pragma once
 
 #include "ofxGui.h"
+#include "ofxGuiGroupMinimal.h"
 //-------------------------------------------------------------------------------------------------------------------
-static ofxGuiGroup * getOrCreateGuiGroup( ofxGuiGroup * parentgroup, const std::string& groupname){
-	
-	//			auto paths = ofSplitString(path, "/");
+static ofxGuiGroup * findGuiGroup( ofxGuiGroup * parentgroup, const std::string& groupname){
 	for(int i = 0; i < parentgroup->getNumControls(); i++){
 		auto control = parentgroup->getControl(i);
 		if(control != nullptr){
@@ -24,14 +23,37 @@ static ofxGuiGroup * getOrCreateGuiGroup( ofxGuiGroup * parentgroup, const std::
 			}
 		}
 	}
-	ofxGuiGroup * g = new ofxGuiGroup();
-	g->setup(groupname);
-	parentgroup->add(g);
+	return nullptr;
+	
+}
+//-------------------------------------------------------------------------------------------------------------------
+static ofxGuiGroup * getOrCreateGuiGroup( ofxGuiGroup * parentgroup, const std::string& groupname){
+	
+	ofxGuiGroup * g = findGuiGroup(parentgroup, groupname);
+	if(!g){
+		g = new ofxGuiGroup();
+		g->setup(groupname);
+		parentgroup->add(g);
+	}
 	return g;
 	
 }
 //-------------------------------------------------------------------------------------------------------------------
-static void setWidthElementsRecursive(ofxGuiGroup* group, float w){
+static void findAndMinimizeGroup( ofxGuiGroup * parentgroup, const std::string& groupname, bool bMinimizeChildrenOnly = false){
+	auto g = findGuiGroup(parentgroup, groupname);
+	if(g){
+		if(bMinimizeChildrenOnly){
+			g->minimizeAll();
+		}else{
+			g->minimize();
+		}
+	}else{
+		std::cout << "findAndMinimizeGroup::  ofxGuiGroup " << groupname << " not found!" << std::endl;
+	}
+}
+//-------------------------------------------------------------------------------------------------------------------
+template<typename T>
+static void setWidthElementsRecursive(T* group, float w){
 for(int i = 0; i < group->getNumControls(); i++){
 	auto control = group->getControl(i);
 	if(control != nullptr){
