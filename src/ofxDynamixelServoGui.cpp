@@ -54,6 +54,19 @@ namespace ofxDynamixel{
 		panel.setWidthElements(350);
 //		eepromParams.minimize();
 		//	printGuiGroup(&panel);
+		
+		findAndMinimizeGroup(&panel,"info" );
+		findAndMinimizeGroup(&panel,"settings", true);
+		findAndMinimizeGroup(&panel,"status");
+		findAndMinimizeGroup(&panel,"dynamics", true);
+		auto d = findGuiGroup(&panel, "dynamics");
+		if(d){
+			auto p = findGuiGroup(d, "position");
+			if(p){
+				p->maximize();
+			}
+		}
+		
 		panel.loadFromFile("settings.xml");
 		
 		setListeners();

@@ -49,25 +49,32 @@ namespace ofxDynamixel {
 		template<typename T>
 		typename std::enable_if< !(std::is_same<T, bool>::value), void >::type 
 		addOfParam(ofParameter<T>& param, ofxGuiGroup* group, bool showName, bool bIsReadOnly = true){
-			auto s = new ofxReadOnlySlider<T>(param, DXL_GUI_WIDTH, showName?16:5);
+			if(group){
+			auto s = new ofxReadOnlySlider<T>(param, group->getWidth() - 3, showName?16:5);
 			s->setShowName(showName);
 			group->add(s);
-			
+			}
 		}
 		template<typename T>
 		typename std::enable_if<!(std::is_same<T, bool>::value), void >::type 
 		addOfParam(ofParameter<T>& param, ofxGuiGroupMinimal* group, bool showName, bool bIsReadOnly = true){
-			auto s = new ofxReadOnlySlider<T>(param, DXL_GUI_WIDTH, showName?16:5);
+			if(group){
+			auto s = new ofxReadOnlySlider<T>(param, group->getWidth() - 3, showName?16:5);
 			s->setShowName(showName);
 			group->add(s);
+			}
 			
 		}
 		void addOfParam(ofParameter<bool>& param, ofxGuiGroup* group, bool bShowName, bool bIsReadOnly){
-			group->add(new ofxGuiDXLToggle(param, bShowName, bIsReadOnly, DXL_GUI_WIDTH, (bIsReadOnly && !bShowName)?5:16));
+			if(group){
+				group->add(new ofxGuiDXLToggle(param, bShowName, bIsReadOnly, group->getWidth() - 3, (bIsReadOnly && !bShowName)?5:16));
+			}
 		}
 		
 		void addOfParam(ofParameter<bool>& param, ofxGuiGroupMinimal* group, bool bShowName, bool bIsReadOnly){
-			group->add(new ofxGuiDXLToggle(param, bShowName, bIsReadOnly , DXL_GUI_WIDTH, (bIsReadOnly && !bShowName)?5:16 ));
+			if(group){
+				group->add(new ofxGuiDXLToggle(param, bShowName, bIsReadOnly , group->getWidth() - 3, (bIsReadOnly && !bShowName)?5:16 ));
+			}
 		}
 		
 		template<typename T>
