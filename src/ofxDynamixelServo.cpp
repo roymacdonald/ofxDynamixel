@@ -48,13 +48,13 @@ namespace ofxDynamixel {
 	void Servo<Model>::onPosChange(dxlEventType& e){
 		model.goalPosition.R_value  = model.goalPosition.W_value.get();
 		std::cout  << this << "  id: " << (int)this->id << " model.goalPosition W: " << model.goalPosition.W_value.get() << "  R: " << model.goalPosition.R_value.get() << "  " <<  &model.goalPosition.W_value <<"\n";
-#ifdef DA_OFFLINE_TESTING
-		model.presentPosition.R_value = model.goalPosition.R_value.get();
-		model.moving.R_value = false; 
-		ofNotifyEvent(movementEndEvent, this);
-#else
+//#ifdef DA_OFFLINE_TESTING
+//		model.presentPosition.R_value = model.goalPosition.R_value.get();
+//		model.moving.R_value = false; 
+//		ofNotifyEvent(movementEndEvent, this);
+//#else
 		bPresentPositionNeedUpdate = true;
-#endif
+//#endif
 	}
 	template<typename Model>
 	void Servo<Model>::onParamChange(dxlEventType& e){
@@ -134,17 +134,21 @@ namespace ofxDynamixel {
 	
 	template<typename Model>
 	void Servo<Model>::updatePresentPosition(){
-#ifndef DA_OFFLINE_TESTING
 		if(bPresentPositionNeedUpdate){
+#ifdef DA_OFFLINE_TESTING
+			model.presentPosition.R_value = model.goalPosition.R_value.get();
+			model.moving.R_value = false; 
+			bPresentPositionNeedUpdate = false;
+#else
 			readDataTo(model.presentPosition);
 			readDataTo(model.moving);
 			bPresentPositionNeedUpdate = model.moving.R_value;
+#endif
 			if(!bPresentPositionNeedUpdate){
 				restorePreviousPGain();
 				ofNotifyEvent(movementEndEvent, this);
 			}
 		}
-#endif
 	}
     template<typename Model>
     uint8_t Servo<Model>::getId(){
@@ -327,7 +331,14 @@ namespace ofxDynamixel {
     template<typename Model> bool     Servo<Model>::getTorqueEnabled(){       if(this->readDataTo(model.torqueEnabled) != 0){PRETTYPRINT }         return model.torqueEnabled.R_value; }
     template<typename Model> uint8_t  Servo<Model>::getLedStatus(){           if(this->readDataTo(model.led) != 0){PRETTYPRINT }                   return model.led.R_value; }
 //    template<typename Model> uint16_t Servo<Model>::getGoalPosition(){        if(this->readDataTo(model.goalPosition) != 0){PRETTYPRINT }         return model.goalPosition.R_value; }
-    template<typename Model> uint16_t Servo<Model>::getPresentPosition(){     if(this->readDataTo(model.presentPosition) != 0){PRETTYPRINT }      return model.presentPosition.R_value; }
+	template<typename Model> uint16_t Servo<Model>::getPresentPosition(){  
+#ifndef DA_OFFLINE_TESTING
+		if(this->readDataTo(model.presentPosition) != 0){ 
+			PRETTYPRINT
+		}
+#endif	
+		return model.presentPosition.R_value; 
+	}
     template<typename Model> uint16_t Servo<Model>::getPresentLoad(){         if(this->readDataTo(model.presentLoad) != 0){PRETTYPRINT }          return model.presentLoad.R_value; }
     template<typename Model> uint8_t  Servo<Model>::getPresentTemperature(){  if(this->readDataTo(model.presentTemperature) != 0){PRETTYPRINT }   return model.presentTemperature.R_value; }
     template<typename Model> uint8_t  Servo<Model>::getMoving(){              if(this->readDataTo(model.moving) != 0){PRETTYPRINT }                return model.moving.R_value; }
@@ -364,7 +375,7 @@ namespace ofxDynamixel {
     template<typename Model> void Servo<Model>::setTemperatureLimit(const  uint8_t&  value){ model.temperatureLimit.W_value = value;}
     template<typename Model> void Servo<Model>::setMinVoltageLimit(const   uint8_t&  value){ model.minVoltageLimit.W_value = value;}
     template<typename Model> void Servo<Model>::setMaxVoltageLimit(const   uint8_t&  value){ model.maxVoltageLimit.W_value = value;}
-    template<typename Model> void Servo<Model>::setGoalPosition(const      uint16_t& value){ model.goalPosition.W_value = value; PRETTYPRINT}
+    template<typename Model> void Servo<Model>::setGoalPosition(const      uint16_t& value){ model.goalPosition.W_value = value;}
     template<typename Model> void Servo<Model>::setStatusReturnLevel(const uint8_t&  value){ model.statusReturnLevel.W_value = value;}
     template<typename Model> void Servo<Model>::setShutdown(const          uint8_t&  value){ model.shutdown.W_value = value;}
     template<typename Model> void Servo<Model>::setTorqueEnabled(          bool      value){ model.torqueEnabled.W_value = value;}
