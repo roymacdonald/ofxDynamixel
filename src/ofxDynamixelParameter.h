@@ -35,12 +35,18 @@ namespace ofxDynamixel {
 		std::string groupHierarchy;
 		bool bReadOnly = false;
 		bool bEeprom = false;
-		uint8_t length = 0;
+		
 		
 		const std::string& getType(){
 			return type;
 		}
+		uint8_t getLength() {return length; }
+	
+		
+		virtual void setReadOnlyValue(const uint32_t & v) = 0;
+		
 	protected:
+		uint8_t length = 0;
 		std::string type;
 	};
 	
@@ -60,6 +66,9 @@ namespace ofxDynamixel {
 		dxlParameter<ValType>(){
 			length = sizeof(ValType);
 			type = typeid(ValType).name();
+		}
+		virtual void setReadOnlyValue(const uint32_t & v) override{
+			R_value = v;
 		}
 		void set(uint16_t a, std::string n, ValType iVal, bool readOnly, bool eeprom, std::string groupHierachy){
 			baseDxlParameter::set(a, n, readOnly, eeprom,groupHierachy);

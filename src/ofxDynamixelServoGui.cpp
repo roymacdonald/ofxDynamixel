@@ -30,17 +30,17 @@ namespace ofxDynamixel{
 		//*
 		
 		
-		for(auto s: servo->model.table){
+		for(auto p: servo->model.table){
 //			auto p8 =  dynamic_cast<Reg8*>(s.second);
-		
+			baseDxlParameter * s = p.second; 
 			if(s->getType() == typeid(bool).name()){
 //				std::cout << "add boolean" << std::endl;
 				addParam(dynamic_cast<RegBool* >(s));			
-			}else if(s->length == 1){
+			}else if(s->getLength() == 1){
 				addParam(dynamic_cast<Reg8* >(s));
-			}else if(s->length == 2){
+			}else if(s->getLength() == 2){
 				addParam(dynamic_cast<Reg16* >(s));
-			}else if(s->length == 4){
+			}else if(s->getLength() == 4){
 				addParam(dynamic_cast<Reg32*>(s));
 			}
 		}
@@ -113,8 +113,8 @@ namespace ofxDynamixel{
 		auto s = getServo();
 		if(s){
 			for( auto param: s->model.table){
-				if(param->bEeprom){
-					s->readDataTo(param);
+				if(param.second->bEeprom){
+					s->readDataTo(param.second);
 				}
 			}
 		}
@@ -125,8 +125,8 @@ namespace ofxDynamixel{
 		auto s = getServo();
 		if(s){
 			for( auto param: s->model.table){
-				if(!param->bEeprom){
-					s->readDataTo(param);
+				if(!param.second->bEeprom){
+					s->readDataTo(param.second);
 				}
 			}
 		}

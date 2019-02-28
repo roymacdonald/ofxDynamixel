@@ -25,8 +25,8 @@ namespace ofxDynamixel {
 //		Reg16 ccwAngleLimit;        // 8 , "ccwAngleLimit"       , 1023 , 0 , 1023 , false
 
 
-		//std::map<std::string, baseDxlParameter *> table;
-		std::vector<baseDxlParameter *> table;
+		std::map<std::string, baseDxlParameter *> table;
+//		std::vector<baseDxlParameter *> table;
 		
 		ofEvent<dxlEventType> paramChangeEvent;
 		
@@ -36,7 +36,8 @@ namespace ofxDynamixel {
 
 			s.set(a,n, readOnly, eeprom, groupHierarchy);
 			
-			table.push_back(&s);
+			table[n] = &s;
+//			table.push_back(&s);
 
 		}
 
@@ -46,8 +47,9 @@ namespace ofxDynamixel {
 			listeners.push(s.changeEvent.newListener([&](dxlEventType& e){
 				ofNotifyEvent(paramChangeEvent, e, this);
 			}));
-			
-			table.push_back(&s);
+
+			table[n] = &s;
+//			table.push_back(&s);
 //			std::cout << "added bool to table" << std::endl;
 		}
 		
@@ -58,8 +60,8 @@ namespace ofxDynamixel {
 			listeners.push(s.changeEvent.newListener([&](dxlEventType& e){
 				ofNotifyEvent(paramChangeEvent, e, this);
 			}));
-			
-			table.push_back(&s);
+			table[n] = &s;
+//			table.push_back(&s);
 		}
 		ofEventListeners listeners;
 	};

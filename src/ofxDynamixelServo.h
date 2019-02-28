@@ -64,19 +64,19 @@ class ServoGui;
 				std::cout << "writeDataFrom(dxlParameter<ValType>* param)   nullptr param! " << std::endl;
 				return -1;
 			}
-			if(param->length != 1 && param->length != 2 && param->length != 4){
-				std::cout << "writeDataFrom(dxlParameter<ValType>* param)   invalid param length " << (int) param->length << std::endl;
+			if(param->getLength() != 1 && param->getLength() != 2 && param->getLength() != 4){
+				std::cout << "writeDataFrom(dxlParameter<ValType>* param)   invalid param getLength() " << (int) param->getLength() << std::endl;
 				return -1;
 			}
 			auto c = getConnection();
 			if(c){
-				std::vector<uint8_t> data_write;//(param->length, 0);
+				std::vector<uint8_t> data_write;//(param->getLength(), 0);
 				ValType data = param->W_value.get();
-				if(param->length == 1){
+				if(param->getLength() == 1){
     				data_write[0] = data;
-				}else if(param->length == 2){
+				}else if(param->getLength() == 2){
 					data_write = { DXL_LOBYTE(data), DXL_HIBYTE(data) };
-				}else if(param->length == 4){
+				}else if(param->getLength() == 4){
 					data_write = { DXL_LOBYTE(DXL_LOWORD(data)), DXL_HIBYTE(DXL_LOWORD(data)), DXL_LOBYTE(DXL_HIWORD(data)), DXL_HIBYTE(DXL_HIWORD(data)) };
 				}	
 				comm_result = c->getPacketHandler()->writeTxRx(c->getPortHandler().get(), id, param->address, data_write.size(), data_write.data(), &error);
@@ -89,11 +89,11 @@ class ServoGui;
 			return writeDataFrom(&param); 
 		}
 		int writeDataFrom(baseDxlParameter* param){
-			if(param->length == 1){
+			if(param->getLength() == 1){
 				return writeDataFrom(dynamic_cast<dxlParameter<uint8_t>* >(param));
-			}else if(param->length == 2){
+			}else if(param->getLength() == 2){
 				return writeDataFrom(dynamic_cast<dxlParameter<uint16_t>* >(param));
-			}else if(param->length == 4){
+			}else if(param->getLength() == 4){
 				return writeDataFrom(dynamic_cast<dxlParameter<uint32_t>* >(param));
 			}
 		}
@@ -105,22 +105,22 @@ class ServoGui;
 				std::cout << typeid(model).name() << "  " << typeid(ValType).name() <<  " readDataTo(dxlParameter<"<< typeid(ValType).name() << ">* param)   nullptr param!   bUpdateWriteParam: " << (std::string)(bUpdateWriteParam?"TRUE":"FALSE") ;//<< std::endl;
 				return-1;
 			}
-			if(param->length != 1 && param->length != 2 && param->length != 4){
-				std::cout << "readDataTo(dxlParameter<ValType>* param)   invalid param length " << (int) param->length << std::endl;
+			if(param->getLength() != 1 && param->getLength() != 2 && param->getLength() != 4){
+				std::cout << "readDataTo(dxlParameter<ValType>* param)   invalid param getLength() " << (int) param->getLength() << std::endl;
 				return -1;
 			}
 			auto c = getConnection();
 			if(c){
 //				 = c->getPacketHandler()->read4ByteTxRx(c->getPortHandler().get(), id, address, &data4Byte, &error);
 
-				std::vector<uint8_t> data_read(param->length, 0);
+				std::vector<uint8_t> data_read(param->getLength(), 0);
 				comm_result = c->getPacketHandler()->readTxRx(c->getPortHandler().get(), id, param->address, data_read.size(), data_read.data(), &error);
 				if (comm_result == COMM_SUCCESS){
-					if(param->length == 1){
+					if(param->getLength() == 1){
     					param->R_value = data_read[0];
-					}else if(param->length == 2){
+					}else if(param->getLength() == 2){
 				    	param->R_value  = DXL_MAKEWORD(data_read[0], data_read[1]);
-					}else if(param->length == 4){
+					}else if(param->getLength() == 4){
 						param->R_value = DXL_MAKEDWORD(DXL_MAKEWORD(data_read[0], data_read[1]), DXL_MAKEWORD(data_read[2], data_read[3]));
 					}
 					if(!param->bReadOnly && bUpdateWriteParam){

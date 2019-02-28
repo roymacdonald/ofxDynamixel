@@ -311,7 +311,7 @@ namespace ofxDynamixel {
 			bTorqueWasEnabled = false;
 		}
 		for(auto t: model.table){
-			readDataTo(t, true);
+			readDataTo(t.second, true);
 		}
 		if(!bTorqueWasEnabled){
 			setTorqueEnabled(false);
