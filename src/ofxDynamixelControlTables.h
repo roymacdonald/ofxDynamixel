@@ -25,10 +25,13 @@ namespace ofxDynamixel {
 //		Reg16 ccwAngleLimit;        // 8 , "ccwAngleLimit"       , 1023 , 0 , 1023 , false
 
 
+		virtual uint32_t getResolution() = 0;
+		
 		std::map<std::string, baseDxlParameter *> table;
 //		std::vector<baseDxlParameter *> table;
 		
 		ofEvent<dxlEventType> paramChangeEvent;
+		
 		
 	protected:
 		template<typename ValType>

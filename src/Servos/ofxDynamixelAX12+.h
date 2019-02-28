@@ -15,6 +15,8 @@ namespace ofxDynamixel {
 	public:
 		AX12();
 		std::string getModelName(){return "AX12";}
+ 
+		virtual uint32_t getResolution() override {return 1024;}
 		
 		Reg8  firmwareVersion;      // 2 , "firmwareVersion"                       , true 
 		Reg8  id;                   // 3 , "id"                  , 1    , 0 , 252  , false

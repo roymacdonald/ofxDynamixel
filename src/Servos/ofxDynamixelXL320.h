@@ -17,7 +17,7 @@ public:
 	
 	XL320();		
 	
-	
+	virtual uint32_t getResolution() override {return 1024;}
 	virtual std::string getModelName() override{ return  "XL320";}
 	
 //	Reg16 modelNumber;          // 0 , "modelNumber"                           , true

@@ -17,7 +17,7 @@ namespace ofxDynamixel {
 		
 		XL430();		
 		
-
+		virtual uint32_t getResolution() override {return 4096;}
 		
 		virtual std::string getModelName() override{ return  "XL430";}
 
