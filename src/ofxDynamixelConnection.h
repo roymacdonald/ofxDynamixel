@@ -137,6 +137,10 @@ public:
 	
 	bool reboot(int id);
 	
+	std::string getTxRxResult     (int result);
+	std::string getRxPacketError  (uint8_t error);
+	 
+	
 	
 private:
 	/*! \brief	The baudrate */

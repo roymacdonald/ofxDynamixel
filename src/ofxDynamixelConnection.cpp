@@ -190,8 +190,20 @@ bool Connection::bulkReadRequest(){
 	return false;
 }
 
+///--------------------------------------------------------BULK READING end
 
-
+std::string Connection::getTxRxResult     (int result){
+	if(packetHandler){
+		return packetHandler->getTxRxResult(result);
+	}
+	return "packetHandler is null";
+}
+std::string Connection::getRxPacketError  (uint8_t error){
+	if(packetHandler){
+		return packetHandler->getRxPacketError(error);
+	}
+	return "packetHandler is null";
+}
 
 
 
