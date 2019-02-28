@@ -237,6 +237,7 @@ class ServoGui;
 		
 		std::shared_ptr<ServoGui<Model> > gui = nullptr;
 		
+		void drawGui();
 
 	protected:
 		size_t uniqueID;

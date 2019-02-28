@@ -109,7 +109,7 @@ namespace ofxDynamixel {
 		}
 		
 		
-		virtual void set(uint16_t a, std::string n, bool readOnly, bool eeprom, std::string groupHierachy){
+		virtual void set(uint16_t a, std::string n, bool readOnly, bool eeprom, std::string groupHierachy) override{
 			set(a, n, 0, 0, std::numeric_limits<ValType>::max(), readOnly, eeprom, groupHierachy);
 		}
 		

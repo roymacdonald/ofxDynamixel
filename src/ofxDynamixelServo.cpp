@@ -318,6 +318,14 @@ namespace ofxDynamixel {
 		}
 	}
 	
+	template<typename Model>
+	void Servo<Model>::drawGui(){
+		if(gui){
+			gui->panel.draw();
+		}
+	}
+	
+	
     template<typename Model> uint16_t Servo<Model>::getModelNumber(){         if(this->readDataTo(model.modelNumber) != 0){PRETTYPRINT }          return model.modelNumber.R_value; }
     template<typename Model> uint8_t  Servo<Model>::getFirmwareVersion(){     if(this->readDataTo(model.firmwareVersion) != 0){PRETTYPRINT }      return model.firmwareVersion.R_value; }
     template<typename Model> uint8_t  Servo<Model>::getIdFromServo(){         if(this->readDataTo(model.id) != 0){PRETTYPRINT }                    return model.id.R_value; }
