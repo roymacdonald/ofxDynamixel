@@ -33,13 +33,10 @@ public:
 	
 	shared_ptr<ofxDynamixel::Connection> connection;
 	vector< shared_ptr<ofxDynamixel::Servo<ofxDynamixel::XL430> > > servos;
-
-	//ofxPanel gui;
 	
-	string fullReport;
+	ofxDynamixel::SyncGroup positionReadSyncGroup; // this allows us to read all the servos positions in just one call which makes it a lot more eficient
 	
-	size_t index;
 		
-//	ofxDynamixel::ServoGuiXL320 params;
+
 
 };

@@ -37,6 +37,7 @@ void ofApp::update() {
 	
 	// The following updates the present position parameter so it will reflect the servos present position.
 	// This can make you app to run slower so use with caution.
+	// if you want to use more than one servo look at the multi servo example
 	servo->updatePresentPosition();
 				
 }
@@ -86,7 +87,7 @@ void ofApp::keyPressed(int key) {
 			cout << "ping failed " << servo->getId() << endl;
 		}
 	}else if(key == ' '){
-		servo->setGoalPosition((uint16_t)floor(ofRandom(0, 4096)));
+		servo->setGoalPosition((uint16_t)floor(ofRandom(0, servo->model.getResolution())));
 	}else if(key == 'u'){
 		servo->gui->updateEeprom();
 	}

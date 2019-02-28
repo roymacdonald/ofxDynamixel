@@ -22,79 +22,88 @@ void ofApp::setup() {
 	
 	//-------------- Connection setup end -------------------------
 	
-	servos.resize(1);
+	//-------------- SyncGroup setup start -------------------------
+	// The dynamixel SDK allows to send and retrieve the same parameter from several servos in a single call, for which the SyncGroup is used.
+	// It is a lot more efficient than doing a for loop on the servos and reading a parameter for all of these.
+	// In this case we will read the "present Position", which is probably the most useful of all.
+	// the string passed in the following function is the parameter we want to sync-read.
+	// The available strings to be passed are the names of the parameters the servo has. 
+	// You can find out which are the strings for the other parameters by looking at ofxDynamixel/src/Servos/ofxDynamixelXL430.cpp (or which ever other model you are using).
+	
+	positionReadSyncGroup.setup("presentPosition", connection);
+	//-------------- SyncGroup setup  end -------------------------
+	
+	
+	//-------------- Servo setup start -------------------------
+	vector<uint8_t> servoIds = {1, 2, 3, 10};// put here all your servos IDs. It does not matter if these are not consecutive.
+	
+	servos.resize(servoIds.size());
+	
+	
+	float guiMargin = 10;
+	
+	float guiPanelWidth = (ofGetWidth() - guiMargin*float(servoIds.size()) )/float(servoIds.size());
+	
 	for(int i =0 ; i < servos.size(); i++){
-		servos[i] = make_shared<Servo<XL430>>(4, connection); 
-//		servos[i]->setup(i+1, connection);
-		servos[i]->createGui();
-		servos[i]->setTorqueEnabled(true);
-		servos[i]->updateAllParamsFromServo();
-		//gui.add(servos[i]->parameters);
+		
+		servos[i] = make_shared<Servo<XL430>>(servoIds[i], // this is the servo's ID.  
+											  connection);// we pass the connection we just created to this servo
+		
+		
+		servos[i]->createGui(guiPanelWidth); // this is optional. it is not necesary to create a gui. you can controll everything prograatically without a gui.
+		servos[i]->setTorqueEnabled(true); // you need to enable torque in order to move the servo.
+		servos[i]->updateAllParamsFromServo(); // this will update the gui/parameters so these reflect the servo's current state.
+		
+		positionReadSyncGroup.addServoToSync(servos[i]); // we add the newly created servo to the sync group.
+		
 	}
+	//-------------- Servo setup end -------------------------
 	
 	
 	
-//	for(int i =1 ; i < servos.size(); i++){
-//		auto s = servos[i -1]->gui->panel.getShape();
-//		servos[i]->gui->panel.setPosition( s.getMaxX() + 10, s.y);
-//	}
-	for(auto& s: servos){
-		s->gui->updateEeprom();
+	for(int i =1 ; i < servos.size(); i++){
+		auto s = servos[i -1]->gui->panel.getShape();
+		servos[i]->gui->panel.setPosition( s.getMaxX() + guiMargin, s.y);
 	}
-//	params.setup();
-//	gui.add(params.parameters);
+
 }
 
 //--------------------------------------------------------------
 void ofApp::update() {
 	
-	for(auto& s: servos){
-////		s->updateCurrentSpeed();
-////		s->updateCurrentPosition();
-//		s->gui->update();
-		s->readDataTo(s->model.presentPosition);
-	}			
+	positionReadSyncGroup.sync();// this will update the syncReadGroup
 }
 
 //--------------------------------------------------------------
 void ofApp::draw() {
-
+		
+	stringstream ss;
+	ss << "Press the following keys:\n";
+	ss << "m              :  print servo ID and model number" << endl;
+	ss << "p              :  ping servo" << endl;
+	ss << "[space bar]    :  set resevo to random position" << endl;
+	ss << "u              :  update the gui with the servo's eeprom (non-volatile) parameters" << endl;
+	
+	ofBitmapFont bf;
+	auto bb = bf.getBoundingBox(ss.str(), 0,0);
+	
+	ofDrawBitmapStringHighlight(ss.str(), ofGetWidth() - bb.width - 20, ofGetHeight() - bb.height - 20);
+	
 	
 	for(auto& s: servos){
-		s->gui->panel.draw();
+		s->drawGui();
 	}	
-	
-//	gui.draw();
-	stringstream ss;
-//	ss << "positions:\n";
-//	for(int i =0 ; i < servos.size(); i++){
-//		ss << servos[i]->presentPosition() << endl; 
-//	}
 }
 //--------------------------------------------------------------
 void ofApp::exit(){
-//	cout << __PRETTY_FUNCTION__ << endl;
 	for(int i =0 ; i < servos.size(); i++){
 		servos[i]->setTorqueEnabled(false);
 	}
 	connection->closePort();
-	
 }
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key) {
-	if(key == OF_KEY_LEFT){
-		servos[0]->model.goalPosition.W_value --;// P_goalPosition.writeParam--;
-	}else if(key == OF_KEY_RIGHT){
-		servos[0]->model.goalPosition.W_value ++;//->P_goalPosition.writeParam++;
-	}else if(key == OF_KEY_UP){
-		(++index)%= servos.size();
-	}else if(key == OF_KEY_DOWN){
-		(--index)%= servos.size();
-	}else if(key == '1' || key == '2'){
-		int r = (int)ofRandom(1024);
-		servos[key - '1']->setGoalPosition(r);
-		cout << r <<endl;
-	}else if(key == 'm'){
+	if(key == 'm'){
 		for(auto& s: servos){
 			cout << "Servo  " << s->getId() << " model: " << s->getModelNumber() << endl;
 		}
@@ -106,11 +115,8 @@ void ofApp::keyPressed(int key) {
 		}
 	}else if(key == ' '){
 		for(auto& s: servos){
-			s->setGoalPosition((uint16_t)floor(ofRandom(0, 1023)));
+			s->setGoalPosition((uint16_t)floor(ofRandom(0, s->model.getResolution())));
 		}
-		
-//		servos[0]->setId(3);
-		
 	}else if(key == 'u'){
 		for(auto& s: servos){
 			s->gui->updateEeprom();
