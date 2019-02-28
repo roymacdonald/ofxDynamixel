@@ -25,11 +25,11 @@ namespace ofxDynamixel {
 	class ServoGui{
 	public:
 		ServoGui(){}
-		ServoGui(std::shared_ptr<Servo<Model>> servo, std::shared_ptr<Connection> connection){
-			setup(servo, connection);
+		ServoGui(std::shared_ptr<Servo<Model>> servo, std::shared_ptr<Connection> connection, float guiWidth = 350){
+			setup(servo, connection, guiWidth);
 		}
 		
-		void setup( std::shared_ptr<Servo<Model>> servo, std::shared_ptr<Connection> connection);
+		void setup( std::shared_ptr<Servo<Model>> servo, std::shared_ptr<Connection> connection, float guiWidth = 350);
 		
 //		ofxGuiGroup eepromParams, ramParams, readParams;
 		

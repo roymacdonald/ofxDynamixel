@@ -8,7 +8,7 @@
 namespace ofxDynamixel{
 	
 	template<typename Model>
-	void ServoGui<Model>::setup(std::shared_ptr<Servo<Model>> servo, std::shared_ptr<Connection> connection){
+	void ServoGui<Model>::setup(std::shared_ptr<Servo<Model>> servo, std::shared_ptr<Connection> connection, float guiWidth){
 //		std::cout << __PRETTY_FUNCTION__ << std::endl;
 		this->servo = servo;
 		//	parameters.setName("ServoGuiParams");
@@ -23,9 +23,9 @@ namespace ofxDynamixel{
 			servo->reboot();
 		}));
 		
-		panel.setSize(350, 200);
-		panel.setWidthElements(350);
-		panel.setDefaultWidth(350);
+		panel.setSize(guiWidth, 200);
+		panel.setWidthElements(guiWidth);
+		panel.setDefaultWidth(guiWidth);
 		// agregar parametros desde servo->model;
 		//*
 		
@@ -51,7 +51,6 @@ namespace ofxDynamixel{
 		
 //		panel.setSize(350, 200);
 		
-		panel.setWidthElements(350);
 //		eepromParams.minimize();
 		//	printGuiGroup(&panel);
 		
