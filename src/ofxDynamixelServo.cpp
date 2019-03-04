@@ -156,10 +156,8 @@ namespace ofxDynamixel {
     }
     
 	template<typename Model>
-	void Servo<Model>::createGui(float guiWidth){
-//		PRETTYPRINT
-		gui = std::make_shared<ServoGui<Model> >(this->shared_from_this(), getConnection(), guiWidth);
-		
+	void Servo<Model>::createGui(float guiWidth, const std::vector<std::string>& guiGroups){
+		gui = std::make_shared<ServoGui<Model> >(this->shared_from_this(), getConnection(), guiWidth, guiGroups);
 	}
 
     

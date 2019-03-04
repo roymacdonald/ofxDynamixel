@@ -4,21 +4,17 @@
 #include "ofxDynamixelConstants.h"
 #include "ofxDynamixelServo.h"
 #include "ofxDynamixelServosModels.h"
+#include <functional>
 
 namespace ofxDynamixel{
 	
 	template<typename Model>
-	void ServoGui<Model>::setup(std::shared_ptr<Servo<Model>> servo, std::shared_ptr<Connection> connection, float guiWidth){
-//		std::cout << __PRETTY_FUNCTION__ << std::endl;
+	void ServoGui<Model>::setup(std::shared_ptr<Servo<Model>> servo, std::shared_ptr<Connection> connection, float guiWidth, const std::vector<std::string>& guiGroups){
+
 		this->servo = servo;
-		//	parameters.setName("ServoGuiParams");
-//		eepromParams.setup("EEPROM Params");
-//		ramParams.setup("RAM Params");
-//		readParams.setup("Read Params");
 		
 		panel.setup(servo->model.getModelName()+"_"+ofToString((int)servo->getId()), "settings.xml");
 		panel.add(reboot.set("reboot"));
-		
 		listeners.push(reboot.newListener([&](){
 			servo->reboot();
 		}));
@@ -26,33 +22,28 @@ namespace ofxDynamixel{
 		panel.setSize(guiWidth, 200);
 		panel.setWidthElements(guiWidth);
 		panel.setDefaultWidth(guiWidth);
-		// agregar parametros desde servo->model;
-		//*
 		
+		auto enabled_group = [&](const std::string& group) -> bool  {  
+			for(auto&g : guiGroups) {
+				if(group == g) return true;
+			}
+			return false;
+		};
 		
 		for(auto p: servo->model.table){
-//			auto p8 =  dynamic_cast<Reg8*>(s.second);
-			baseDxlParameter * s = p.second; 
-			if(s->getType() == typeid(bool).name()){
-//				std::cout << "add boolean" << std::endl;
-				addParam(dynamic_cast<RegBool* >(s));			
-			}else if(s->getLength() == 1){
-				addParam(dynamic_cast<Reg8* >(s));
-			}else if(s->getLength() == 2){
-				addParam(dynamic_cast<Reg16* >(s));
-			}else if(s->getLength() == 4){
-				addParam(dynamic_cast<Reg32*>(s));
+			baseDxlParameter * s = p.second;
+			if(guiGroups.empty() || enabled_group(s->groupHierarchy)){
+				if(s->getType() == typeid(bool).name()){
+					addParam(dynamic_cast<RegBool* >(s));			
+				}else if(s->getLength() == 1){
+					addParam(dynamic_cast<Reg8* >(s));
+				}else if(s->getLength() == 2){
+					addParam(dynamic_cast<Reg16* >(s));
+				}else if(s->getLength() == 4){
+					addParam(dynamic_cast<Reg32*>(s));
+				}
 			}
 		}
-//*/		
-//		panel.add(&eepromParams);
-//		panel.add(&ramParams);
-//		panel.add(&readParams);
-		
-//		panel.setSize(350, 200);
-		
-//		eepromParams.minimize();
-		//	printGuiGroup(&panel);
 		
 		findAndMinimizeGroup(&panel,"info" );
 		findAndMinimizeGroup(&panel,"settings", true);
@@ -107,8 +98,7 @@ namespace ofxDynamixel{
 		//	P_pGain.readOnlyParam = 	this->getPGain();
 	}
 	template<typename Model>
-	void ServoGui<Model>::updateEeprom(){
-//		std::cout << __PRETTY_FUNCTION__ << std::endl; 
+	void ServoGui<Model>::updateEeprom(){ 
 		auto s = getServo();
 		if(s){
 			for( auto param: s->model.table){
@@ -120,7 +110,6 @@ namespace ofxDynamixel{
 	}
 	template<typename Model>
 	void ServoGui<Model>::updateRAM(){
-//		std::cout << __PRETTY_FUNCTION__ << std::endl;
 		auto s = getServo();
 		if(s){
 			for( auto param: s->model.table){
@@ -131,28 +120,7 @@ namespace ofxDynamixel{
 		}
 	}
 	//-------------------------------------------------------------------------------------------------------------------		
-	
-	
-	//	template class ServoGui<AX12>;
+
 	template class ServoGui<XL320>;
 	template class ServoGui<XL430>;
-	
-	
-
 }
-//-------------------------------------------------------------------------------------------------------------------
-//void printGuiGroup(ofxGuiGroup * group, std::string prefix = ""){
-//	std::cout << prefix << group->getName() << std::endl;
-//	for(int i = 0; i < group->getNumControls(); i++){
-//		auto control = group->getControl(i);
-//		if(control != nullptr){
-//			ofxGuiGroup * subgroup = dynamic_cast <ofxGuiGroup *>(control);
-//			if(subgroup != nullptr){
-//				printGuiGroup(subgroup, prefix + "----");
-//			}else{
-//				std::cout << prefix + "----"<< control->getName() << std::endl;
-//			}
-//		}
-//	}
-//}
-//

@@ -4,7 +4,7 @@
 //#include "ofParameter.h"
 #include "ofxGui.h"
 //#include "ofxDynamixelRWParameter.h"
-#include "ofxGuiGroupMinimal.h"
+
 #include "ofxReadOnlySlider.h"
 #include "ofxDynamixelConnection.h"
 #include "ofxDynamixelControlTables.h"
@@ -25,11 +25,11 @@ namespace ofxDynamixel {
 	class ServoGui{
 	public:
 		ServoGui(){}
-		ServoGui(std::shared_ptr<Servo<Model>> servo, std::shared_ptr<Connection> connection, float guiWidth = 350){
-			setup(servo, connection, guiWidth);
+		ServoGui(std::shared_ptr<Servo<Model>> servo, std::shared_ptr<Connection> connection, float guiWidth = 350, const std::vector<std::string>& guiGroups = {}){
+			setup(servo, connection, guiWidth, guiGroups);
 		}
 		
-		void setup( std::shared_ptr<Servo<Model>> servo, std::shared_ptr<Connection> connection, float guiWidth = 350);
+		void setup( std::shared_ptr<Servo<Model>> servo, std::shared_ptr<Connection> connection, float guiWidth = 350, const std::vector<std::string>& guiGroups = {});
 		
 //		ofxGuiGroup eepromParams, ramParams, readParams;
 		
@@ -55,25 +55,9 @@ namespace ofxDynamixel {
 			group->add(s);
 			}
 		}
-		template<typename T>
-		typename std::enable_if<!(std::is_same<T, bool>::value), void >::type 
-		addOfParam(ofParameter<T>& param, ofxGuiGroupMinimal* group, bool showName, bool bIsReadOnly = true){
-			if(group){
-			auto s = new ofxReadOnlySlider<T>(param, group->getWidth() - 3, showName?16:5);
-			s->setShowName(showName);
-			group->add(s);
-			}
-			
-		}
 		void addOfParam(ofParameter<bool>& param, ofxGuiGroup* group, bool bShowName, bool bIsReadOnly){
 			if(group){
 				group->add(new ofxGuiDXLToggle(param, bShowName, bIsReadOnly, group->getWidth() - 3, (bIsReadOnly && !bShowName)?5:16));
-			}
-		}
-		
-		void addOfParam(ofParameter<bool>& param, ofxGuiGroupMinimal* group, bool bShowName, bool bIsReadOnly){
-			if(group){
-				group->add(new ofxGuiDXLToggle(param, bShowName, bIsReadOnly , group->getWidth() - 3, (bIsReadOnly && !bShowName)?5:16 ));
 			}
 		}
 		
@@ -83,11 +67,9 @@ namespace ofxDynamixel {
 				if(r->bReadOnly){
 					addOfParam(r->R_value, getOrCreateGuiGroupHierarchy(&panel, r->groupHierarchy), true, true);
 				}else{
-//					panel.add(r->W_value);
-//					panel.add(r->R_value);
-					//*
-					auto g = new ofxGuiGroupMinimal();
+					auto g = new ofxGuiGroup();
 					g->setup(r->name, "", 0, 0);
+					g->disableHeader();
 					if(!(std::is_same<T, bool>::value)){
 						g->add(r->W_value);
 						addOfParam(r->R_value, g, false, true);
@@ -98,12 +80,6 @@ namespace ofxDynamixel {
 					}
 					
 					getOrCreateGuiGroupHierarchy(&panel, r->groupHierarchy)->add(g);
-					//*/
-//					if(r->bEeprom){
-//						eepromParams.add(g);
-//					}else{
-//						ramParams.add(g);
-//					}
 				}
 			}
 		}

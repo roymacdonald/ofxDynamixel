@@ -233,7 +233,7 @@ class ServoGui;
 		
 		
 		
-		void createGui(float guiWidth = 350);
+		void createGui(float guiWidth = 350, const std::vector<std::string>& guiGroups = {});
 		
 		std::shared_ptr<ServoGui<Model> > gui = nullptr;
 		
