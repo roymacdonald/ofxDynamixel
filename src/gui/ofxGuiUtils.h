@@ -9,7 +9,7 @@
 #pragma once
 
 #include "ofxGui.h"
-#include "ofxGuiGroupMinimal.h"
+#include "ofxGuiGroup.h"
 //-------------------------------------------------------------------------------------------------------------------
 static ofxGuiGroup * findGuiGroup( ofxGuiGroup * parentgroup, const std::string& groupname){
 	for(int i = 0; i < parentgroup->getNumControls(); i++){
@@ -52,29 +52,10 @@ static void findAndMinimizeGroup( ofxGuiGroup * parentgroup, const std::string& 
 	}
 }
 //-------------------------------------------------------------------------------------------------------------------
-template<typename T>
-static void setWidthElementsRecursive(T* group, float w){
-for(int i = 0; i < group->getNumControls(); i++){
-	auto control = group->getControl(i);
-	if(control != nullptr){
-		ofxGuiGroup * subgroup = dynamic_cast <ofxGuiGroup *>(control);
-		if(subgroup != nullptr){
-			
-		}
-	}
-}
-}
-//-------------------------------------------------------------------------------------------------------------------
 static ofxGuiGroup * getOrCreateGuiGroupHierarchy(ofxGuiGroup* panel, const std::string& path){
 	ofxGuiGroup * parent = panel;
 	ofxGuiGroup * child;
 	auto groups = ofSplitString(path, "/");
-//	for(auto& g: groups){
-//		cout << g << endl;
-//	}
-//	
-	//			cout << "//////////" << endl;
-//	if(groups.size() == 0) return parent;
 	for(auto& g: groups){
 		if(!g.empty()){
 			child = getOrCreateGuiGroup(parent, g);
