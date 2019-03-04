@@ -1,5 +1,6 @@
 #include "ofApp.h"
 #include "ofxGui.h"
+#include "ofxDynamixelGuiGroups.h"
 
 using namespace ofxDynamixel;
 //--------------------------------------------------------------
@@ -44,13 +45,35 @@ void ofApp::setup() {
 	
 	float guiPanelWidth = (ofGetWidth() - guiMargin*float(servoIds.size()) )/float(servoIds.size());
 	
+	
+	// you can specify which gui groups you want to create.
+	// This is helpful to unclutter the gui from unused parameter groups
+	// if you leave the guiGroups vector empty all the parameter groups will be created.
+	// you need to pass guiGroups vector to the servo's createGui second parameter 
+	// comment or uncomment the ones you want to have or not.
+	vector<string> guiGroups = {
+//		GuiGroups::info,
+		GuiGroups::status,
+//		GuiGroups::settings_comm/,
+//		GuiGroups::settings_mode,
+//		GuiGroups::settings_limits,
+//		GuiGroups::settings_info,
+//		GuiGroups::settings_status,
+		GuiGroups::settings_PID,
+		GuiGroups::dynamics,
+//		GuiGroups::dynamics_pwm,
+//		GuiGroups::dynamics_velocity,
+		GuiGroups::dynamics_position,
+//		GuiGroups::dynamics_profile,
+	};
+	
 	for(int i =0 ; i < servos.size(); i++){
 		
 		servos[i] = make_shared<Servo<XL430>>(servoIds[i], // this is the servo's ID.  
 											  connection);// we pass the connection we just created to this servo
 		
 		
-		servos[i]->createGui(guiPanelWidth); // this is optional. it is not necesary to create a gui. you can controll everything prograatically without a gui.
+		servos[i]->createGui(guiPanelWidth, guiGroups); // this is optional. it is not necesary to create a gui. you can controll everything prograatically without a gui.
 		servos[i]->setTorqueEnabled(true); // you need to enable torque in order to move the servo.
 		servos[i]->updateAllParamsFromServo(); // this will update the gui/parameters so these reflect the servo's current state.
 		
