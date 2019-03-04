@@ -18,4 +18,5 @@ Just copy to the addons folder and use Project Generator to add to your project.
 
 Currently the DynamixelSDK is compiled for macos, but it should be quite straight forwards compilling it for other platforms. If you do so, just put the compiled library (dll or whatever) into the libs folder and copy the includes, in case that you use a different version than the one I've added.
 
-Developed with openFrameworks 0.10.
+### IMPORTANT
+Needs to use openFrameworks from [this commit](https://github.com/openframeworks/openFrameworks/commit/8ad1fbb26bc88df40f0769830a92baaa0d2b30dd) or newer. Or use the newest nightly build.
